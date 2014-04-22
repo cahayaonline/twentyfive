@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<application id="TwentyFive Server 0.1" Mode="Debug">
+	<paths>
+		<using namespace="System.Security.*"/>		
+		<using namespace="System.Web.UI.ActiveControls.*"/>        				
+		<using namespace="Application.MainPageSystem"/>			
+        <using namespace="Application.MainPageAccount"/>
+		<using namespace="Application.MainPageStore"/>	
+		<using namespace="Application.logic.LogicFactory"/>
+        <using namespace="Application.lib.NModalPanel.NModalPanel" />
+        <using namespace="Application.lib.CustomControls.*" />
+	</paths>
+	<services>
+		<service id="page" class="TPageService" DefaultPage="Home">
+			<modules>
+				<module id="db" class="System.3rdParty.Yaca.Database.DBFactory"/>
+				<module id="logic" class="LogicFactory"/>
+                <module id="cache" class="System.Caching.TDbCache" />                
+			</modules>
+            <pages StatePersisterClass="System.Web.UI.TCachePageStatePersister" StatePersister.CacheModuleID="cache" StatePersister.CacheTimeout="3600" />
+		</service>
+	</services>    
+    <parameters>
+      <parameter id="db_host" value="localhost"/>
+        <parameter id="db_username" value=""/>
+        <parameter id="db_userpassword" value=""/>
+        <parameter id="db_name" value=""/>
+        <parameter id="db_type" value="mysql"/>		
+        <parameter id="address_lokal" value=""/>
+        <parameter id="address_lan" value=""/>        
+        <parameter id="address_internet" value=""/>              
+        <parameter id="default_sponsor" value="none"/>
+        <parameter id="product_images_dir" value="resources/images/product/"/>
+        <parameter id="store_images_dir" value="resources/images/store/"/>
+        <parameter id="user_images_dir" value="resources/images/user/"/>
+    </parameters>    	
+</application>

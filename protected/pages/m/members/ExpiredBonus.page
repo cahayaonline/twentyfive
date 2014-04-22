@@ -1,0 +1,168 @@
+<%@ Title="CahayaOnline - Bonus Deposit Expired" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-group"></i> Bonus Deposit Expired <com:TActiveLabel ID="labelHeader" />
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Bonus Deposit yang Expired.
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">    
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-zoom-in"></i> Search / Filter</h3>
+                </div>
+                <div class="box-content">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label for="<%=$this->noibo->ClientID%>" class="control-label">No. IBO</label>
+                                <div class="controls">
+                                    <com:TTextBox ID="noibo" CssClass="smallInput" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="<%=$this->membername->ClientID%>" class="control-label">Nama Member</label>
+                                <div class="controls">
+                                    <com:TTextBox Columns="30" ID="membername" CssClass="smallInput" />                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label for="<%=$this->membername->ClientID%>" class="control-label">Bonus yang Di Transfer pada Periode</label>
+                                <div class="controls">                                                   
+                                    <com:TActiveRadioButton ID="rdPeriodTransfer" AutoPostBack="false" GroupName="filter_tanggal" />
+                                    <com:TActiveDatePicker ID="cmbPeriodTransfer" DateFormat="MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" AutoPostBack="false"  />                                           
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="<%=$this->membername->ClientID%>" class="control-label">Bonus yang expired pada Tanggal</label>
+                                <div class="controls">                                                   
+                                    <com:TActiveRadioButton ID="rdTanggalExpire" AutoPostBack="false" GroupName="filter_tanggal" Checked="true" />
+                                    <com:TActiveDatePicker ID="cmbTanggalBonusExpire" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" AutoPostBack="false"  />                           
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label for="<%=$this->membername->ClientID%>" class="control-label">Bonus yang Di Transfer pada Tanggal</label>
+                                <div class="controls">                                                   
+                                    <com:TActiveRadioButton ID="rdTanggalTransfer" AutoPostBack="false" GroupName="filter_tanggal" />
+                                    <com:TActiveDatePicker ID="cmbTanggalTransfer" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" AutoPostBack="false"  />                           
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="form-actions">
+                        <com:TActiveLinkButton ID="btnFilter" Text="<i class='icon-search'></i> Filter" OnClick="filterRecord" CssClass="btn btn-primary">
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();                                    
+                                $('<%=$this->btnFilter->ClientId%>').addClassName('disabled');						
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnFilter->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('<%=$this->btnFilter->ClientId%>').disabled='';						
+                                $('<%=$this->btnFilter->ClientId%>').removeClassName('disabled');                                    												
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="icon-money"></i> Daftar Deposit Member </h3>
+                </div>
+                <div class="box-content">
+                    <com:TActiveRepeater ID="RepeaterS" DataKeyField="iddeposit" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-advance">	
+                                <thead>
+                                <tr>										
+                                    <th scope="col"><input type="checkbox"></th>
+                                    <th scope="col" width="100">IBO</th>
+                                    <th scope="col" width="250">Member Name</th>
+                                    <th scope="col">Jumlah <br />Transfer</th>
+                                    <th scope="col">Sisa <br />Bonus</th>
+                                    <th scope="col">Tanggal <br />Transfer</th>																																		                            
+                                    <th scope="col">Tanggal Exp.</th>
+                                    <th scope="col">Actions</th>                            
+                                </tr>	
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr class="table-flag-blue">
+                                <td><com:TActiveCheckBox ID="chkChecked" AutoPostBack="false" /></td>
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															                        
+                                <td><%#$this->page->finance->toRupiah ($this->DataItem['jumlah_transfer'])%></td>
+                                <td><%#$this->page->finance->toRupiah ($this->DataItem['sisa_bonus'])%></td>
+                                <td><%#$this->page->TGL->tanggal('d F Y H:m:s',$this->DataItem['tanggal_transfer'])%></td>                        
+                                <td><%#$this->page->TGL->tanggal('d F Y H:m:s',$this->DataItem['expire_date'])%></td>                        
+                                <td><com:TActiveButton ID="btnExpired" Text="Expired" OnClick="Page.setExpired" ClientSide.PostState="false" Attributes.OnClick="if(!confirm('Expired-kan bonus deposit ?.')) return false;" CommandParameter="<%#$this->DataItem['member_id']%>" CssClass="btn btn-warning" /></td>                        
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr class="table-flag-orange">
+                                <td><com:TActiveCheckBox ID="chkChecked" AutoPostBack="false" /></td>
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															                        
+                                <td><%#$this->page->finance->toRupiah ($this->DataItem['jumlah_transfer'])%></td>
+                                <td><%#$this->page->finance->toRupiah ($this->DataItem['sisa_bonus'])%></td>
+                                <td><%#$this->page->TGL->tanggal('d F Y H:m:s',$this->DataItem['tanggal_transfer'])%></td>                        
+                                <td><%#$this->page->TGL->tanggal('d F Y H:m:s',$this->DataItem['expire_date'])%></td>                        
+                                <td><com:TActiveLinkButton ID="btnExpired" Text="Expired" OnClick="Page.setExpired" ClientSide.PostState="false" Attributes.OnClick="if(!confirm('Expired-kan bonus deposit ?.')) return false;" CommandParameter="<%#$this->DataItem['member_id']%>" CssClass="btn btn-warning" /></td>                        
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>                            
+                            </tbody>
+                            </table>         
+                            <div class="form-actions">
+                                <com:TActiveLinkButton ID="btnExpiredMasal" Text="Expired Masal" OnClick="Page.setExpiredMasal" Attributes.OnClick="if(!confirm('Expired-kan bonus deposit ?.')) return false;" CssClass="btn btn-warning">
+                                    <prop:ClientSide.OnPreDispatch>
+                                        $('loading').show();                                    				
+                                    </prop:ClientSide.OnPreDispatch>
+                                    <prop:ClientSide.OnLoading>
+                                        $('<%=$this->btnExpiredMasal->ClientId%>').disabled='disabled';						
+                                    </prop:ClientSide.OnLoading>
+                                    <prop:ClientSide.OnComplete>																	
+                                        $('<%=$this->btnExpiredMasal->ClientId%>').disabled='';						                                    
+                                        $('loading').hide();
+                                    </prop:ClientSide.OnComplete>
+                                </com:TActiveLinkButton>
+                            </div>
+                        </prop:FooterTemplate>	
+                        <prop:EmptyTemplate>
+                            <div class="grid_15">
+                                <p id="info" class="info">
+                                    <span class="info_inner">Tidak ada members yang bonus depositnya expired.</span>
+                                </p>
+                            </div>
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>
+                    <%include Application.CustomPaging%>  
+                    <com:NModalPanel ID="modalPanel">
+                        <div id="panel" class="portlet" style="width:500px">
+                            <div class="portlet-header"><strong>Pesan Kesalahan</strong></div>
+                            <div class="portlet-content">                         
+                                <p id="errorinformasi" class="informasi">
+                                    <span class="informasi_inner">Anda belum mementukan daftar member yang akan di expire-kan deposit bonusnya.</span>
+                                </p>
+                                <a href="#" OnClick="new Modal.Box('<%=$this->modalPanel->ClientID%>').hide()">Close</a>
+                            </div>
+                        </div>
+                    </com:NModalPanel>
+                </div>
+            </div>
+        </div>
+    </div>            
+</com:TPanel>
+<div class="clear"></div>
+</com:TContent>

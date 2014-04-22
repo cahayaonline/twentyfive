@@ -1,0 +1,33 @@
+<%@ Title="CahayaOnline - Cache" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-archive"></i> Clear Cache
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Digunakan untuk menghapus cache
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">   
+    <div class="row-fluid">    
+        <div class="span12">
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-archive"></i> Clear Cache</h3>                    
+                </div>
+                <div class="box-content">
+                    <com:TActiveButton ID="btnClearCache" CssClass="btn btn-large btn-primary" Text="Clear Cache" OnClick="hapusCache">
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnClearCache->ClientId%>').disabled='disabled';									
+                            $('<%=$this->btnClearCache->ClientId%>').addClassName='disabled';
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.onComplete>
+                            $('<%=$this->btnClearCache->ClientId%>').disabled='';																								                                                    
+                            $('<%=$this->btnClearCache->ClientId%>').removeClassName='disabled';
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveButton>
+                    <com:TActiveLabel ID="message" />
+                </div>
+            </div>
+       </div>   
+    </div>   
+</com:TPanel>
+</com:TContent>

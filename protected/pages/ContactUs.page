@@ -1,0 +1,60 @@
+<%@ Title="Toko Cahaya Online, Sensasi Belanja Online Serasa di Supermarket" %>
+<com:TContent ID="contentTopShoppingCart">
+    <%include Application.pages.topcart%>    
+</com:TContent>
+<com:TContent ID="maincontent">
+<section id="main" class="entire_width">
+    <div class="container_12">
+        <div id="content">        
+            <div class="grid_12">
+                <h1 class="page_title">Contact Us</h1>
+            </div><!-- .grid_12 -->        
+            <div class="grid_4 adress">
+                <h3>Address</h3>
+                <p><%=$this->setup->getSettingValue ('config_address')%></p>
+                <hr>
+                <h3>Phones</h3>
+                <p>
+                    Sales Manager: <span><%=$this->setup->getSettingValue ('config_telephone')%></span> <br />
+                </p>
+                <hr>
+                <h3>Email Addresses</h3>
+                <p>
+                    Sales Manager: <span><%=$this->setup->getSettingValue ('config_email')%></span> <br />
+                </p>
+                <hr>
+            </div><!-- .adress -->
+            <div class="grid_8">
+                <div class="contact">
+                    <h2>Quick Contact</h2>							
+                    <div class="name">
+                        <strong>Name:</strong><sup class="surely">*</sup><br/>
+                        <com:TTextBox ID="name" />
+                    </div><!-- .name -->
+				
+                    <div class="email">
+                        <strong>Email Adress: </strong><sup class="surely">*</sup><br/>
+                        <com:TTextBox ID="email" />
+                    </div><!-- .email -->
+							
+                    <div class="phone">
+                        <strong>Telephone:</strong><br/>
+                        <com:TTextBox ID="phone" />
+                    </div><!-- .phone -->
+				
+                    <div class="comment">
+                        <strong>Comment:</strong><sup class="surely">*</sup><br/>
+                        <com:TTextBox ID="comment" TextMode="MultiLine" />                        
+                    </div><!-- .comment -->
+				
+                    <div class="submit">
+                        <div class="field"><sup class="surely">*</sup><span>Required Field</span></div>
+                        <com:TActiveButton ID="btnSubmit" Text="Submit" />
+                    </div><!-- .submit -->
+                </div><!-- .contact -->
+            </div><!-- .grid_8 -->
+        </div><!-- .content -->
+        <div class="clear"></div>
+    </div><!-- .container 12 -->
+</section><!-- .section -->
+</com:TContent>

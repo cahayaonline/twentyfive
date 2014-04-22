@@ -1,0 +1,226 @@
+<%@ Title="CahayaOnline - Bank" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-money"></i> Bank
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Daftar Bank Cahaya Online
+</com:TContent>
+<com:TContent ID="maincontent">	
+    <com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row-fluid">
+        <div class="span12">    
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-edit"></i> Ubah Bank</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="<%=$this->Service->constructUrl('m.settings.Bank')%>"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <com:TActiveHiddenField ID="hiddennorek" />                    
+                    <div class="control-group">
+                        <label class="control-label">Nama Bank</label>
+                        <div class="controls">
+                            <com:TTextBox ID="txtEditNamaBank" CssClass="input-xlarge" />			
+                            <com:TRequiredFieldValidator ControlToValidate="txtEditNamaBank" Display="Dynamic" ErrorMessage="Isi nama bank" ValidationGroup="editbank" FocusOnError="true">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('<%=$this->txtEditNamaBank->ClientID%>').addClassName('error');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('<%=$this->txtEditNamaBank->ClientID%>').removeClassName('error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                            
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">No. Rekening</label>                                        
+                        <div class="controls">
+                            <com:TTextBox ID="txtEditNoRekening" CssClass="input-xlarge" />			
+                            <com:TRequiredFieldValidator ControlToValidate="txtEditNoRekening" Display="Dynamic" ErrorMessage="Isi no rekening" ValidationGroup="editbank" FocusOnError="true">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('<%=$this->txtEditNoRekening->ClientID%>').addClassName('error');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('<%=$this->txtEditNoRekening->ClientID%>').removeClassName('error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>                    
+                    <div class="control-group">
+                        <label class="control-label">Nama Pemilik</label>                                        
+                        <div class="controls">
+                            <com:TTextBox ID="txtEditNamaPemilik" CssClass="input-xlarge" />			
+                            <com:TRequiredFieldValidator ControlToValidate="txtEditNoRekening" Display="Dynamic" ErrorMessage="Isi nama pemilik rekening" ValidationGroup="editbank" FocusOnError="true">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('<%=$this->txtEditNamaPemilik->ClientID%>').addClassName('error');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('<%=$this->txtEditNamaPemilik->ClientID%>').removeClassName('error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                            
+                        </div>
+                    </div>         
+                    <div class="form-actions">
+                        <com:TActiveLinkButton ID="btnUpdate" CssClass="btn btn-primary" Text="Save" ValidationGroup="editbank" OnClick="updateData">
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();                                 
+                                $('<%=$this->btnUpdate->ClientId%>').addClassName('disabled');
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('<%=$this->btnUpdate->ClientId%>').disabled='';						
+                                $('<%=$this->btnUpdate->ClientId%>').removeClassName('disabled');                                						
+                                $('loading').hide(); 
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
+                    </div>                   
+                </div>
+            </div>
+        </div>
+    </com:TPanel>
+    <com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="row-fluid">
+        <div class="span12">    
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-plus"></i> Tambah Bank</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="<%=$this->Service->constructUrl('m.settings.Bank')%>"><i class="icon-remove"></i></a>
+                    </div>
+                </div>        
+                <div class="box-content">
+                    <div class="control-group">
+                        <label class="control-label">Nama Bank</label>
+                        <div class="controls">
+                            <com:TTextBox ID="txtAddNamaBank" CssClass="input-xlarge" />			
+                            <com:TRequiredFieldValidator ControlToValidate="txtAddNamaBank" Display="Dynamic" ErrorMessage="Isi nama bank" ValidationGroup="addbank" FocusOnError="true">			
+                                <prop:ClientSide.OnValidationError>
+                                    $('<%=$this->txtAddNamaBank->ClientID%>').addClassName('error');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('<%=$this->txtAddNamaBank->ClientID%>').removeClassName('error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                            
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">No. Rekening</label>                                        
+                        <div class="controls">
+                            <com:TTextBox ID="txtAddNoRekening" CssClass="input-xlarge" />			
+                            <com:TRequiredFieldValidator ControlToValidate="txtAddNoRekening" Display="Dynamic" ErrorMessage="Isi no rekening" ValidationGroup="addbank" FocusOnError="true">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('<%=$this->txtAddNoRekening->ClientID%>').addClassName('error');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('<%=$this->txtAddNoRekening->ClientID%>').removeClassName('error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>
+                        </div>
+                    </div>                    
+                    <div class="control-group">
+                        <label class="control-label">Nama Pemilik</label>                                        
+                        <div class="controls">
+                            <com:TTextBox ID="txtAddNamaPemilik" CssClass="input-xlarge" />			
+                            <com:TRequiredFieldValidator ControlToValidate="txtAddNoRekening" Display="Dynamic" ErrorMessage="Isi nama pemilik rekening" ValidationGroup="addbank" FocusOnError="true">				
+                                <prop:ClientSide.OnValidationError>
+                                    $('<%=$this->txtAddNamaPemilik->ClientID%>').addClassName('error');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('<%=$this->txtAddNamaPemilik->ClientID%>').removeClassName('error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator>                            
+                        </div>
+                    </div>                 
+                    <div class="form-actions">
+                        <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" Text="Save" ValidationGroup="adduser" OnClick="saveData">
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();                             
+                                $('<%=$this->btnSave->ClientId%>').addClassName('disabled');
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('<%=$this->btnSave->ClientId%>').disabled='';						                            
+                                $('<%=$this->btnSave->ClientId%>').removeClassName('disabled');						
+                                $('loading').hide(); 
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </com:TPanel>
+	<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row-fluid">
+        <div class="span12">
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-group"></i> Daftar Bank</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-up"></i></a>                        
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="btn-toolbar pull-right clearfix">
+                        <div class="btn-group">                                                 
+                            <com:TLinkButton CssClass="btn btn-circle" Text="<i class='icon-plus'></i>" OnClick="setIdProcess" ID="add" CausesValidation="false" />                        
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <com:TActiveRepeater ID="RepeaterS" DataKeyField="norek" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-advance">	
+                                <thead>
+                                <tr>
+                                    <th width="15" class="center">No</th>
+                                    <th>No. Rekening</th>
+                                    <th>Nama Pemilik</th>                        
+                                    <th>Nama Bank</th>
+                                    <th width="160">Actions</th>							
+                                </tr>								
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr>				
+                                <td class="center"><%#$this->DataItem['no']%></td>
+                                <td><%#$this->DataItem['norek']%></td>	
+                                <td><%#$this->DataItem['nama_pemilik']%></td>											                   
+                                <td><%#$this->DataItem['nama_bank']%></td>											                   
+                                <td>
+                                    <com:TLinkButton CssClass="btn btn-small" Text="<i class='icon-edit'></i>" OnClick="Page.editRecord" Attributes.Title="Edit" /> 
+                                    <com:TActiveLinkButton ID="btnDelete" CssClass="btn btn-small btn-danger" Text="<i class='icon-trash'></i>" OnClick="Page.deleteRecord" Attributes.Title="Delete" />
+                                </td>
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr>				
+                                <td class="center"><%#$this->DataItem['no']%></td>
+                                <td><%#$this->DataItem['norek']%></td>	
+                                <td><%#$this->DataItem['nama_pemilik']%></td>											                   
+                                <td><%#$this->DataItem['nama_bank']%></td>											                   
+                                <td>
+                                    <com:TLinkButton CssClass="btn btn-small" Text="<i class='icon-edit'></i>" OnClick="Page.editRecord" Attributes.Title="Edit" /> 
+                                    <com:TActiveLinkButton ID="btnDelete" CssClass="btn btn-small btn-danger" Text="<i class='icon-trash'></i>" OnClick="Page.deleteRecord" Attributes.Title="Delete" />
+                                </td>
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>               
+                            </tbody>
+                            </table>
+                        </prop:FooterTemplate>	
+                        <prop:EmptyTemplate>
+                            <div class="message info">
+                                    <h5>Informasi</h5>
+                                    <p> Belum ada informasi bank. </p>
+                                </div>              
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>
+                    <%include Application.Paging%>                     
+                </div>
+            </div>     
+        </div>
+    </com:TPanel>	
+</com:TContent>

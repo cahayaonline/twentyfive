@@ -1,0 +1,99 @@
+<%@ Title="Members Sign Up | Cahaya Online" %>
+<com:TContent ID="contentTopShoppingCart">
+    <%include Application.pages.topcart%>    
+</com:TContent>
+<com:TContent ID="maincontent">
+<section id="main" class="login entire_width">
+<com:TPanel Visible="<%= $this->getViewProcess(false) %>" CssClass="container_12">
+    <h2>Akun Anda telah sukses di buat</h2>
+    <p>
+        Selamat! akun baru Anda telah sukses dibuat. Sekarang anda dapat mengambil keuntungan sebagai member kami.
+        Jika anda memiliki berbagai pertanyaan mengenai operasi toko online kami, silahkan kirim ke email.
+    </p>
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="container_12"> 
+    <div id="content">
+        <div class="grid_12">
+			<h1 class="page_title">Membuat Akun Baru</h1>
+		</div><!-- .grid_12 -->
+        <div class="grid_8 signup">
+            <h3>Informasi Sponsor</h3>
+			<table> 
+                <tr>
+                    <td width="150">IBO</td>
+                    <td><%=$_SESSION['currentPageSignUp']['dataMember']['ibo']%></td>
+                </tr>
+                <tr>
+                    <td width="150">Member Name</td>
+                    <td><%=$_SESSION['currentPageSignUp']['dataMember']['member_name']%></td>
+                </tr>
+            </table>
+            <h3>Informasi Personal</h3>
+            <div class="left">
+                <strong>Nama:</strong><com:TRequiredFieldValidator ValidationGroup="memberregistration" Display="Dynamic" ControlToValidate="txtNama" FocusOnError="true" ErrorMessage="<br />You did not enter first name" />
+                <br />
+                <com:TTextBox ID="txtNama" Attributes.PlaceHolder="Nama" />                
+            </div>
+            <div class="right">
+                <strong>Email:</strong>
+                <com:TRequiredFieldValidator ValidationGroup="memberregistration" Display="Dynamic" ControlToValidate="txtEmail" FocusOnError="true" ErrorMessage="<br />You did not enter email" />
+                <com:TEmailAddressValidator ValidationGroup="memberregistration" ControlToValidate="txtEmail" FocusOnError="true" Display="Dynamic" Text="<br />Invalid email address." CheckMXRecord="false" />
+                <br />
+                <com:TTextBox ID="txtEmail" Attributes.PlaceHolder="E-Mail" />                
+            </div>
+            <div class="left">
+                <strong>Telepon Seluler:</strong>
+                <com:TRequiredFieldValidator ValidationGroup="memberregistration" Display="Dynamic" ControlToValidate="txtMobilePhone" FocusOnError="true" ErrorMessage="<br />You did not enter telephone" />
+                <br />
+                <com:TTextBox ID="txtMobilePhone" Attributes.PlaceHolder="Mobile Phone" />	                 
+            </div>
+            <div class="clearfix"></div>
+            <h3>Informasi Alamat</h3>            
+            <div class="left">
+                <strong>Alamat:</strong><com:TRequiredFieldValidator ValidationGroup="memberregistration" Display="Dynamic" ControlToValidate="txtAddress1" FocusOnError="true" ErrorMessage="<br />You did not enter address" />
+                <br />
+                 <com:TTextBox ID="txtAddress1" Attributes.PlaceHolder="Address" />                 
+            </div>
+            <div class="right">
+                <strong>Kota:</strong>
+                <com:TRequiredFieldValidator ValidationGroup="memberregistration" Display="Dynamic" ControlToValidate="txtCity" FocusOnError="true" ErrorMessage="<br />You did not enter city" />
+                <br />
+                <com:TTextBox ID="txtCity" Attributes.PlaceHolder="City" />                
+            </div>
+            <div class="left">
+                <strong>Kode Pos:</strong>
+                <com:TRequiredFieldValidator ValidationGroup="memberregistration" Display="Dynamic" ControlToValidate="txtPostcode" FocusOnError="true" ErrorMessage="<br />You did not enter postcode" />
+                <br />
+                <com:TTextBox ID="txtPostcode" Attributes.PlaceHolder="Postcode" />                
+            </div>            
+            <div class="clearfix"></div>
+            <h3>Informasi Password</h3>
+            <div class="left">
+                <strong>Password:</strong>
+                <com:TRequiredFieldValidator ValidationGroup="memberregistration" Display="Dynamic" ControlToValidate="txtPassword" FocusOnError="true" ErrorMessage="<br />You did not enter password" />
+                <br />
+                <com:TTextBox ID="txtPassword" Attributes.PlaceHolder="Password" TextMode="Password" />									                
+            </div>
+            <div class="right">
+                <strong>Confirm Password:</strong>
+                <com:TCompareValidator ValidationGroup="memberregistration" ControlToValidate="txtConfirmPassword" ControlToCompare="txtPassword" Text="The two password must have the same value." Display="Dynamic" />
+                <br />
+                <com:TTextBox ID="txtConfirmPassword" Attributes.PlaceHolder="Confirm Password" TextMode="Password" />																		                
+            </div>
+            <div class="clearfix"></div>        
+            <div class="left">
+                <com:TCheckBox ID="chkAgree" AutoPostBack="false" />
+                <com:TLabel ForControl="chkAgree" Text="I have read and agree to the Privacy Policy" /> 
+                <com:TRequiredFieldValidator ValidationGroup="memberregistration" Display="Dynamic" ControlToValidate="chkAgree" FocusOnError="true" ErrorMessage="<br />You must agree." />
+            </div>            
+            <div class="clearfix"></div>        
+            <com:TActiveButton ID="btnRegister" CssClass="simple-submit secondary" OnClick="clickMemberRegister" Text="Register" ValidationGroup="memberregistration">
+                                
+            </com:TActiveButton>
+        </div><!-- .grid_6 -->
+    </div><!-- #content -->
+    <div class="clear"></div>
+    <com:TJavascriptLogger />
+</com:TPanel><!-- .container_12 -->
+</section><!-- #main -->				
+</com:TContent>

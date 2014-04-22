@@ -1,0 +1,135 @@
+<%@ Title="CahayaOnline - Members Profile" %>
+<com:TContent ID="contentnavbar">
+	<%include Application.pages.m.members.navbar%>
+</com:TContent>
+<com:TContent ID="contentarea">
+<h1>Members Profile</h1>
+<%include Application.pages.m.members.tabs%>
+<com:TPanel Visible="<%= $this->getAddProcess(false) %>">
+<div id="tab_content" style="text-align:left">
+    <p>
+		<h3>Active Client (#<%=$this->dataMember['member_id']%> - <%=$this->dataMember['member_name']%>)</h3>
+	</p>
+    <p>
+        <b>Options:</b>
+        <com:TActiveLinkButton Text="Close" OnClick="closeDownline" />
+    </p>
+    <com:TLiteral ID="tableDownline" />
+</div>
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">	
+<div id="tab_content" style="text-align:left">
+	<p>
+		<h3>Active Client (#<%=$this->dataMember['member_id']%> - <%=$this->dataMember['member_name']%>)</h3>
+	</p>
+	<com:TTabPanel ID="tabsearchfilter">	
+		<com:TTabView ID="hidetab" Caption="" CssClass="hidetab"/>					
+		<com:TTabView Caption="Search / Filter">
+			<table class="form" border="0" width="100%" cellspacing="2" cellpadding="3">
+				<tbody>
+					<tr>
+						<td class="fieldlabel" width="15%">No. IBO</td>
+						<td class="fieldarea">
+							<com:TTextBox ID="noibo" MaxLength="7" Columns="7" />
+						</td>	
+						<td class="fieldlabel" width="15%">Nama Member</td>
+						<td class="fieldarea">
+							<com:TTextBox Columns="30" ID="membername" />							
+						</td>
+					</tr>
+					<tr>
+						<td class="fieldlabel">Alamat Email</td>
+						<td class="fieldarea">
+							<com:TTextBox Columns="40" ID="email" />
+						</td>
+						<td class="fieldlabel">Alamat Rumah</td>
+						<td class="fieldarea">
+							<com:TTextBox Columns="30" ID="alamatrumah" />
+						</td>
+					</tr>
+					<tr>
+						<td class="fieldlabel">Status</td>
+						<td class="fieldarea">
+							<com:TDropDownList ID="status" AutoPostBack="false">
+								<com:TListItem Value="" Text="- Any -" />
+								<com:TListItem Value="active" Text="Active"/>
+								<com:TListItem Value="inactive" Text="Inactive"/>
+								<com:TListItem Value="closed" Text="Closed"/>
+							</com:TDropDownList>
+						</td>
+						<td class="fieldlabel">Kota</td>
+						<td class="fieldarea">
+							 <com:TTextBox Columns="30" ID="kota" />
+						</td>
+					</tr>												
+				</tbody>
+			</table>
+			<p align="center">
+				<com:TActiveButton ID="btnSearch" Text="Search" OnClick="searchClient" CssClass="button ui-button ui-widget ui-state-default ui-corner-all">
+					<prop:ClientSide.OnPreDispatch>
+                        $('loading').show(); 
+						$('<%=$this->btnSearch->ClientId%>').removeClassName('ui-widget');
+						$('<%=$this->btnSearch->ClientId%>').removeClassName('ui-state-default');
+						$('<%=$this->btnSearch->ClientId%>').removeClassName('ui-corner-all');						
+					</prop:ClientSide.OnPreDispatch>
+					<prop:ClientSide.OnLoading>
+						$('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+					</prop:ClientSide.OnLoading>
+					<prop:ClientSide.OnComplete>																	
+						$('<%=$this->btnSearch->ClientId%>').disabled='';						
+						$('<%=$this->btnSearch->ClientId%>').addClassName('ui-widget');
+						$('<%=$this->btnSearch->ClientId%>').addClassName('ui-state-default');
+						$('<%=$this->btnSearch->ClientId%>').addClassName('ui-corner-all');						
+                        $('loading').show(); 
+					</prop:ClientSide.OnComplete>
+				</com:TActiveButton>
+			</p>
+		</com:TTabView>
+	</com:TTabPanel>
+	<p><com:TActiveLabel ID="recordinformation" />&nbsp;</p>
+    <p>
+        <b>Options : </b>
+        <com:TActiveLinkButton Text="View Downline" OnClick="viewDownline" />
+    </p>
+	<com:TActiveRepeater ID="RepeaterS" DataKeyField="member_id" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+		<prop:HeaderTemplate>			
+			<table class="datatable" border="0" width="100%" cellspacing="1" cellpadding="3">	
+				<div>
+				<tr>												
+					<th scope="col">IBO</th>
+					<th scope="col">Member Name</th>
+					<th scope="col">Email Address</th>																		
+					<th scope="col">Downline</th>																																		
+					<th scope="col">Total Omset</th>
+					<th scope="col">Status</th>										
+				</tr>								
+		</prop:HeaderTemplate>
+		<prop:ItemTemplate>
+			<tr>				
+				<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+				<td><a href="<%=$this->Service->constructUrl('m.members.DownlineMember',array('member_id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>
+				<td><%#$this->DataItem['email']%></td>											
+				<td><%#$this->DataItem['downline']%></td>											
+				<td><%#$this->DataItem['totalomset']%></td>
+				<td><span class="label active">ACTIVE</span></td>																		
+			</tr>
+		</prop:ItemTemplate>				
+		<prop:AlternatingItemTemplate>
+			<tr>
+				<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+				<td><a href="<%=$this->Service->constructUrl('m.members.DownlineMember',array('member_id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>
+				<td><%#$this->DataItem['email']%></td>											
+				<td><%#$this->DataItem['downline']%></td>												
+				<td><%#$this->DataItem['totalomset']%></td>
+				<td><span class="label active">ACTIVE</span></td>																	
+			</tr>
+		</prop:AlternatingItemTemplate>
+		<prop:FooterTemplate>
+			</table>
+		</prop:FooterTemplate>		
+	</com:TActiveRepeater>
+	<%include Application.Paging%>
+</div>
+</com:TPanel>
+
+</com:TContent>

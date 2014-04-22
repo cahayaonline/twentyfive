@@ -1,0 +1,208 @@
+<%@ Title="Toko Cahaya Online, Sensasi Belanja Online Serasa di Supermarket" %>
+<com:TContent ID="csscontent">
+    <link rel="stylesheet" type="text/css" href="<%=$this->page->theme->baseUrl%>/assets/bootstrap-fileupload/bootstrap-fileupload.css" />
+</com:TContent>
+<com:TContent ID="titlecontent">
+    <i class="icon-file-alt"></i> Register New Member
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Regiter new Member
+</com:TContent>
+<com:TContent ID="maincontent">
+    <com:TPanel Visible="<%= $this->getDefaultProcess() %>">
+        <!--BEGIN Informasi Sponsor-->
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="box box-green">
+                    <div class="box-title">
+                        <h3><i class="icon-reorder"></i>Sponsor</h3>                    
+                    </div>
+                    <div class="box-content">
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <ul class="sponsor-information">
+                                    <li>
+                                        <div class="desc">
+                                            <p>
+                                                No. Pelanggan
+                                            </p>
+                                        </div>
+                                        <div class="actions">
+                                            <%=$_SESSION['currentPageRegister']['dataMember']['ibo']%>
+                                        </div>                                
+                                    </li>
+                                    <li>
+                                        <div class="desc">
+                                            <p>
+                                                Nama
+                                            </p>
+                                        </div>
+                                        <div class="actions">
+                                            <%=$_SESSION['currentPageRegister']['dataMember']['member_name']%>
+                                        </div>                                
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END Informasi Sponsor-->                
+        <!--Begin Container Form Register New -->        
+        <div class="row-fluid">
+            <!--Begin SPAN 12 -->
+            <div class="span12">
+                <div class="box box-black">
+                    <div class="box-title">
+                        <h3><i class="icon-reorder"></i> Register new Member</h3>                    
+                    </div>
+                    <div class="box-content">                        
+                        <div class="row-fluid">
+                            <!-- BEGIN Left Side -->
+                            <div class="span6 ">                                
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtMemberName" CssClass="control-label" Text="Nama" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtMemberName"  Attributes.Placeholder="nama member" CssClass="input-xlarge" />
+                                        <com:TRequiredFieldValidator ValidationGroup="registernewmember" Display="Dynamic" ControlToValidate="txtMemberName" FocusOnError="true" ErrorMessage="<br />Kolom nama harus di isi"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <com:TLabel ForControl="cmbJK" CssClass="control-label" Text="Jenis Kelamin" />                                        
+                                    <div class="controls">
+                                        <com:TDropDownList ID="cmbJK" CssClass="input-medium">
+                                            <com:TListItem Value="1" Text="Pria" />
+                                            <com:TListItem Value="0" Text="Wanita" />                                            
+                                        </com:TDropDownList>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtAddress" CssClass="control-label" Text="Alamat" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtAddress" Attributes.Placeholder="alamat" CssClass="input-xlarge" />
+                                        <com:TRequiredFieldValidator ValidationGroup="registernewmember" Display="Dynamic" ControlToValidate="txtAddress" FocusOnError="true" ErrorMessage="<br />Kolom alamat harus di isi"/>
+                                    </div>
+                                </div>                                
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtCity" CssClass="control-label" Text="Kabupaten / Kota" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtCity" Attributes.Placeholder="Kabupaten / Kota" CssClass="input-xlarge" />
+                                        <com:TRequiredFieldValidator ValidationGroup="registernewmember" Display="Dynamic" ControlToValidate="txtCity" FocusOnError="true" ErrorMessage="<br />Kolom kota harus di isi"/>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <com:TLabel ForControl="cmbNegara" CssClass="control-label" Text="Negara" />                                        
+                                    <div class="controls">
+                                        <com:TDropDownList ID="cmbNegara" CssClass="input-xlarge" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtPostalCode" CssClass="control-label" Text="Kode POS" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtPostalCode"  Attributes.Placeholder="kode pos" CssClass="input-mini" MaxLength="5" />
+                                        <com:TRequiredFieldValidator ValidationGroup="registernewmember" Display="Dynamic" ControlToValidate="txtPostalCode" FocusOnError="true" ErrorMessage="<br />Kolom kode pos harus di isi"/>
+                                    </div>
+                                </div>              
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtCity" CssClass="control-label" Text="No. HP" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtNoHP" Attributes.Placeholder="No. HP" CssClass="input-xlarge" />
+                                    </div>
+                                </div>  
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtEmail" CssClass="control-label" Text="Email" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtEmail"  Attributes.Placeholder="Email" CssClass="input-xlarge" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtEmail2" CssClass="control-label" Text="Re-type Email" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtEmail2"  Attributes.Placeholder="Re-type Email" CssClass="input-xlarge" />
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!-- END Left Side -->
+                            <!-- BEGIN Right Side -->
+                            <div class="span6">                                                                     
+                                <div class="control-group">
+                                    <com:TLabel ForControl="cmbJenisIdentitas" CssClass="control-label" Text="Jenis Identitas" />                                        
+                                    <div class="controls">
+                                        <com:TDropDownList ID="cmbJenisIdentitas" CssClass="input-medium">
+                                            <com:TListItem Value="none" Text=" " />
+                                            <com:TListItem Value="KTP" Text="KTP" />
+                                            <com:TListItem Value="SIM" Text="SIM" />
+                                            <com:TListItem Value="PASSPORT" Text="PASSPORT" />
+                                        </com:TDropDownList>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtNoIdentitas" CssClass="control-label" Text="Nomor Identitas" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtNoIdentitas"  Attributes.Placeholder="No. Identitas" CssClass="input-xlarge" />
+                                    </div>
+                                </div>       
+                                <div class="control-group">
+                                    <label class="control-label">Bukti Identitas</label>
+                                    <div class="controls">
+                                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                                            <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                            <img src="<%=$this->page->theme->baseUrl%>/img/no_image.gif" alt="" />                                        
+                                        </div>
+                                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                        <div>
+                                           <span class="btn btn-file"><span class="fileupload-new">Select image</span>
+                                           <span class="fileupload-exists">Change</span>
+                                           <com:TFileUpload ID="txtBuktiIndentitas" CssClass="default" /></span>
+                                           <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                                        </div>
+                                     </div>
+                                     <span class="label label-important">NOTE!</span>
+                                     <span>Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only</span>
+                                  </div>                                
+                            </div>
+                            <!-- END Right Side --> 
+                        </div>
+                        <!--END ROW-FLUID LEFT-RIGHT -->
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <hr />
+                            </div>
+                        </div>                        
+                        <div class="row-fluid">
+                            <div class="span6"> 
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtPassword1" CssClass="control-label" Text="Password" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtPassword1"  Attributes.Placeholder="Password" CssClass="input-xlarge" />
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <com:TLabel ForControl="txtPassword2" CssClass="control-label" Text="Re-type Password" />                                        
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtPassword2"  Attributes.Placeholder="Re-type Password" CssClass="input-xlarge" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--END ROW-FLUID LEFT-RIGHT PASSWORD -->
+                        <div class="form-actions">
+                            <com:TActiveLinkButton CssClass="btn btn-primary" OnClick="saveData" ValidationGroup="registernewmember">
+                                <prop:Text><i class="icon-ok"></i> Kirim</prop:Text>
+                            </com:TActiveLinkButton>                               
+                        </div>                   
+                    </div>
+                    <!--END BOX CONTENT-->
+                </div>
+                <!--END BOX -->
+            </div>
+            <!--END SPAN 12 -->
+        </div>
+        </div>
+        <!--END Container Form Register New -->        
+    </com:TPanel>
+</com:TContent>
+<com:TContent ID="jscontent">
+<script type="text/javascript" src="<%=$this->page->theme->baseUrl%>/assets/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+</com:TContent>

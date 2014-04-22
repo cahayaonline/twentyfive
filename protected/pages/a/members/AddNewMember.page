@@ -1,0 +1,483 @@
+<%@ Title="CahayaOnline - Tambah Member Baru" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-group"></i> Tambah Member Baru 
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Tambah member baru
+</com:TContent>
+<com:TContent ID="maincontent">
+<%include Application.layouts.LookupMembers%>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row-fluid">    
+    <div class="span12">
+        <div class="box">
+            <div class="box-title">
+                <h3><i class="icon-plus"></i> Tambah Member baru</h3>
+            </div>
+            <div class="box-content">
+                <com:TWizard ID="newmemberwizard" OnCompleteButtonClick="addNewMemberCompleted" OnNextButtonClick="processNextButton" UseDefaultLayout="false" CssClass="form-wizard">
+                    <prop:SideBarTemplate>
+                        <com:TCustomDataList ID="SideBarList" RepeatDirection="Horizontal" RepeatLayout="Raw">                            
+                                <prop:HeaderTemplate>
+                                    <ul class="row-fluid steps">
+                                </prop:HeaderTemplate>
+                                <prop:ItemTemplate>
+                                    <com:TLinkButton ID="SideBarButton" ValidationGroup="addproduct" CssClass="step" />                                
+                                </prop:ItemTemplate>
+                                <prop:AlternatingItemTemplate>
+                                    <com:TLinkButton ID="SideBarButton" ValidationGroup="addproduct" CssClass="step" />                              
+                                </prop:AlternatingItemTemplate>
+                                <prop:SelectedItemTemplate>
+                                    <li class="span3"><com:TLinkButton ID="SideBarButton" Font.Bold="true" ValidationGroup="addproduct" CssClass="step" /></li>
+                                </prop:SelectedItemTemplate>                            
+                                <prop:FooterTemplate>
+                                    </ul>
+                                </prop:FooterTemplate>
+                            </com:TCustomDataList>  
+                    </prop:SideBarTemplate>
+                    <prop:StartNavigationTemplate>
+                        <div class="form-actions clearfix">
+                            <com:TLinkButton Text="Continue" CommandName="NextStep" ValidationGroup="addnewmember" CssClass="btn btn-primary button-next" />
+                        </div>
+                    </prop:StartNavigationTemplate>
+                    <prop:StepNavigationTemplate>
+                        <div class="form-actions clearfix">
+                            <com:TLinkButton Text="Continue" CommandName="NextStep" ValidationGroup="addnewmember" CssClass="btn btn-primary button-next" />
+                        </div>
+                    </prop:StepNavigationTemplate>
+                    <prop:FinishNavigationTemplate>
+                        <div class="form-actions clearfix">
+                            <com:TLinkButton Text="Complete" CommandName="Complete" ValidationGroup="addnewmember" CssClass="btn btn-primary button-next" />
+                        </div>
+                    </prop:FinishNavigationTemplate>
+                    <com:TWizardStep Title="Informasi <br />Member" AllowReturn="false">	
+                        <com:TActiveHiddenField ID="hdnMemberID" />
+                        <div class="tab-content">
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtMemberID" CssClass="control-label" Text="Member ID" />
+                                <div class="controls">                                    
+                                     <com:TActiveTextBox ID="txtMemberID" Columns="13" MaxLength="13" Text="0" ReadOnly="true" CssClass="input-medium" />                                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtNoIBOSponsorID" CssClass="control-label" Text="No. IBO" />
+                                <div class="controls">
+                                    <com:TActiveTextBox ID="txtNoIBOSponsorID" Columns="13" MaxLength="13" ReadOnly="true" CssClass="smallInput"/> 							
+                                    <com:TActiveHiddenField ID="hdnIBOSponsorID" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtNamaMember" CssClass="control-label" Text="Nama Sponsor" />
+                                <div class="controls">
+                                    <com:TActiveTextBox ID="txtNamaMember" Columns="40" ReadOnly="true" CssClass="smallInput" />
+                                    <com:TActiveHiddenField ID="hdnNamaMember" />                                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtNamaMember" CssClass="control-label" Text="Pilihan Posisi" />
+                                <div class="controls">
+                                    <com:TDropDownList ID="cmbPosisi" AutoPostBack="false" CssClass="input-small">
+                                        <com:TListItem Value="1" Text="Kanan" />
+                                        <com:TListItem Value="0" Text="Kiri" />
+                                    </com:TDropDownList>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="AdminNote" CssClass="control-label" Text="Admin Note" />
+                                <div class="controls">
+                                    <com:TTextBox ID="AdminNote" TextMode="MultiLine" CssClass="input-xxlarge" />
+                                </div>
+                            </div>
+                        </div>                        		
+                    </com:TWizardStep>
+                    <com:TWizardStep Title="Informasi <br />Data Pemohon" AllowReturn="false">	
+                        <div class="tab-content">
+                            <h4><strong>Informasi Data Pemohon</strong></h4>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="txtNamaPemohon" CssClass="control-label" Text="Nama Lengkap Pemohon (sesuai KTP / Passpor WNI)" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNamaPemohon" Columns="40" CssClass="smallInput" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="txtNoIdentitas" CssClass="control-label" Text="Nomor KTP/Paspor yang Masih Berlaku" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNoIdentitas" Columns="25" CssClass="smallInput" Attributes.OnKeyUp="formatangka(this,true)" />
+                                            <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtNoIdentitas" FocusOnError="true" ErrorMessage="You did not enter member identity number"/>	
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbJK" CssClass="control-label" Text="Jenis Kelamin " />
+                                        <div class="controls">
+                                            <com:TDropDownList ID="cmbJK" AutoPostBack="false" CssClass="input-small">					
+                                                <com:TListItem Value="1" Text="Pria" />
+                                                <com:TListItem Value="0" Text="Wanita" />
+                                            </com:TDropDownList>
+                                        </div>
+                                    </div>                                    
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Nama Lengkap Pasangan (Sesuai KTP/Paspor)" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNamaPasangan" Columns="40" CssClass="smallInput" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Alamat Surat Menyurat Lengkap) " />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNoAlamatSuratMenyurat" Columns="50" CssClass="smallInput" />
+                                            <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtNoAlamatSuratMenyurat" FocusOnError="true" ErrorMessage="You did not enter member address"/>	
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Kode Pos" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtKodePos" Columns="5" MaxLength="5" CssClass="smallInput" />
+                                            <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtKodePos" FocusOnError="true" ErrorMessage="You did not enter member postal code"/>	
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Telepon Genggam / Pasangan " />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtHP2" Columns="15" CssClass="smallInput" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Nama gadis Ibu Kandung" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNamaIbu" Columns="50" CssClass="smallInput" />
+                                            <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtNamaIbu" FocusOnError="true" ErrorMessage="You did not enter member mother name" CssClass="smallInput"/>	
+                                        </div>
+                                    </div>                                                                        
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Tanggal Lahir" />
+                                        <div class="controls">
+                                            <com:TDatePicker ID="cmbTanggalLahir" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="1940" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Status" />
+                                        <div class="controls">
+                                            <com:TDropDownList ID="cmbStatus" AutoPostBack="false" CssClass="smallInput">					
+                                                <com:TListItem Value="0" Text="Tidak Menikah" />
+                                                <com:TListItem Value="1" Text="Menikah" />                        
+                                            </com:TDropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Nomor KTP Pasangan" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNoKTPPasangan" Columns="25" CssClass="smallInput" Attributes.OnKeyUp="formatangka(this,true)" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Kota" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtKota" Columns="30" CssClass="smallInput" />
+                                            <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtKota" FocusOnError="true" ErrorMessage="You did not enter member city"/>	
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Negara" />
+                                        <div class="controls">
+                                            <com:TDropDownList ID="cmbCountry" AutoPostBack="false" CssClass="smallInput" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Telepon Rumah (kode area-nomor)" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtTeleponRumah" Columns="10" CssClass="smallInput"/>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Alamat Email" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtEmail" Columns="32" CssClass="smallInput"/>
+                                            <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtEmail" FocusOnError="true" ErrorMessage="You did not enter member email address"/>	
+                                            <com:TEmailAddressValidator ValidationGroup="addnewmember" ControlToValidate="txtEmail" FocusOnError="true" Display="Dynamic" Text="Invalid email Address" CheckMXRecord="false" />
+                                            <com:TCustomValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtEmail" FocusOnError="true" OnServerValidate="checkEmailAddress" />	
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Telepon Genggam" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtHP" Columns="15" CssClass="smallInput" />
+                                            <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtHP" FocusOnError="true" ErrorMessage="You did not enter member mobile phone" Attributes.OnKeyUp="formatangka(this,true)"/>	
+                                            <com:TCustomValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtHP" FocusOnError="true" OnServerValidate="checkNoHP" />	
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Nama Ahli Waris" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNamaAhliWaris" Columns="50" CssClass="smallInput" />
+                                            <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtNamaAhliWaris" FocusOnError="true" ErrorMessage="You did not enter member family name"/>	
+                                        </div>
+                                    </div>                                    
+                                    <div class="control-group">
+                                        <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Hubungan Ahli Waris" />
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtHubunganAhliWaris" Columns="13" CssClass="smallInput" />
+                                            <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtHubunganAhliWaris" FocusOnError="true" ErrorMessage="You did not enter member family relationship"/>	                    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
+                        <h4><strong>Informasi Login</strong></h4>
+                        <p>
+                            Username yang digunakan oleh member adalah No. HP-nya.
+                        </p>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Password" />
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtPassword1" Columns="15" TextMode="Password" CssClass="smallInput" />
+                                        <com:TRequiredFieldValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtPassword1" FocusOnError="true" ErrorMessage="You did not enter member password"/>	
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <com:TLabel ForControl="cmbTanggalLahir" CssClass="control-label" Text="Re-type Password" />
+                                    <div class="controls">
+                                        <com:TTextBox ID="txtPassword2" Columns="15" TextMode="Password" CssClass="smallInput" />							
+                                        <com:TCompareValidator ValidationGroup="addnewmember" Display="Dynamic" ControlToValidate="txtPassword2" ControlToCompare="txtPassword1" FocusOnError="true" ErrorMessage="Member password is incorect"/>	
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </com:TWizardStep>
+                    <com:TWizardStep Title="Informasi <br />Rekening Bank" AllowReturn="false">			
+                        <div class="tab-content">
+                            <h4><strong>Informasi Rekening Bank</strong></h4>
+                            <p>
+                                Untuk tujuan pembayaran bonus IBO (jika ada), Bank yang direkomendasikan adalah Bank CIMB Niaga & BCA. Untuk Bank lain, dikenakan biaya Rp 10.000
+                            </p>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div class="control-group">
+                                        <label for="<%=$this->txtNoRekening->clientID%>" class="control-label">No. Rekening</label>
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNoRekening" Columns="15" CssClass="smallInput" />
+                                        </div>
+                                    </div>
+                                   <div class="control-group">
+                                        <label for="<%=$this->cmbTanggalLahir->clientID%>" class="control-label">Atas Nama Pemohon atau Pasangan sesuai dengan nama diatas</label>
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtAtasNama" Columns="50" CssClass="smallInput" />	
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="<%=$this->cmbTanggalLahir->clientID%>" class="control-label">Nama Bank</label>
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNamaBank" Columns="35" CssClass="smallInput" />	
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="cmbTanggalLahir" class="control-label">Cabang / Unit</label>
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtCabang" Columns="30" CssClass="smallInput" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="cmbTanggalLahir" class="control-label">Kota Lokasi Bank</label>
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtLokasiBank" Columns="40" CssClass="smallInput" />
+                                        </div>
+                                    </div>                                                        
+                                </div>
+                            </div>                            
+                        </div>			
+                    </com:TWizardStep>
+                    <com:TWizardStep Title="Informasi <Br />Perpajakan" AllowReturn="false">			
+                        <div class="tab-content">
+                            <h4><strong>Informasi Perpajakan</strong></h4>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div class="control-group">
+                                        <label for="<%=$this->txtNoRekening->clientID%>" class="control-label">Nomor Pokok Wajib Pajak (NPWP)</label>
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtNPWPW" Columns="15" CssClass="smallInput" />
+                                        </div>
+                                    </div>
+                                   <div class="control-group">
+                                        <label for="<%=$this->cmbTanggalLahir->clientID%>" class="control-label">Status</label>
+                                        <div class="controls">
+                                            <com:TDropDownList ID="cmbStatusPajak" AutoPostBack="false" CssClass="smallInput">					
+                                                <com:TListItem Value="0" Text="Tidak Menikah" />
+                                                <com:TListItem Value="1" Text="Menikah" />                        
+                                            </com:TDropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="<%=$this->cmbTanggalLahir->clientID%>" class="control-label">Jumlah Tanggungan</label>
+                                        <div class="controls">
+                                            <com:TTextBox ID="txtJumlahTanggungan" Columns="3" MaxLength="3" Text="0" CssClass="smallInput" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </com:TWizardStep>		
+                    <com:TWizardStep Title="Summary" AllowReturn="false" StepType="Complete">		
+                        <div class="tab-content">
+                            <h4><strong>Informasi Sponsor</strong></h4>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <dl>
+                                        <com:TLiteral ID="sponsoriboindonesia" />
+                                    </dl>
+                                </div>
+                            </div>
+                            <h4><strong>Informasi Data Pemohon</strong></h4>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <dl>
+                                        <dt>
+                                            Nama Lengkap Pemohon (sesuai KTP / Passpor WNI) :
+                                        </dt>
+                                        <dd><%=$this->txtNamaPemohon->Text%></dd>
+                                        <dt>
+                                            Nomor KTP/Paspor yang Masih Berlaku :
+                                        </dt>
+                                        <dd><%=$this->txtNoIdentitas->Text%></dd>
+                                         <dt>
+                                            Jenis Kelamin :
+                                        </dt>
+                                        <dd><%=$this->cmbJK->Text==1?'Pria':'Wanita'%></dd>
+                                        <dt>
+                                            Tanggal Lahir :
+                                        </dt>
+                                        <dd><%=$this->TGL->tanggal ('l, j F Y',$this->TGL->tukarTanggal ($this->cmbTanggalLahir->Text))%></dd>
+                                        <dt>
+                                            Status :
+                                        </dt>
+                                        <dd><%=$this->cmbStatus->Text=='1'?'Menikah':'Tidak Menikah'%></dd>
+                                        <dt>
+                                            Nama Lengkap Pasangan (Sesuai KTP/Paspor) :
+                                        </dt>
+                                        <dd><%=$this->txtNamaPasangan->Text%>	</dd>
+                                        <dt>
+                                            Nomor KTP Pasangan :
+                                        </dt>
+                                        <dd><%=$this->txtNoKTPPasangan->Text%></dd>
+                                        <dt>
+                                            Alamat Surat Menyurat Lengkap) :
+                                        </dt>
+                                        <dd><%=$this->txtNoAlamatSuratMenyurat->Text%></dd>
+                                        <dt>
+                                            Kota :
+                                        </dt>
+                                        <dd><%=$this->txtKota->Text%></dd>
+                                        <dt>
+                                            Kode Pos :
+                                        </dt>
+                                        <dd><%=$this->txtKodePos->Text%></dd>
+                                        <dt>
+                                            Negara :
+                                        </dt>
+                                        <dd><%=$this->cmbCountry->Text%></dd>
+                                        <dt>
+                                            Telepon Rumah (kode area-nomor) :
+                                        </dt>
+                                        <dd><%=$this->txtTeleponRumah->Text%></dd>
+                                        <dt>
+                                            Alamat Email :
+                                        </dt>
+                                        <dd><%=$this->txtEmail->Text%></dd>                   
+                                        <dt>
+                                            Telepon Genggam :
+                                        </dt>
+                                        <dd><%=$this->txtHP->Text%></dd>                    
+                                        <dt>
+                                            Telepon Genggam / Pasangan :
+                                        </dt>
+                                        <dd></dd>
+                                        <dt>
+                                            Nama gadis Ibu Kandung :
+                                        </dt>
+                                        <dd><%=$this->txtNamaIbu->Text%></dd>
+                                        <dt>
+                                            Nama Ahli Waris :
+                                        </dt>
+                                        <dd><%=$this->txtNamaAhliWaris->Text%></dd>
+                                        <dt>
+                                            Hubungan Ahli Waris :
+                                        </dt>
+                                        <dd><%=$this->txtHubunganAhliWaris->Text%></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>                                                                        		
+                        <h4><strong>Informasi Rekening Bank</strong></h4>
+                        <p>
+                            Untuk tujuan pembayaran bonus IBO (jika ada), Bank yang direkomendasikan adalah Bank CIMB Niaga & BCA. Untuk Bank lain, dikenakan biaya Rp 10.000
+                        </p>
+                        <div class="row-fluid">                                                    
+                            <div class="span12">                                
+                                <dt>
+                                    No. Rekening :
+                                </dt>
+                                <dd><%=$this->txtNoRekening->Text%></dd>
+                                <dt>
+                                   Atas Nama Pemohon atau Pasangan sesuai dengan nama diatas :
+                                </dt>
+                                <dd><%=$this->txtAtasNama->Text%></dd>	
+                                <dt>
+                                    Nama Bank :
+                                </dt>
+                                <dd><%=$this->txtNamaBank->Text%></dd>	
+                                <dt>
+                                    Cabang / Unit :
+                                </dt>
+                                <dd><%=$this->txtCabang->Text%></dd>
+                                <dt>
+                                    Kota Lokasi Bank :
+                                </dt>    
+                                <dd><%=$this->txtLokasiBank->Text%></dd>
+                            </div>
+                        </div>						
+                        <h4><strong>Informasi Perpajakan</strong></h4>
+                        <div class="row-fluid">                            
+                            <div class="span12">
+                                <dt>
+                                    Nomor Pokok Wajib Pajak (NPWP) :
+                                </dt>
+                                <dd><%=$this->txtNPWPW->Text%></dd>
+                                <dt>
+                                    Status :
+                                </dt>
+                                <dd><%=$this->cmbStatusPajak->Text=='1'?'Menikah':'Tidak Menikah'%></dd>
+                                <dt>
+                                    Jumlah Tanggungan :
+                                </dt>
+                                <dd><%=$this->txtJumlahTanggungan->Text%></dd>
+                            </div>
+                        </div>							
+                        <div class="form-actions">
+                            <com:TActiveLinkButton ID="btnSave" Text="Save" CssClass="btn btn-primary" OnClick="saveData" ValidationGroup="addnewmember">                    
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();                                     
+                                    $('<%=$this->btnSave->ClientId%>').addClassName('disabled');
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>																	
+                                    $('<%=$this->btnSave->ClientId%>').disabled='';						
+                                    $('<%=$this->btnSave->ClientId%>').removeClassName('disabled');                                    					
+                                    $('loading').hide(); 
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveLinkButton>	
+                        </div>
+                    </com:TWizardStep>
+                </com:TWizard>
+            </div>
+        </div>
+    </div>
+	
+</com:TPanel>		
+</com:TContent>

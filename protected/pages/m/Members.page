@@ -1,0 +1,143 @@
+<%@ Title="CahayaOnline - View/Search Members" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-group"></i> Member
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Daftar seluruh member.
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">		    			
+	<div class="row-fluid">
+        <div class="span12">
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-search"></i> Advanced Filter & Search</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="row-fluid">
+                        <div class="span6">                                
+                            <div class="control-group">
+                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. IBO" />  
+                                <div class="controls">
+                                    <com:TTextBox ID="noiboFilter" CssClass="smallInput" Attributes.OnKeyUp="formatangka(this,true)" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="membernameFilter" CssClass="control-label" Text="Nama Member" />  
+                                <div class="controls">
+                                    <com:TTextBox Columns="30" ID="membernameFilter" CssClass="smallInput" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Status" />
+                                <div class="controls">
+                                    <com:TDropDownList ID="cmbStatusFilter" AutoPostBack="false" CssClass="smallInput">                    
+                                        <com:TListItem Value="1" Text="Active"/>
+                                        <com:TListItem Value="2" Text="Inactive"/>
+                                        <com:TListItem Value="3" Text="Closed"/>
+                                    </com:TDropDownList>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="emailFilter" CssClass="control-label" Text="Email" />
+                                <div class="controls">
+                                    <com:TTextBox Columns="40" ID="emailFilter" CssClass="smallInput" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-primary" OnClick="searchMember">
+                            <prop:Text><i class="icon-search"></i> Search</prop:Text>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';									
+                                $('<%=$this->btnSearch->ClientId%>').addClassName='disabled';
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.onComplete>
+                                $('<%=$this->btnSearch->ClientId%>').disabled='';																								                                                    
+                                $('<%=$this->btnSearch->ClientId%>').removeClassName='disabled';
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>                               
+                    </div>  
+                </div>
+            </div>
+        </div>      
+    </div>     
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-group"></i> Daftar Member</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                    </div>
+                </div>
+                <div class="box-content">
+                    <com:TActiveRepeater ID="RepeaterS" DataKeyField="member_id" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-advance">	
+                                <thead>                                
+                                <tr>												
+                                    <th width="100">IBO</th>
+                                    <th width="350">Member Name</th>																							
+                                    <th width="10">Downline</th>																																		
+                                    <th width="100">Omset Pribadi</th>
+                                    <th>Status</th>										
+                                    <th>Actions</th>
+                                </tr>	
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr class="table-flag-blue">				
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_name']%></td>															
+                                <td><%#$this->DataItem['downline']%></td>											
+                                <td><%#$this->DataItem['totalomset']%></td>
+                                <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
+                                <td>
+                                    <a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small"><i class="icon-zoom-in"></i></a>
+                                    <a href="<%#$this->Service->constructUrl('m.members.EditMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small" title="Ubah Member"><i class="icon-edit"></i></a>
+                                </td>
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr class="table-flag-orange">
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_name']%></td>				
+                                <td><%#$this->DataItem['downline']%></td>																								
+                                <td><%#$this->DataItem['totalomset']%></td>
+                                <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
+                                <td>
+                                    <a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small"><i class="icon-zoom-in"></i></a>
+                                    <a href="<%#$this->Service->constructUrl('m.members.EditMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small" title="Ubah Member"><i class="icon-edit"></i></a>
+                                </td>
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>
+                            <tr class="footer">
+                                <td colspan="7">&nbsp;</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                        </prop:FooterTemplate>	
+                        <prop:EmptyTemplate>
+                            <div class="grid_15">
+                                <p id="info" class="info">
+                                    <span class="info_inner">Tidak ada members</span>
+                                </p>
+                            </div>
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>
+                    <%include Application.CustomPaging%>            
+                </div>
+            </div>
+        </div>            
+    </div>
+</com:TPanel>		
+</com:TContent>

@@ -1,0 +1,50 @@
+<%@ Title="CahayaOnline - Admin Login" %>
+<com:TContent ID="content">
+    <h3>Login to your account</h3>
+    <hr />
+    <div id="panelUsername" class="control-group">
+        <div class="controls">
+            <com:TTextBox ID="txtUsername" Attributes.placeholder="Username" CssClass="input-block-level" />
+            <com:TRequiredFieldValidator ValidationGroup="userlogin" Display="Dynamic" ControlToValidate="txtUsername" FocusOnError="true" ErrorMessage="Isi Username" CssClass="help-inline">
+                <prop:ClientSide.OnValidationError>
+                    $('panelUsername').addClassName('error');
+                </prop:ClientSide.OnValidationError>
+                <prop:ClientSide.OnValidationSuccess>
+                    $('panelUsername').removeClassName('error');
+                </prop:ClientSide.OnValidationSuccess>
+            </com:TRequiredFieldValidator>
+        </div>
+    </div>
+    <div id="panelPassword" class="control-group">
+        <div class="controls">
+            <com:TTextBox ID="txtPassword" Attributes.placeholder="Password" CssClass="input-block-level" TextMode="Password" />             
+            <com:TRequiredFieldValidator ValidationGroup="userlogin" Display="Dynamic" ControlToValidate="txtPassword" FocusOnError="true" ErrorMessage="Isi Password" CssClass="help-inline">
+                <prop:ClientSide.OnValidationError>
+                    $('panelPassword').addClassName('error');
+                </prop:ClientSide.OnValidationError>
+                <prop:ClientSide.OnValidationSuccess>
+                    $('panelPassword').removeClassName('error');
+                </prop:ClientSide.OnValidationSuccess>
+            </com:TRequiredFieldValidator>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <com:TActiveButton ID="btnLogin" CssClass="btn btn-primary input-block-level" Text="Sign In" Width="300px" ValidationGroup="userlogin" Onclick="doLogin">                            
+                <prop:ClientSide.OnLoading>
+                    $('<%=$this->btnLogin->ClientId%>').disabled='disabled';									
+                    $('<%=$this->btnLogin->ClientId%>').addClassName='disabled';
+                </prop:ClientSide.OnLoading>
+                <prop:ClientSide.onComplete>
+                    $('<%=$this->btnLogin->ClientId%>').disabled='';																								                                                    
+                    $('<%=$this->btnLogin->ClientId%>').removeClassName='disabled';
+                </prop:ClientSide.OnComplete>
+            </com:TActiveButton>
+        </div>
+        <com:TActiveLabel ID="errormessage"/>      
+    </div>
+    <hr/>
+    <p class="clearfix">
+        <a href="#" class="goto-forgot pull-left">Forgot Password?</a>
+    </p>
+</com:TContent>

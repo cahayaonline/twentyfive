@@ -1,0 +1,211 @@
+<%@ Title="CahayaOnline - Deposit" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-money"></i> Konfirmasi Deposit
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Konfirmasi Deposit Member
+</com:TContent>
+<com:TContent ID="csscontent">
+<link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/data-tables/DT_bootstrap.css">
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">   
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-search"></i> Advanced Filter & Search</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                    </div>
+                </div>
+                <div class="box-content">                                        
+                    <div class="control-group">
+                        <label class="control-label">Bank Tujuan</label>
+                        <div class="controls">
+                            <com:TActiveDropDownList ID="cmbBankTujuan" OnCallBack="changeBankTujuan" CssClass="input-xlarge">
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();                                 
+                                    $('<%=$this->cmbBankTujuan->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('<%=$this->cmbBankTujuan->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>																	
+                                    $('<%=$this->cmbBankTujuan->ClientId%>').disabled='';						                                    
+                                    $('loading').hide(); 
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveDropDownList>
+                        </div>
+                    </div>                    
+                    <div class="control-group">
+                        <label class="control-label">Kriteria</label>
+                        <div class="controls">
+                            <com:TActiveDropDownList ID="cmbKriteria" CssClass="input-medium" OnCallBack="changeCmbKriteria">                    
+                                <com:TListItem Value="bulanan" Text="Periode Transfer"/>
+                                <com:TListItem Value="harian" Text="Tanggal Transfer"/>                                
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();                                 
+                                    $('<%=$this->cmbKriteria->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('<%=$this->cmbKriteria->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>																	
+                                    $('<%=$this->cmbKriteria->ClientId%>').disabled='';						                                    
+                                    $('loading').hide(); 
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveDropDownList>
+                        </div>
+                    </div>
+                    <com:TPanel CssClass="control-group" Visible="<%=$_SESSION['currentPageKonfirmasiDeposit']['cmbKriteria']=='harian'%>">
+                        <label class="control-label">Tanggal</label>
+                        <div class="controls">
+                            <com:TDatePicker ID="cmbHarian" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%=date('Y')%>" InputMode="DropDownList" />
+                        </div>
+                    </com:TPanel>                     
+                    <com:TPanel CssClass="control-group" Visible="<%=$_SESSION['currentPageKonfirmasiDeposit']['cmbKriteria']=='bulanan'%>">
+                        <label class="control-label">Bulan</label>
+                        <div class="controls">
+                            <com:TDatePicker ID="cmbBulanan" DateFormat="MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%=date('Y')%>" InputMode="DropDownList" ShowCalendar="false" />
+                        </div>
+                    </com:TPanel> 
+                    <div class="control-group" id="divJenisKonfirmasi">
+                        <label class="control-label">Jenis Konfirmasi</label>
+                        <div class="controls">
+                            <com:TDropDownList ID="cmbJenisKonfirmasi">
+                                <com:TListItem Value="none" Text=" --- Jenis Konfirmasi ---" />
+                                <com:TListItem Value="konfirmasideposit" Text="Konfirmasi Tambah Deposit" />
+                                <com:TListItem Value="konfirmasiorder" Text="Konfirmasi Order/Pembayaran" />
+                            </com:TDropDownList>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <com:TActiveLinkButton ID="btnSearch" CssClass="btn btn-primary" OnClick="filterTanggal">
+                            <prop:Text><i class="icon-search"></i> Search</prop:Text>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';									
+                                $('<%=$this->btnSearch->ClientId%>').addClassName='disabled';
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.onComplete>
+                                $('<%=$this->btnSearch->ClientId%>').disabled='';																								                                                    
+                                $('<%=$this->btnSearch->ClientId%>').removeClassName='disabled';
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>                               
+                    </div>  
+                </div>
+            </div>
+        </div>      
+    </div>     
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-money"></i> Daftar Konfirmasi Deposit <com:TActiveLabel ID="txtBoxTitle" /></h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="dataTables_wrapper form-inline">
+                        <div class="row-fluid">
+                            <div class="span7">
+                                <label>                                        
+                                    <com:TTextBox ID="txtKriteria" />
+                                    <com:TDropDownList ID="cmbKriteria2" AutoPostBack="false" CssClass="input-medium">
+                                        <com:TListItem Value="ibo" Text="No. IBO"/>
+                                        <com:TListItem Value="member_name" Text="Nama Member"/>
+                                        <com:TListItem Value="kode_transfer" Text="Kode Transfer"/>
+                                    </com:TDropDownList>                                            
+                                    <com:TActiveLinkButton ID="btnSearchMember" CssClass="btn btn-circle btn-primary btn-small" Text="<i class='icon-search'></i>" Attributes.Title="Cari" OnClick="searchRecord" ValidationGroup="filterForm">
+                                        <prop:ClientSide.OnPreDispatch>
+                                            $('loading').show();                                             
+                                            $('<%=$this->btnSearchMember->ClientId%>').disabled='disabled';
+                                        </prop:ClientSide.OnPreDispatch>
+                                        <prop:ClientSide.OnLoading>
+                                            $('<%=$this->btnSearchMember->ClientId%>').disabled='disabled';									                                
+                                        </prop:ClientSide.OnLoading>
+                                        <prop:ClientSide.onComplete>
+                                            $('<%=$this->btnSearchMember->ClientId%>').disabled='';																								                                                                                                    
+                                            $('loading').hide();
+                                        </prop:ClientSide.OnComplete>
+                                    </com:TActiveLinkButton>                                    
+                                    <com:TRequiredFieldValidator ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true">				
+                                        <prop:ClientSide.OnValidationError>
+                                            $('<%=$this->txtKriteria->ClientID%>').addClassName('error');
+                                        </prop:ClientSide.OnValidationError>
+                                        <prop:ClientSide.OnValidationSuccess>
+                                            $('<%=$this->txtKriteria->ClientID%>').removeClassName('error');
+                                        </prop:ClientSide.OnValidationSuccess>
+                                    </com:TRequiredFieldValidator>
+                                </label>          
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <com:TActiveRepeater ID="RepeaterS" DataKeyField="idkonfirmasideposit" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-advance">	
+                                <thead>
+                                <tr>												
+                                    <th scope="col" width="12">Kode <br />Transfer</th>
+                                    <th scope="col" width="150">Tanggal Transfer</th>
+                                    <th scope="col" width="100">IBO</th>
+                                    <th scope="col">Member Name</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Bank Tujuan</th>
+                                    <th scope="col">Cara <br />Pembayaran</th>
+                                    <th scope="col" width="100">Actions</th>
+                                </tr>	
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr class="table-flag-blue">				
+                                <td><%#$this->DataItem['idkonfirmasideposit']%></td>
+                                <td><%#$this->Page->TGL->tanggal('l d F Y',$this->DataItem['tanggaltransfer'])%></td>
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>                                
+                                <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															
+                                <td><%#$this->Page->finance->toRupiah ($this->DataItem['jumlahditransfer'])%></td>                        
+                                <td><%#$this->DataItem['nama_bank']%></td>
+                                <td><%#$this->Page->finance->getCaraPembayaran($this->DataItem['carapembayaran'])%></td>
+                                <td>
+                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small" />
+                                </td>
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr class="table-flag-orange">				
+                                <td><%#$this->DataItem['idkonfirmasideposit']%></td>
+                                <td><%#$this->Page->TGL->tanggal('l d F Y',$this->DataItem['tanggaltransfer'])%></td>
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>                                
+                                <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															
+                                <td><%#$this->Page->finance->toRupiah ($this->DataItem['jumlahditransfer'])%></td>                        
+                                <td><%#$this->DataItem['nama_bank']%></td>
+                                <td><%#$this->Page->finance->getCaraPembayaran($this->DataItem['carapembayaran'])%></td>
+                                <td>
+                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small" />
+                                </td>
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>
+                            <tr class="footer">
+                                <td colspan="8">&nbsp;</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                        </prop:FooterTemplate>	
+                        <prop:EmptyTemplate>                            
+                            <div class="alert alert-info">
+                                <button class="close" data-dismiss="alert">×</button>
+                                <p>Tidak ada transaksi</p>
+                            </div>
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>
+                    <%include Application.CustomPaging%>
+                </div>
+            </div>
+        </div>
+    </div>    
+</com:TPanel>
+</com:TContent>

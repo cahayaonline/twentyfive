@@ -1,0 +1,97 @@
+<%@ Title="Toko Cahaya Online, Sensasi Belanja Online Serasa di Supermarket" %>
+<com:TContent ID="contentTopShoppingCart">
+    <%include Application.pages.topcart%>    
+</com:TContent>
+<com:TContent ID="maincontent">
+<div class="container_12">
+    <div class="grid_12">
+        <div class="slidprev"><span>Prev</span></div>
+        <div class="slidnext"><span>Next</span></div>
+        <div id="slider">
+            <div class="slide">
+                <img src="<%=$this->Page->Theme->baseUrl%>/images/content/slide1.jpg" alt="" title="" />
+                <div class="slid_text">
+                    <h3 class="slid_title"><span>Breeze Theme</span></h3>
+                    <p><span>Breeze is the 14 stylish HTML templates,</span></p>
+                    <p><span>which will helps you boost sales</span></p>
+                    <p><span>and receive good feedback from your clients.</span></p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="<%=$this->Page->Theme->baseUrl%>/images/content/slide2.jpg" alt="" title="" />
+                <div class="slid_text">
+                    <h3 class="slid_title"><span>Flexibility</span></h3>
+                    <p><span>Every product, which you are selling,</span></p>
+                    <p><span>will look great with Breeze theme.</span></p>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="<%=$this->Page->Theme->baseUrl%>/images/content/slide3.jpg" alt="" title="" />
+                <div class="slid_text">
+                    <h3 class="slid_title"><span>Accuracy and Easiness</span></h3>
+                    <p><span>Breeze design is mere and accurate,</span></p>
+                    <p><span>so it will satisfy everybody.</span></p>
+                </div>
+            </div>            
+        </div><!-- .slider -->
+        <div class="clear"></div>
+        <div id="myController">
+            <div class="control"><span>1</span></div>
+            <div class="control"><span>2</span></div>
+            <div class="control"><span>3</span></div>
+        </div>
+    </div><!-- .grid12 -->
+</div><!-- .container 12 -->
+<div class="clear"></div>
+<section id="main" class="home">
+    <div class="container_12">
+        <div id="top_button">
+            <div class="grid_4">
+                <a href="#" class="button_block best_price">
+                    <img src="<%=$this->Page->Theme->baseUrl%>/images/banner1.png" alt="Banner 1"/>
+                </a><!-- .best_price -->
+            </div><!-- .grid_4 -->
+            <div class="grid_4">
+                <a href="#" class="button_block new_smells">
+                    <img src="<%=$this->Page->Theme->baseUrl%>/images/banner2.png" alt="Banner 2"/>
+                </a><!-- .new smells -->
+            </div><!-- .grid_4 -->
+            <div class="grid_4">
+                <a href="#" class="button_block only_natural">
+                    <img src="<%=$this->Page->Theme->baseUrl%>/images/banner3.png" alt="Banner 3"/>
+                </a><!-- .only_natural -->
+            </div><!-- .grid_4 -->
+            <div class="clear"></div>
+        </div><!-- .top_button -->
+        <div class="clear"></div>
+        <div class="carousel">
+            <div class="c_header">
+                <div class="grid_10">
+                    <h2>Best Sellers</h2>
+                </div><!-- .grid_10 -->
+                <div class="grid_2">
+                    <a id="next_c1" class="next arows" href="#"><span>Next</span></a>
+                    <a id="prev_c1" class="prev arows" href="#"><span>Prev</span></a>
+                </div><!-- .grid_2 -->
+            </div><!-- .c_header -->
+            <div class="list_carousel">
+                
+            </div><!-- .list_carousel -->
+        </div><!-- .carousel -->
+        <div class="carousel">
+            <div class="c_header">
+                <div class="grid_10">
+                    <h2>Featured Products</h2>
+                </div><!-- .grid_10 -->
+                <div class="grid_2">
+                    <a id="next_c1" class="next arows" href="#"><span>Next</span></a>
+                    <a id="prev_c1" class="prev arows" href="#"><span>Prev</span></a>
+                </div><!-- .grid_2 -->
+            </div><!-- .c_header -->
+            <div class="list_carousel">
+                
+            </div><!-- .list_carousel -->
+        </div><!-- .carousel -->
+    </div><!-- .container 12 -->
+</section><!-- .section -->
+</com:TContent>

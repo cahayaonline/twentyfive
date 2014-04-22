@@ -1,0 +1,116 @@
+<%@ Title="CahayaOnline - Omset" %>
+<com:TContent ID="tabscontent">
+	<%include Application.pages.m.members.membertabs%>
+</com:TContent>
+<com:TContent ID="titlecontent">
+    <h1 class="content_member">Omset Members</h1>
+</com:TContent>
+<com:TContent ID="maincontent">
+<div class="column" id="left">
+</div>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">		    			
+	<div class="portlet">
+        <div class="portlet-header"><strong>Search / Filter</strong></div>
+        <div class="portlet-content" style="display:none;">   
+            <div class="grid_6">
+                <label>
+                    No. IBO :
+                </label>
+                <com:TTextBox ID="noibo" CssClass="smallInput" />
+                 <label>
+                   Nama Member :
+                </label>
+                <com:TTextBox Columns="30" ID="membername" CssClass="smallInput" />                
+            </div> 
+             <div class="grid_8">
+                <label>
+                    Status :
+                </label>
+                <com:TDropDownList ID="cmbStatus" AutoPostBack="false" CssClass="smallInput">                    
+                    <com:TListItem Value="active" Text="Active"/>
+                    <com:TListItem Value="inactive" Text="Inactive"/>
+                    <com:TListItem Value="closed" Text="Closed"/>
+                </com:TDropDownList>
+                 <label>
+                    Email :
+                </label>
+                <com:TTextBox Columns="40" ID="email" CssClass="smallInput" />                 
+             </div>
+            <div class="clear"></div>
+            <div class="14">
+                <com:TActiveLinkButton ID="btnSearch" Text="<span>Search</span>" OnClick="searchClient" CssClass="button">
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();
+                            $('<%=$this->btnSearch->ClientId%>').removeClassName('button');
+                            $('<%=$this->btnSearch->ClientId%>').addClassName('button_grey');						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnSearch->ClientId%>').disabled='';						
+                            $('<%=$this->btnSearch->ClientId%>').removeClassName('button_grey');
+                            $('<%=$this->btnSearch->ClientId%>').addClassName('button');												
+                            $('loading').hide();
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+            </div>
+             <div class="clear"></div>
+        </div>
+    </div>   
+    <div class="portlet">
+        <div class="portlet-header"><img alt="Member Information" src="<%=$this->Theme->baseUrl%>/css/images/customer.png" /><strong>Daftar Member</strong></div>
+        <div class="portlet-content nopadding">   
+            <com:TActiveRepeater ID="RepeaterS" DataKeyField="member_id" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                <prop:HeaderTemplate>			
+                    <table id="box-table-a" border="0" width="100%" cellspacing="0" cellpadding="0">	
+                        <tbody>
+                        <tr>												
+                            <th scope="col" width="100">IBO</th>
+                            <th scope="col" width="350">Member Name</th>																							
+                            <th scope="col" width="100">Omset Pribadi</th>																																		
+                            <th scope="col" width="100">Omset Kanan</th>
+                            <th scope="col" width="100">Omset Kiri</th>										
+                            <th scope="col">Actions</th>
+                        </tr>								
+                </prop:HeaderTemplate>
+                <prop:ItemTemplate>
+                    <tr>				
+                        <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                        <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															                        
+                        <td><%#$this->DataItem['totalomset']%></td>
+                        <td><%#$this->DataItem['omsetkanan']%></td>											
+                        <td><%#$this->DataItem['omsetkiri']%></td>											
+                        <td></td>
+                    </tr>
+                </prop:ItemTemplate>				
+                <prop:AlternatingItemTemplate>
+                    <tr>				
+                        <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                        <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															                        
+                        <td><%#$this->DataItem['totalomset']%></td>
+                        <td><%#$this->DataItem['omsetkanan']%></td>											
+                        <td><%#$this->DataItem['omsetkiri']%></td>											
+                        <td></td>
+                    </tr>
+                </prop:AlternatingItemTemplate>
+                <prop:FooterTemplate>
+                    <tr class="footer">
+                        <td colspan="7">&nbsp;</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </prop:FooterTemplate>	
+                <prop:EmptyTemplate>
+                    <div class="grid_15">
+                        <p id="info" class="info">
+                            <span class="info_inner">Tidak ada members</span>
+                        </p>
+                    </div>
+                </prop:EmptyTemplate>
+            </com:TActiveRepeater>
+            <%include Application.Paging%>            
+            </div>
+        </div>
+</com:TPanel>		
+</com:TContent>

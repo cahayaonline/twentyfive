@@ -1,0 +1,406 @@
+<%@ Title="CahayaOnline - Members Profile" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-group"></i> Members Profile 
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Ringkasan informasi member [#<%=$this->dataMember['member_id']%> - <%=$this->dataMember['member_name']%>]
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getViewProcess(false) %>">            
+    <div class="row-fluid">
+        <div class="span12">    
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-calendar"></i> Periode</h3>
+                    <div class="box-tool">                        
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="#" data-action="close"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <com:TDatePicker ID="cmbPeriodAwal" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2013" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" />
+                    s.d <com:TDatePicker ID="cmbPeriodAkhir" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" />                                    
+                    <com:TActiveCheckBox ID="chkWithDate" AutoPostBack="false" /> Calculate based Date
+                    <com:TActiveButton ID="btnCalculate" Text="Calculate" OnClick="calculate" CssClass="btn btn-primary">
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                              						
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnCalculate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnCalculate->ClientId%>').disabled='';						                                
+                            $('loading').hide();
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveButton>                                                    
+                    <com:TActiveLinkButton ID="btnRefresh" CssClass="btn btn-lime" Attributes.Title="Refresh" Text="<i class='icon-repeat'></i>" OnClick="refresh">
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show(); 
+                            $('<%=$this->btnRefresh->ClientId%>').removeClassName('button_add');
+                            $('<%=$this->btnRefresh->ClientId%>').addClassName('button_grey');
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnRefresh->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.onComplete>	
+                            $('<%=$this->btnRefresh->ClientId%>').disabled='';						
+                            $('<%=$this->btnRefresh->ClientId%>').removeClassName('button_grey');
+                            $('<%=$this->btnRefresh->ClientId%>').addClassName('button_add');	
+                            $('loading').hide();
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6">    
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-group"></i> Informasi Member</h3>
+                    <div class="box-tool">
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-warning">Aksi</a>
+                            <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-warning">                                                                
+                                <li><a href="<%=$this->Service->constructUrl('m.members.EditMember',array('id'=>$this->dataMember['member_id']))%>"><i class="icon-edit"></i>Ubah Member</a></li>                                
+                            </ul>
+                        </div>
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="#" data-action="close"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <dl>
+                        <dt>Nama Member :</dt>
+                        <dd><%=$this->dataMember['member_name']%></dd>
+                        <dt>Alamat : </dt>
+                        <dd><%=$this->dataMember['address']%></dd>
+                        <dt>City :</td>
+                        <dd><%=$this->dataMember['city']%></dd>
+                        <dt>Email :</dt>
+                        <dd><%=$this->dataMember['email']%></dd>
+                        <dt>Mobile Phone</dt>
+                        <dd><%=$this->dataMember['mobile_phone']%></dd>
+                        <dt>Disponsori Oleh :</dt>
+                        <dd><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->dataMember['sponsor_id']))%>"><%=$this->dataMember['sponsor_name']%></a></dd>
+                        <dt>Posisi :</dt>
+                        <dd><%=$this->dataMember['position']%></dd>
+                        <dt>Tanggal Bergabung :</dt>
+                        <dd><%=$this->TGL->tanggal('d F Y',$this->dataMember['date_reg'])%></dd>
+                    </dl>                    
+                </div>
+            </div>
+        </div>
+        <div class="span6">    
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-group"></i> Informasi Downline</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="#" data-action="close"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <dl>
+                        <dt>Jumlah di Sisi Kanan :</dt>
+                        <dd><%=$this->dataMember['right']%></dd>
+                        <dt>Jumlah di Sisi Kiri :</dt>
+                        <dd><%=$this->dataMember['left']%></dd>
+                        <dt>Total Downline :</dt>
+                        <dd><%=$this->dataMember['left']+$this->dataMember['right']%></dd>
+                        <dt>Jumlah Sponsoring : </dt>                    
+                        <dd><%=$this->member->getCountSponsoring ()%></dd>
+                        <dt>ID Downline Terakhir [kanan] :</td>
+                        <dd><%=$this->dataMember['latest_right']%></dd>                    
+                        <dt>ID Downline Terakhir [kiri] :</td>
+                        <dd><%=$this->dataMember['latest_left']%></dd>                    
+                    </dl>
+                    <br /><br /><br /><br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">                
+        <div class="span6">    
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-group"></i> Informasi Omset</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="#" data-action="close"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <dl>                        
+                        <dt>Omset Pribadi :</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['totalomset'])%>" /></dd>                        
+                        <dt>Omset Pribadi Group Kanan :</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['omsetpribadigroupright'])%>" /></dd>                
+                        <dt>Total Omset Group Kanan :</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['totalomsetgroupright'])%>" /></dd>                        
+                        <dt>Omset Pribadi Group Kiri :</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['omsetpribadigroupleft'])%>" /></dd>                        
+                        <dt>Total Omset Group Kiri :</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['totalomsetgroupleft'])%>" /></dd>                                                
+                    </dl>                        
+                </div>
+            </div>
+        </div>
+        <div class="span6">    
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-group"></i> Informasi Bonus</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="#" data-action="close"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <dl>                        
+                        <dt>Bonus Pribadi</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['bonuspribadi'])%>" /></dd>                        
+                        <dt>Bonus Group</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['bonusgroup'])%>" /></dd>                        
+                        <dt>Total Bonus</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['totalbonus'])%>" /></dd>                        
+                        <dt>Total Bonus Deposit</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['totalbonusdeposit'])%>" /></dd>                        
+                        <dt>Total Bonus Cash</dt>
+                        <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageSummaryMember']['datamember']['totalbonuscash'])%>" /></dd>
+                    </dl>                        
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">    
+        <div class="span12">
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-search"></i> Advanced Filter & Search</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="row-fluid">
+                        <div class="span6">    
+                            <div class="control-group">
+                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. IBO" />                                        
+                                <div class="controls">
+                                    <com:TTextBox ID="noiboFilter" CssClass="input-large" Attributes.OnKeyUp="formatangka(this,true)" />                                        
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Status" />                                        
+                                <div class="controls">
+                                    <com:TDropDownList ID="cmbStatusFilter" AutoPostBack="false" CssClass="span3">                    
+                                        <com:TListItem Value="1" Text="Active"/>
+                                        <com:TListItem Value="2" Text="Inactive"/>
+                                        <com:TListItem Value="3" Text="Closed"/>
+                                    </com:TDropDownList>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Posisi" />                                        
+                                <div class="controls">
+                                    <com:TDropDownList ID="cmbPosisiFilter" AutoPostBack="false" CssClass="span3">                    
+                                        <com:TListItem Value="1" Text="Kiri"/>
+                                        <com:TListItem Value="2" Text="Kanan"/>                    
+                                    </com:TDropDownList>                                  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 ">    
+                            <div class="control-group">
+                                <com:TLabel ForControl="membernameFilter" CssClass="control-label" Text="Nama Member" />                                        
+                                <div class="controls">
+                                    <com:TTextBox ID="membernameFilter" CssClass="input-xlarge" />                
+                                </div>
+                            </div>                            
+                            <div class="control-group">
+                                <com:TLabel ForControl="emailFilter" CssClass="control-label" Text="Email" />                                        
+                                <div class="controls">
+                                    <com:TTextBox ID="emailFilter" CssClass="input-large" />                 
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="form-actions">
+                        <com:TActiveLinkButton ID="btnSearch" Text="<i class='icon-search'></i> Search" OnClick="searchClient" CssClass="btn btn-primary">
+                            <prop:ClientSide.OnPreDispatch>                                                                
+                                $('<%=$this->btnSearch->ClientId%>').addClassName('disabled');						
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('<%=$this->btnSearch->ClientId%>').disabled='';						
+                                $('<%=$this->btnSearch->ClientId%>').removeClassName('disabled');                                												                                
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
+                    </div>
+                </div>
+            </div>
+       </div>   
+    </div>
+    <div class="row-fluid">    
+        <div class="span12">    
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-group"></i> Daftar Member di Posisi Kanan</h3>
+                    <div class="box-tool">                        
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="#" data-action="close"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <com:TActiveRepeater ID="RepeaterRight" DataKeyField="member_id" AllowPaging="true" PageSize="5" AllowCustomPaging="true">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-advance">	
+                                <thead>
+                                <tr>												
+                                    <th scope="col" width="100">IBO</th>
+                                    <th scope="col" width="350">Member Name</th>																							
+                                    <th scope="col" width="10">Downline</th>																																		
+                                    <th scope="col" width="100">Omset Pribadi</th>
+                                    <th scope="col">Status</th>										
+                                    <th scope="col">Actions</th>
+                                </tr>								
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr class="table-flag-blue">				
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_name']%></td>				
+                                <td><%#$this->DataItem['downline']%></td>											
+                                <td><%#$this->DataItem['totalomset']%></td>
+                                <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
+                                <td>
+                                    <a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small"><i class="icon-zoom-in"></i></a>
+                                    <a href="<%#$this->Service->constructUrl('m.members.EditMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small" title="Ubah Member"><i class="icon-edit"></i></a>
+                                </td>
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr class="table-flag-orange">
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_name']%></td>				
+                                <td><%#$this->DataItem['downline']%></td>																								
+                                <td><%#$this->DataItem['totalomset']%></td>
+                                <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
+                                <td>
+                                    <a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small"><i class="icon-zoom-in"></i></a>
+                                    <a href="<%#$this->Service->constructUrl('m.members.EditMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small" title="Ubah Member"><i class="icon-edit"></i></a>
+                                </td>
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>                            
+                            </tbody>
+                            </table>
+                        </prop:FooterTemplate>		
+                        <prop:EmptyTemplate>                            
+                            <div class="alert alert-info">
+                                <strong>Info !</strong>Tidak memiliki Downline.</span>
+                            </div>
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>                    
+                    <com:TActiveCustomPager ID="pagerright" OnCallBack="Page.renderCallbackRight" ControlToPaginate="RepeaterRight" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedRight" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="5" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loadingpagerright').show();
+                        </prop:ClientSide.OnPreDispatch>					
+                        <prop:ClientSide.onComplete>						
+                            $('loadingpagerright').hide();
+                        </prop:ClientSide.OnComplete>					
+                    </com:TActiveCustomPager>
+                    <span ID="loadingpagerright" style="display:none;"> loading...</span>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">    
+        <div class="span12">    
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-group"></i> Daftar Member di Posisi Kiri</h3>
+                    <div class="box-tool">                        
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="#" data-action="close"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <com:TActiveRepeater ID="RepeaterLeft" DataKeyField="member_id" AllowPaging="true" PageSize="5" AllowCustomPaging="true">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-advance">	
+                                <thead>
+                                <tr>												
+                                    <th scope="col" width="100">IBO</th>
+                                    <th scope="col" width="350">Member Name</th>																							
+                                    <th scope="col" width="10">Downline</th>																																		
+                                    <th scope="col" width="100">Omset Pribadi</th>
+                                    <th scope="col">Status</th>										
+                                    <th scope="col">Actions</th>
+                                </tr>								
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr class="table-flag-blue">				
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_name']%></td>															
+                                <td><%#$this->DataItem['downline']%></td>											
+                                <td><%#$this->DataItem['totalomset']%></td>
+                                <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
+                                <td>
+                                    <a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small"><i class="icon-zoom-in"></i></a>
+                                    <a href="<%#$this->Service->constructUrl('m.members.EditMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small" title="Ubah Member"><i class="icon-edit"></i></a>
+                                </td>
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr class="table-flag-orange">
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_name']%></td>				
+                                <td><%#$this->DataItem['downline']%></td>																								
+                                <td><%#$this->DataItem['totalomset']%></td>
+                                <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
+                                <td>
+                                    <a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small"><i class="icon-zoom-in"></i></a>
+                                    <a href="<%#$this->Service->constructUrl('m.members.EditMember',array('id'=>$this->DataItem['member_id']))%>" class="btn btn-small" title="Ubah Member"><i class="icon-edit"></i></a>
+                                </td>
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>                            
+                            </tbody>
+                            </table>
+                        </prop:FooterTemplate>		
+                        <prop:EmptyTemplate>
+                            <div class="alert alert-info">
+                                <strong>Info !</strong>Tidak memiliki Downline.</span>
+                            </div>
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>
+                    <div class="pagination">
+                        <com:TActiveCustomPager ID="pagerleft" OnCallBack="Page.renderCallbackLeft" ControlToPaginate="RepeaterLeft" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedLeft" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="5" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loadingpagerleft').show();
+                            </prop:ClientSide.OnPreDispatch>					
+                            <prop:ClientSide.onComplete>						
+                                $('loadingpagerleft').hide();
+                            </prop:ClientSide.OnComplete>					
+                        </com:TActiveCustomPager>
+                        <span ID="loadingpagerleft" style="display:none;"> loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">    
+<p id="errorinformasi" class="informasi">
+    <span class="informasi_inner">Unknown Member ID</span>
+</p>
+</com:TPanel>
+<div class="clear"></div>
+</com:TContent>

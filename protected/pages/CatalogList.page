@@ -1,0 +1,155 @@
+<%@ Title="Toko Cahaya Online, Sensasi Belanja Online Serasa di Supermarket" %>
+<com:TContent ID="contentTopShoppingCart">
+    <%include Application.pages.topcart%>    
+</com:TContent>
+<com:TContent ID="maincontent">
+<section id="main">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="container_12">         
+    <div id="content" class="grid_9">
+        <h1 class="page_title"><%=$_SESSION['currentPageCatalogList']['categoryData']['name']%></h1>
+        <div class="options">
+            <div class="grid-list">
+                <com:TActiveLinkButton ID="btnModeGrid" Text="<span>img</span>" OnClick="changeMode" CssClass="grid" />                 
+                <a class="list curent" href="<com:TOutputCache><%=$this->Service->constructUrl('CatalogList',array('parent_id'=>$_SESSION['currentPageCatalogList']['categoryData']['parent_id'],'id'=>$_SESSION['currentPageCatalogList']['categoryData']['category_id']))%></com:TOutputCache>"><span>img</span></a>                 
+            </div><!-- .grid-list -->
+            <div class="show">
+                <span>Show</span>
+                <com:TActiveDropDownList ID="cmbShowPerPage" />
+                <span class="per-page">per page</span>
+            </div><!-- .show -->
+            <div class="sort">
+                <span class="sort-by">Sort By</span>
+                <com:TActiveDropDownList ID="cmbSort">
+                    <com:TListItem Value="position" Text="Position" />
+                    <com:TListItem Value="price" Text="Price" />
+                    <com:TListItem Value="rating" Text="Rating" />
+                    <com:TListItem Value="name" Text="Name" />
+                </com:TActiveDropDownList>
+                <a class="sort_up" href="#">&#8593;</a>
+            </div><!-- .sort -->
+        </div><!-- end options -->
+        <div class="listing_product">            
+                <com:TActiveRepeater ID="RepeaterProduct" DataKeyField="product_id" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                    <prop:ItemTemplate>			
+                        <div class="product_li">
+                            <div class="grid_3">
+                                <img class="sale" src="<%=$this->Page->Theme->baseUrl%>/images/new.png" alt="New"/>
+                                <div class="prev">
+                                    <a href="<%#$this->Service->constructUrl('Product',array('id'=>$this->DataItem['product_id']))%>"><img src="<%#$this->DataItem['image']%>" alt="" title="" /></a>
+                                </div><!-- .prev -->
+                            </div><!-- .grid_3 -->
+                            <div class="grid_4">
+                                <div class="entry_content">
+                                    <a href="<%#$this->Service->constructUrl('Product',array('id'=>$this->DataItem['product_id']))%>"><h3 class="title"><%#$this->DataItem['product_name']%> <%#$this->DataItem['model']%></h3></a>
+                                    <div class="review">
+                                        <a class="plus" href="#"></a>
+                                        <a class="plus" href="#"></a>
+                                        <a class="plus" href="#"></a>
+                                        <a href="#"></a>
+                                        <a href="#"></a>
+                                        <span>1 REVIEW(S)</span>
+                                    </div>
+                                    <p><%#$this->DataItem['description']%></p>
+                                    <a class="more" href="<%#$this->Service->constructUrl('Product',array('id'=>$this->DataItem['product_id']))%>">Learn More</a>
+                                </div><!-- .entry_content -->
+                            </div><!-- .grid_4 -->
+                            <div class="grid_2">
+                                <div class="cart">
+                                    <div class="price">
+                                        <div class="price_new"><%#$this->Page->finance->toRupiah($this->DataItem['price'],false)%></div>
+                                        <!--<div class="price_old">$725.00</div>-->
+                                    </div>                                    
+                                    <com:TActiveLinkButton CssClass="bay" Text="Add to Cart" OnClick="Page.addToCart" />
+                                    <a href="#" class="obn"></a>
+                                    <a href="#" class="like"></a>
+                                </div><!-- .cart -->
+                            </div><!-- .grid_2 -->
+                            <div class="clear"></div>
+                        </div>
+                    </prop:ItemTemplate>                    
+                </com:TActiveRepeater>                                        
+            <div class="clear"></div>
+        </div><!-- .listing_product -->
+        <div class="clear"></div>
+        <%include Application.StorePaging%>
+    </div><!-- end content -->
+    <div id="sidebar" class="grid_3">
+        <com:TRepeater ID="RepeaterSubCategory" EnableViewState="false">
+            <prop:HeaderTemplate>	
+                <aside id="categories_nav">
+                    <h3>Categories</h3>
+                        <nav class="left_menu">
+                            <ul>
+            </prop:HeaderTemplate>	                
+            <prop:ItemTemplate>	
+                                <li><a href="<%#$this->Service->constructUrl('CatalogList',array('parent_id'=>$this->DataItem['parent_id'],'id'=>$this->DataItem['category_id']))%>"><%#$this->DataItem['name']%></span></a></li>
+            </prop:ItemTemplate>	
+            <prop:AlternatingItemTemplate>	
+                                <li><a href="<%#$this->Service->constructUrl('CatalogList',array('parent_id'=>$this->DataItem['parent_id'],'id'=>$this->DataItem['category_id']))%>"><%#$this->DataItem['name']%></span></a></li>
+            </prop:AlternatingItemTemplate>	
+            <prop:FooterTemplate>	
+                            </ul>
+                        </nav><!-- .left_menu -->
+                </aside><!-- end categories_nav -->
+            </prop:FooterTemplate>
+        </com:TRepeater>        
+        <aside id="shop_by">
+            <h3>Shop By</h3>
+            <div class="currently_shopping">
+                <p>Currently Shopping by:</p>
+                <ul>
+                    <li><a title="close" class="close" href="#"></a>Price: <span>$0.00 - $999.99</span></li>
+                    <li><a title="close" class="close" href="#"></a>Manufacturer: <span>Apple</span></li>
+                </ul>			    
+			    <a class="clear_all" href="#">Clear All</a>			    
+			    <div class="clear"></div>
+            </div><!-- .currently_shopping -->
+            <h4>Category</h4>
+            <div class="check_opt">
+                <p><input class="niceCheck" type="checkbox" >For Home (23)</p>
+			    <p><input class="niceCheck" type="checkbox" name="" value="">For Car (27)</p>
+			    <p><input class="niceCheck" type="checkbox" name="" value="">For Office (9)</p>
+            </div>
+            <h4>Price</h4>
+            <div class="check_opt">
+                <p><input class="niceCheck" type="checkbox" name="" value="">0.00 - $49.99 (21)</p>
+			    <p><input class="niceCheck" type="checkbox" name="" value="">$50.00 - $99.99 (7)</p>
+			    <p><input class="niceCheck" type="checkbox" name="" value="">0$100.00 and above (15)</p>
+            </div>
+        </aside><!-- #shop_by -->   
+        <aside id="specials" class="specials">
+            <h3>Specials</h3>
+            <ul>
+                <li>
+                    <div class="prev">
+                        <a href="/product_page.html"><img src="<%=$this->Theme->baseUrl%>/images/special1.png" alt="" title="" /></a>
+				   </div>				   
+				   <div class="cont">
+                        <a href="/product_page.html">Honeysuckle Flameless Luminary Refill</a>
+                        <div class="prise"><span class="old">$177.00</span>$75.00</div>
+				   </div>   
+			    </li>			    
+			    <li>
+                    <div class="prev">
+                        <a href="<%#$this->Service->constructUrl('Product',array('id'=>$this->DataItem['product_id']))%>"><img src="<%=$this->Theme->baseUrl%>/images/special2.png" alt="" title="" /></a>
+                    </div>
+                    <div class="cont">
+                        <a href="/product_page.html">Honeysuckle Flameless Luminary Refill</a>
+                        <div class="prise"><span class="old">$177.00</span>$75.00</div>
+                    </div>   
+                </li>
+		     </ul>
+         </aside><!-- #specials -->
+         <aside id="newsletter_signup">
+            <h3>Newsletter Signup</h3>
+            <p>Phasellus vel ultricies felis. Duis 
+		     rhoncus risus eu urna pretium.</p>              
+		     <div class="newsletter">
+                <com:TTextBox ID="newsletter" CssClass="your_email" Attributes.placeholder="Enter your email address..."/>
+			    <com:TActiveButton ID="submit" Text="Subscribe" />
+		     </div>
+	      </aside><!-- #newsletter_signup -->
+    </div><!-- end sidebar -->
+</com:TPanel>
+</section><!-- end section main -->
+</com:TContent>

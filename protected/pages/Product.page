@@ -1,0 +1,367 @@
+<%@ Title="Toko Cahaya Online, Sensasi Belanja Online Serasa di Supermarket" %>
+<com:TContent ID="csscontent">
+    <link rel="stylesheet" href="<com:TOutputCache><%=$this->Page->Theme->baseUrl%></com:TOutputCache>/css/jquery.jqzoom.css" type="text/css">
+</com:TContent>
+<com:TContent ID="contentTopShoppingCart">
+    <%include Application.pages.topcart%>    
+</com:TContent>
+<com:TContent ID="maincontent">
+<section id="main">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="container_12">         
+    <div id="content" class="grid_9">
+        <h1 class="page_title"><%=$_SESSION['currentPageProductDetails']['dataProduct']['product_name']%> <%=$_SESSION['currentPageProductDetails']['dataProduct']['model']%></h1>
+        <div class="product_page">            
+            <com:TLiteral ID="ImageProductDetails" />
+            <div class="grid_4 img_slid" id="products">                                
+                <div class="preview slides_container">
+					<div class="prev_bg">
+						<a class="jqzoom" rel="gal1" href="<%=$_SESSION['currentPageProductDetails']['dataProduct']['firstImageShow']%>">
+							<img src="<%=$_SESSION['currentPageProductDetails']['dataProduct']['firstImageShow']%>"  style="width: 100%" title="" alt=""/>
+						</a>
+					</div>
+				</div><!-- .prev -->                
+                <com:TRepeater ID="RepeaterImageProductDetails" EnableViewState="false">
+                    <prop:HeaderTemplate>
+                        <ul class="pagination clearfix" id="thumblist">
+                    </prop:HeaderTemplate>
+                    <prop:ItemTemplate>
+                        <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<%#$this->DataItem['image']%>',largeimage: '<%#$this->DataItem['image']%>'}"><img src='<%#$this->DataItem['image']%>' alt=""></a></li>
+                    </prop:ItemTemplate>
+                    <prop:FooterTemplate>
+                        </ul>  
+                        <div class="next_prev">
+                            <a id="img_prev" class="arows" href="#"><span>Prev</span></a>
+                            <a id="img_next" class="arows" href="#"><span>Next</span></a>
+                        </div><!-- . -->
+                    </prop:FooterTemplate>
+                    <prop:EmptyTemplate>
+                         <ul class="pagination clearfix" id="thumblist">
+                            <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '<%=$_SESSION['currentPageProductDetails']['dataProduct']['firstImageShow']%>',largeimage: '<%=$_SESSION['currentPageProductDetails']['dataProduct']['firstImageShow']%>'}"><img src='<%=$_SESSION['currentPageProductDetails']['dataProduct']['firstImageShow']%>' alt=""></a></li>                            
+                        </ul>                                        
+                    </prop:EmptyTemplate>
+                </com:TRepeater>
+            </div><!-- .grid_4 -->
+            <div class="grid_5">
+                <div class="entry_content">
+                    <div class="review">
+						<a class="plus" href="#"></a>
+						<a class="plus" href="#"></a>
+						<a class="plus" href="#"></a>
+						<a href="#"></a>
+						<a href="#"></a>
+						<span>1 REVIEW(S)</span>
+						<a class="add_review" href="#">ADD YOUR REVIEW</a>
+					</div>
+                    <p><%=$_SESSION['currentPageProductDetails']['dataProduct']['description']%></p>
+                    <div class="ava_price">
+						<div class="availability_sku">
+							<div class="availability">
+								Availability: <span>In stock</span>
+							</div>
+							<div class="sku">
+								SKU: <span>Candles OV</span>
+							</div>
+						</div><!-- .availability_sku -->
+						<div class="price">
+							<div class="price_new"><%=$this->finance->toRupiah($_SESSION['currentPageProductDetails']['dataProduct']['price'],false)%></div>							
+						</div><!-- .price -->
+					</div><!-- .ava_price -->
+                    <div class="block_cart">
+						<div class="obn_like">
+							<div class="obn"><a href="#" class="obn">Add to Compare</a></div>
+							<div class="like"><a href="#" class="like">Add to Wishlist</a></div>
+						</div>
+						<div class="cart">							
+                            <com:TActiveLinkButton CssClass="bay" Text="Add to Cart" OnClick="addToCart" />
+                            <com:TTextBox ID="txtNumber" CssClass="number" Text="1" Attributes.OnKeyUp="formatangka(this)" />
+							<span>Quantity:</span>
+						</div>
+						<div class="clear"></div>
+					</div><!-- .block_cart -->
+                    <div class="soc">
+						<img src="<%=$this->theme->baseUrl%>/images/soc.png" alt="Soc"/>
+					</div><!-- .soc -->
+                </div><!-- .entry_content -->
+            </div><!-- .grid_5 -->
+            <div class="clear"></div>
+            <div class="grid_9">
+                <div id="wrapper_tab" class="tab1">
+                    <a href="#" class="tab1 tab_link">Description</a>
+					<a href="#" class="tab2 tab_link">Reviews</a>					
+                    <div class="clear"></div>
+                    <div class="tab1 tab_body">
+                        <%=$_SESSION['currentPageProductDetails']['dataProduct']['description_details']%>
+                        <div class="clear"></div>
+                    </div><!-- .tab1 .tab_body -->
+                    <div class="tab2 tab_body">
+                        <h4>Customer reviews</h4>
+                        <com:TActiveRepeater ID="RepeaterReview">
+                            <prop:HeaderTemplate>
+                                <ul class="comments">
+                            </prop:HeaderTemplate>  
+                            <prop:ItemTemplate>
+                                <li>
+                                    <div class="autor">Mike Example</div>, <time datetime="2012-11-03">03.11.2012</time>
+                                    <div class="evaluation">
+                                        <div class="quality">
+                                            <strong>Quality</strong>
+                                            <a class="plus" href="#"></a>
+                                            <a class="plus" href="#"></a>
+                                            <a class="plus" href="#"></a>
+                                            <a href="#"></a>
+                                            <a href="#"></a>
+                                        </div>
+                                        <div class="price">
+                                            <strong>Price</strong>
+                                            <a class="plus" href="#"></a>
+                                            <a class="plus" href="#"></a>
+                                            <a class="plus" href="#"></a>
+                                            <a class="plus_minus" href="#"></a>
+                                            <a href="#"></a>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div><!-- .evaluation -->
+                                    <p>Suspendisse at placerat turpis. Duis luctus erat vel magna pharetra aliquet. Maecenas tincidunt feugiat ultricies. Phasellus et dui risus. Vestibulum adipiscing, eros quis lobortis dictum.</p>
+                                </li>
+                            </prop:ItemTemplate>
+                            <prop:FooterTemplate>
+                               </ul><!-- .comments -->
+                            </prop:FooterTemplate>
+                        </com:TActiveRepeater>                       
+                        <div class="add_comments">
+							<h4>Write Your Own Review</h4>
+							<div class="evaluation">
+								<div class="quality">
+									<strong>Quality</strong><sup class="surely">*</sup>
+                                    <com:TRadioButton ID="radioQuality1" GroupName="quality" CssClass="niceRadio" /><span class="eva_num">1</span>
+									<com:TRadioButton ID="radioQuality2" GroupName="quality" CssClass="niceRadio" /><span class="eva_num">2</span>
+                                    <com:TRadioButton ID="radioQuality3" GroupName="quality" CssClass="niceRadio" /><span class="eva_num">3</span>
+                                    <com:TRadioButton ID="radioQuality4" GroupName="quality" CssClass="niceRadio" /><span class="eva_num">4</span>
+                                    <com:TRadioButton ID="radioQuality5" GroupName="quality" CssClass="niceRadio" /><span class="eva_num">5</span>
+								</div>
+								<div class="price">
+									<strong>Price</strong><sup class="surely">*</sup>
+                                    <com:TRadioButton ID="radioPrice1" GroupName="price" CssClass="niceRadio" /><span class="eva_num">1</span>
+									<com:TRadioButton ID="radioPrice2" GroupName="price" CssClass="niceRadio" /><span class="eva_num">2</span>
+                                    <com:TRadioButton ID="radioPrice3" GroupName="price" CssClass="niceRadio" /><span class="eva_num">3</span>
+                                    <com:TRadioButton ID="radioPrice4" GroupName="price" CssClass="niceRadio" /><span class="eva_num">4</span>
+                                    <com:TRadioButton ID="radioPrice5" GroupName="price" CssClass="niceRadio" /><span class="eva_num">5</span>									
+								</div>
+								<div class="clear"></div>
+							</div><!-- .evaluation -->
+							<div class="nickname">
+								<strong>Nickname</strong><sup class="surely">*</sup><br/>								
+                                <com:TTextBox ID="txtNickName" />
+							</div><!-- .nickname -->
+							<div class="your_review">
+								<strong>Summary of Your Review</strong><sup class="surely">*</sup><br/>
+								<com:TTextBox ID="txtSummaryReview" />
+							</div><!-- .your_review -->
+							<div class="clear"></div>
+							<div class="text_review">
+								<strong>Review</strong><sup class="surely">*</sup><br/>
+								<com:TTextBox ID="txtReview" TextMode="MultiLine" />
+								<i>Note: HTML is not translated!</i>
+							</div><!-- .text_review -->
+							<com:TActiveButton ID="btnSaveReview" Text="Submit Review" OnClick="saveDataReview">
+                            </com:TActiveButton>
+						</div><!-- .add_comments -->
+                        <div class="clear"></div>
+                    </div><!-- .tab2 .tab_body -->                                        
+                </div><!-- #wrapper_tab -->
+                <div class="clear"></div>
+            </div><!-- .grid_9 -->            
+            <div class="clear"></div>
+            <div class="related">
+                <div class="c_header">
+					<div class="grid_7">
+						<h2>Related Products</h2>
+					</div><!-- .grid_7 -->
+
+					<div class="grid_2">
+						<a id="next_c1" class="next arows" href="#"><span>Next</span></a>
+						<a id="prev_c1" class="prev arows" href="#"><span>Prev</span></a>
+					</div><!-- .grid_2 -->
+				</div><!-- .c_header -->
+                <div class="list_carousel">
+                    <ul id="list_product" class="list_product">
+                        <li class="">
+                            <div class="grid_3 product">
+                                <img class="sale" src="<%=$this->theme->baseUrl%>/images/sale.png" alt="Sale"/>
+                                <div class="prev">
+                                    <a href="/product_page.html"><img src="<%=$this->theme->baseUrl%>/images/product_1.png" alt="" title="" /></a>
+                                </div><!-- .prev -->
+                                <h3 class="title">Febreze Air Effects New Zealand Springs</h3>
+                                <div class="cart">
+                                    <div class="price">
+                                        <div class="vert">
+                                            <div class="price_new">$550.00</div>
+                                            <div class="price_old">$725.00</div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="obn"></a>
+                                    <a href="#" class="like"></a>
+                                    <a href="#" class="bay"></a>
+                                </div><!-- .cart -->
+                            </div><!-- .grid_3 -->
+                        </li>
+                        <li class="">
+                            <div class="grid_3 product">
+                                <div class="prev">
+                                    <a href="/product_page.html"><img src="<%=$this->theme->baseUrl%>/images/product_2.png" alt="" title="" /></a>
+                                </div><!-- .prev -->
+                                <h3 class="title">Febreze Air Effects New Zealand Springs</h3>
+                                <div class="cart">
+                                    <div class="price">
+                                        <div class="vert">
+                                            <div class="price_new">$550.00</div>
+                                            <div class="price_old">$725.00</div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="obn"></a>
+                                    <a href="#" class="like"></a>
+                                    <a href="#" class="bay"></a>
+                                </div><!-- .cart -->
+                            </div><!-- .grid_3 -->
+                        </li>
+                        <li class="">
+                            <div class="grid_3 product">
+                                <div class="prev">
+                                    <a href="/product_page.html"><img src="<%=$this->theme->baseUrl%>/images/product_3.png" alt="" title="" /></a>
+                                </div><!-- .prev -->
+                                <h3 class="title">Febreze Air Effects New Zealand Springs</h3>
+                                <div class="cart">
+                                    <div class="price">
+                                        <div class="vert">
+                                            <div class="price_new">$550.00</div>
+                                            <div class="price_old">$725.00</div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="obn"></a>
+                                    <a href="#" class="like"></a>
+                                    <a href="#" class="bay"></a>
+                                </div><!-- .cart -->
+                            </div><!-- .grid_3 -->
+                        </li>
+                        <li class="">
+                            <div class="grid_3 product">
+                                <div class="prev">
+                                    <a href="/product_page.html"><img src="<%=$this->theme->baseUrl%>/images/product_4.png" alt="" title="" /></a>
+                                </div><!-- .prev -->
+                                <h3 class="title">Febreze Air Effects New Zealand Springs</h3>
+                                <div class="cart">
+                                    <div class="price">
+                                        <div class="vert">
+                                            <div class="price_new">$550.00</div>
+                                            <div class="price_old">$725.00</div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="obn"></a>
+                                    <a href="#" class="like"></a>
+                                    <a href="#" class="bay"></a>
+                                </div><!-- .cart -->
+                            </div><!-- .grid_3 -->
+                        </li>
+                    </ul>
+                </div><!-- .list_carousel -->
+            </div><!-- .carousel atau .related -->
+        </div><!-- .product page -->
+        <div class="clear"></div>
+    </div><!-- end content -->
+    <div id="sidebar" class="grid_3">
+        <aside id="specials" class="specials">
+            <h3>Specials</h3>
+            <ul>
+                <li>
+				   <div class="prev">
+					  <a href="#"><img src="<%=$this->theme->baseUrl%>/images/special1.png" alt="" title="" /></a>
+				   </div>
+				   <div class="cont">
+					  <a href="#">Honeysuckle Flameless Luminary Refill</a>
+					  <div class="prise"><span class="old">$177.00</span>$75.00</div>
+				   </div>
+			    </li>
+			    <li>
+				   <div class="prev">
+					  <a href="#"><img src="<%=$this->theme->baseUrl%>/images/special2.png" alt="" title="" /></a>
+				   </div>
+
+				   <div class="cont">
+					  <a href="#">Honeysuckle Flameless Luminary Refill</a>
+					  <div class="prise"><span class="old">$177.00</span>$75.00</div>
+				   </div>
+			    </li>
+		     </ul>
+         </aside><!-- #specials -->
+         <aside id="newsletter_signup">
+            <h3>Newsletter Signup</h3>
+            <p>Phasellus vel ultricies felis. Duisrhoncus risus eu urna pretium.</p>
+            <div class="newsletter">
+			    <input type="email" name="newsletter" class="your_email" value="" placeholder="Enter your email address..."/>
+			    <input type="submit" id="submit" value="Subscribe" />
+            </div>
+        </aside><!-- #newsletter_signup -->
+        <aside id="banners">            
+            <a id="ban_next" class="next arows" href="#"><span>Next</span></a>
+            <a id="ban_prev" class="prev arows" href="#"><span>Prev</span></a>
+            <h3>Banners</h3>
+            <div class="list_carousel">
+                <ul id="list_banners">
+                    <li class="banner">
+                        <a href="#">
+                            <div class="prev">
+                                <img src="<%=$this->theme->baseUrl%>/images/banner.png" alt="" title="" />
+                            </div><!-- .prev -->
+                            <h2>New smells</h2>
+                            <p>in the next series</p>
+                        </a>
+                    </li>
+                    <li class="banner">
+                        <a href="#">
+                            <div class="prev">
+                                <img src="<%=$this->theme->baseUrl%>/images/banner.png" alt="" title="" />
+                            </div><!-- .prev -->
+                            <h2>New smells</h2>
+                            <p>in the next series</p>
+                        </a>
+                    </li>
+                    <li class="banner">
+                        <a href="#">
+                            <div class="prev">
+                                <img src="<%=$this->theme->baseUrl%>/images/banner.png" alt="" title="" />
+                            </div><!-- .prev -->
+                            <h2>New smells</h2>
+                            <p>in the next series</p>
+                        </a>
+                    </li>
+                </ul>
+            </div><!-- .list_carousel -->
+        </aside><!-- #banners -->
+        <aside id="tags">
+            <h3>Tags</h3>
+            <a class="t1" href="">california</a>
+		    <a class="t2" href="">canada</a>
+		    <a class="t3" href="">canon</a>
+		    <a class="t4" href="">cat</a>
+		    <a class="t5" href="">chicago</a>
+		    <a class="t6" href="">christmas</a>
+		    <a class="t7" href="">mars</a>
+		    <a class="t8" href="">church</a>
+		    <a class="t9" href="">city</a>
+		    <a class="t10" href="">clouds</a>
+		    <a class="t11" href="">color</a>
+		    <a class="t12" href="">concert</a>
+		    <a class="t13" href="">dance</a>
+		    <a class="t14" href="">day</a>
+		    <a class="t15" href="">dog</a>
+		    <a class="t16" href="">england</a>
+		    <a class="t17" href="">europe</a>
+        </aside><!-- #community_poll -->    
+    </div><!-- #sidebar -->    
+    <div class="clear"></div>
+</com:TPanel>
+</section><!-- end section main -->
+</com:TContent>
+<com:TContent ID="jscontent">
+<script src="<com:TOutputCache><%=$this->Page->Theme->baseUrl%></com:TOutputCache>/js/jquery.jqzoom-core.js"></script>
+</com:TContent>

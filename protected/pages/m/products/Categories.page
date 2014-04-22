@@ -1,0 +1,217 @@
+<%@ Title="CahayaOnline - Kategori Produk" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-gift"></i> Kategori Produk
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Produk kategori
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getEditProcess(false) %>" CssClass="row-fluid">
+    <div class="span12">    
+        <div class="box box-green">
+            <div class="box-title">
+                <h3><i class="icon-edit"></i> Ubah Kategori</h3>
+                <div class="box-tool">
+                    <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                    <a href="<%=$this->Service->constructUrl('m.products.Categories')%>"><i class="icon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <com:TActiveHiddenField ID="hiddencategoryid" />
+                <com:TActiveHiddenField ID="hiddencategoryname" />
+                <div class="control-group">
+                    <com:TLabel ForControl="txtEditCategoryName" CssClass="control-label" Text="Nama Kategori" />                                        
+                    <div class="controls">
+                        <com:TActiveTextBox ID="txtEditCategoryName" Columns="30" CssClass="input-large" />                        
+                        <com:TRequiredFieldValidator ValidationGroup="editcategory" Display="Dynamic" ControlToValidate="txtEditCategoryName" FocusOnError="true" ErrorMessage="You did not enter category name"/>	
+                        <com:TActiveCustomValidator ID="checkeditcategoryname" ValidationGroup="editcategory" Display="Dynamic" ControlToValidate="txtEditCategoryName" FocusOnError="true" OnServerValidate="checkCategoryName" />								
+                    </div>
+                </div>
+                <div class="control-group">
+                    <com:TLabel ForControl="txtEditMetaTagDesc" CssClass="control-label" Text="Meta Tag Description" />                                        
+                    <div class="controls">
+                        <com:TActiveTextBox ID="txtEditMetaTagDesc" Rows="7" TextMode="MultiLine" CssClass="input-xxlarge" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <com:TLabel ForControl="txtEditMetaTagKeyword" CssClass="control-label" Text="Meta Tag Keyword" />                                        
+                    <div class="controls">                        
+                        <com:TActiveTextBox ID="txtEditMetaTagKeyword" Rows="7" TextMode="MultiLine" CssClass="input-xxlarge" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <com:TLabel ForControl="txtEditDesc" CssClass="control-label" Text="Description" />
+                    <div class="controls">
+                        <com:THtmlArea ID="txtEditDesc" Width="800" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <com:TLabel ForControl="cmbEditParentCategory" CssClass="control-label" Text="Parent Category" />
+                    <div class="controls">
+                        <com:TDropDownList ID="cmbEditParentCategory" AutoPostBack="False" CssClass="input-xxlarge" /> 
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label For="<com:TOutputCache><%=$this->chkEditTOP->ClientID%></com:TOutputCache>" class="control-label">Top:</label>
+                    <div class="controls">
+                        <com:TCheckBox ID="chkEditTOP" /> <span class="help-inline">tampilkkan di top menu. Berlaku untuk yang parent category saja.</span>
+                    </div>
+                </div>
+                <div class="form-actions">                    
+                    <com:TActiveLinkButton ID="btnUpdate" Text="Save" OnClick="updateData" CssClass="btn btn-primary" ValidationGroup="editcategory">
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();                            
+                            $('<%=$this->btnUpdate->ClientId%>').addClassName('disabled');
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnUpdate->ClientId%>').disabled='';						
+                            $('<%=$this->btnUpdate->ClientId%>').removeClassName('disabled');                            								
+                            $('loading').hide();
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>
+                </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getAddProcess(false) %>" CssClass="row-fluid"> 
+    <div class="span12">    
+        <div class="box box-green">
+            <div class="box-title">
+                <h3><i class="icon-plus"></i> Tambah Kategori</h3>
+                <div class="box-tool">
+                    <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                    <a href="<%=$this->Service->constructUrl('m.products.Categories')%>"><i class="icon-remove"></i></a>
+                </div>
+            </div>        
+            <div class="box-content">
+                <div class="control-group">
+                    <com:TLabel ForControl="txtCategoryName" CssClass="control-label" Text="Nama Kategori" />                                        
+                    <div class="controls">
+                        <com:TActiveTextBox ID="txtCategoryName" CssClass="input-large" />
+                        <com:TRequiredFieldValidator ValidationGroup="addnewcategory" Display="Dynamic" ControlToValidate="txtCategoryName" FocusOnError="true" ErrorMessage="You did not enter group name"/>	
+                        <com:TActiveCustomValidator ID="checkgroupname" ValidationGroup="addnewcategory" Display="Dynamic" ControlToValidate="txtCategoryName" FocusOnError="true" OnServerValidate="checkCategoryName" />								
+                    </div>
+                </div>
+                <div class="control-group">
+                    <com:TLabel ForControl="txtMetaTagDesc" CssClass="control-label" Text="Meta Tag Description" />                                        
+                    <div class="controls">
+                        <com:TActiveTextBox ID="txtMetaTagDesc" Rows="7" TextMode="MultiLine" CssClass="input-xxlarge" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <com:TLabel ForControl="txtMetaTagDesc" CssClass="control-label" Text="Meta Tag Keyword" /> 
+                    <div class="controls">
+                        <com:TActiveTextBox ID="txtMetaTagKeyword" Rows="7" TextMode="MultiLine" CssClass="input-xxlarge" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <com:TLabel ForControl="txtDesc" CssClass="control-label" Text="Description" />
+                    <div class="controls">
+                        <com:THtmlArea ID="txtDesc" Width="800" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <com:TLabel ForControl="txtMetaTagDesc" CssClass="control-label" Text="Parent Category" />
+                    <div class="controls">
+                        <com:TDropDownList ID="cmbParentCategory" AutoPostBack="False" CssClass="input-xxlarge" /> 
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label For="<com:TOutputCache><%=$this->chkTOP->ClientID%></com:TOutputCache>" class="control-label">Top:</label>
+                    <div class="controls">
+                        <com:TCheckBox ID="chkTOP" /> <span class="help-inline">tampilkkan di top menu. Berlaku untuk yang parent category saja.</span>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" Text="Save" OnClick="saveData" ValidationGroup="addnewcategory">
+                        <prop:ClientSide.OnPreDispatch>                        
+                            $('<%=$this->btnSave->ClientId%>').addClassName('disabled');                
+                        </prop:ClientSide.OnPreDispatch>
+                        <prop:ClientSide.OnLoading>
+                            $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                        </prop:ClientSide.OnLoading>
+                        <prop:ClientSide.OnComplete>																	
+                            $('<%=$this->btnSave->ClientId%>').disabled='';						
+                            $('<%=$this->btnSave->ClientId%>').removeClassName('disabled');                        
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>   
+                </div>
+            </div>
+        </div>
+    </div>  
+</com:TPanel>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row-fluid">
+    <div class="span12">
+        <div class="box box-black">
+            <div class="box-title">
+                <h3><i class="icon-gift"></i> Daftar Kategori</h3>
+                <div class="box-tool">
+                    <a data-action="collapse" href="#"><i class="icon-chevron-up"></i></a>                        
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="btn-toolbar pull-right clearfix">
+                    <div class="btn-group">                             
+                        <com:TLinkButton CssClass="btn btn-circle" Text="<i class='icon-plus'></i>" OnClick="addProcess" ID="add" CausesValidation="false" />                                                                            
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <com:TActiveRepeater ID="RepeaterS" DataKeyField="category_id">
+                    <prop:HeaderTemplate>			
+                        <table class="table table-advance">	
+                            <thead>
+                            <tr>                   
+                                <th width="30">ID</th>
+                                <th>Category Name</th>														                    
+                                <th>Sort Order</th>
+                                <th scope="col" width="90">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                    </prop:HeaderTemplate>
+                    <prop:ItemTemplate>
+                        <tr>
+                            <td width="30"><%#$this->DataItem['category_id']%></td>				
+                            <td><%#$this->DataItem['name']%></td>                
+                            <td><%#$this->DataItem['sort_order']%></td>
+                            <td>
+                                <div class="btn-group">
+                                    <com:TLinkButton CssClass="btn btn-small" Text="<i class='icon-edit'></i>" OnClick="Page.editRecord" Attributes.Title="Edit" /> 
+                                    <com:TActiveLinkButton CssClass="btn btn-small btn-danger" OnClick="Page.deleteRecord" Attributes.Title="Delete" Text="<i class='icon-trash'></i>" />\
+                                </div>
+                            </td>
+                        </tr>
+                    </prop:ItemTemplate>				
+                    <prop:AlternatingItemTemplate>
+                        <tr>
+                            <td width="30"><%#$this->DataItem['category_id']%></td>				
+                            <td><%#$this->DataItem['name']%></td>                
+                            <td><%#$this->DataItem['sort_order']%></td>
+                            <td>
+                                <div class="btn-group">
+                                    <com:TLinkButton CssClass="btn btn-small" Text="<i class='icon-edit'></i>" OnClick="Page.editRecord" Attributes.Title="Edit" /> 
+                                    <com:TActiveLinkButton CssClass="btn btn-small btn-danger" OnClick="Page.deleteRecord" Attributes.Title="Delete" Text="<i class='icon-trash'></i>" />\
+                                </div>
+                            </td>
+                        </tr>
+                    </prop:AlternatingItemTemplate>
+                    <prop:EmptyTemplate>
+                        <div class="alert alert-info">
+                            <button class="close" data-dismiss="alert">×</button>
+                            <p>Tidak ada kategori yang terdaftar</p>
+                        </div>                            
+                    </prop:EmptyTemplate>
+                    <prop:FooterTemplate>
+                        </tbody>
+                        </table>
+                    </prop:FooterTemplate>		
+                </com:TActiveRepeater>	
+            </div>
+        </div>
+    </div>       
+</com:TPanel>
+</com:TContent>

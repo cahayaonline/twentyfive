@@ -1,0 +1,254 @@
+<%@ Title="TwentyFive - Members Profile" %>
+<com:TContent ID="contentnavbar">
+	<%include Application.pages.m.members.navbar%>
+</com:TContent>
+<com:TContent ID="contentarea">
+<h1>Members Profile</h1>
+<%include Application.pages.m.members.tabs%>
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">	
+	<div id="tab_content" style="text-align:left">		
+		<p>
+			<h3>Active Client (#<%=$this->dataMember['member_id']%> - <%=$this->dataMember['member_name']%>)</h3>
+		</p>		
+		<p>
+			<strong>Informasi Data Pemohon</strong>
+		</p>
+		<com:THiddenField ID="hdnMemberID" />
+		<table class="form" border="0" width="100%" cellspacing="2" cellpadding="3">
+			<tbody>
+				<tr>
+					<td class="fieldlabel" width="25%">Nama Lengkap Pemohon (sesuai KTP / Passpor WNI)<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNamaPemohon" Columns="40" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtNamaPemohon" FocusOnError="true" ErrorMessage="You did not enter member full name"/>	
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Nomor KTP/Paspor yang Masih Berlaku<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNoIdentitas" Columns="25" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtNoIdentitas" FocusOnError="true" ErrorMessage="You did not enter member identity number"/>	
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Jenis Kelamin</td>
+					<td class="fieldarea">
+						<com:TDropDownList ID="cmbJK">					
+							<com:TListItem Value="1" Text="Pria" />
+							<com:TListItem Value="0" Text="Wanita" />
+						</com:TDropDownList>
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Tanggal Lahir<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TDatePicker ID="cmbTanggalLahir" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="1940" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" />
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Status</td>
+					<td class="fieldarea">
+						<com:TRadioButton ID="menikah" Text="Menikah" GroupName="status" AutoPostBack="false" />
+						<com:TRadioButton ID="lajang" Text="Tidak Menikah" GroupName="status" AutoPostBack="false" />
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Nama Lengkap Pasangan (Sesuai KTP/Paspor)</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNamaPasangan" Columns="40" />
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Nomor KTP Pasangan (Sesuai KTP/Paspor)</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNoKTPPasangan" Columns="25" />
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Alamat Surat Menyurat Lengkap<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNoAlamatSuratMenyurat" Columns="50" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtNoAlamatSuratMenyurat" FocusOnError="true" ErrorMessage="You did not enter member address"/>	
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Kota<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtKota" Columns="30" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtKota" FocusOnError="true" ErrorMessage="You did not enter member city"/>	
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Kode Pos<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtKodePos" Columns="5" MaxLength="5" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtKodePos" FocusOnError="true" ErrorMessage="You did not enter member postal code"/>	
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Negara</td>
+					<td class="fieldarea">
+						<com:TDropDownList ID="cmbCountry" />
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Telepon Rumah (kode area-nomor)</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtTeleponRumah" Columns="10"/>
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Alamat Email</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtEmail" Columns="32"/>
+						<com:THiddenField ID="hdnEmail" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtEmail" FocusOnError="true" ErrorMessage="You did not enter member email address"/>	
+						<com:TEmailAddressValidator ValidationGroup="editnewmember" ControlToValidate="txtEmail" FocusOnError="true" Display="Dynamic" Text="Invalid email Address" CheckMXRecord="false" />
+						<com:TActiveCustomValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtEmail" FocusOnError="true" OnServerValidate="checkEmailAddress" />	
+					</td>					
+				</tr>	
+				<tr>
+					<td class="fieldlabel">Telepon Genggam <span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtHP" Columns="15" />
+						<com:THiddenField ID="hdnNoHP" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtHP" FocusOnError="true" ErrorMessage="You did not enter member mobile phone"/>	
+						<com:TCustomValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtHP" FocusOnError="true" OnServerValidate="checkNoHP" />	
+					</td>					
+				</tr>					
+				<tr>
+					<td class="fieldlabel">Telepon Genggam / Pasangan</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtHP2" Columns="15" />							
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Nama gadis Ibu Kandung<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNamaIbu" Columns="50" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtNamaIbu" FocusOnError="true" ErrorMessage="You did not enter member mother name"/>	
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Nama Ahli Waris<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNamaAhliWaris" Columns="50" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtNamaAhliWaris" FocusOnError="true" ErrorMessage="You did not enter member family name"/>	
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Hubungan Ahli Waris<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtHubunganAhliWaris" Columns="13" />
+						<com:TRequiredFieldValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtHubunganAhliWaris" FocusOnError="true" ErrorMessage="You did not enter member family relationship"/>	
+					</td>					
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			<strong>Informasi Login</strong>
+		</p>
+		<p>
+			Username yang digunakan oleh member adalah No. HP-nya.
+		</p>
+		<table class="form" border="0" width="100%" cellspacing="2" cellpadding="3">
+			<tbody>
+				<tr>
+					<td class="fieldlabel" width="25%">Password<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtPassword1" Columns="15" TextMode="Password" />						
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Re-type Password<span style="color:red" />*</span></td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtPassword2" Columns="15" TextMode="Password" />							
+						<com:TCompareValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtPassword2" ControlToCompare="txtPassword1" FocusOnError="true" ErrorMessage="Member password is incorect"/>	
+					</td>					
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			<strong>Informasi Rekening Bank</strong>
+		</p>
+		<p>
+			Untuk tujuan pembayaran bonus IBO (jika ada), Bank yang direkomendasikan adalah Bank CIMB Niaga & BCA. Untuk Bank lain, dikenakan biaya Rp 10.000
+		</p>
+		<table class="form" border="0" width="100%" cellspacing="2" cellpadding="3">
+			<tbody>
+				<tr>
+					<td class="fieldlabel" width="25%">No. Rekening</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNoRekening" Columns="15" />						
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Atas Nama Pemohon atau Pasangan sesuai dengan nama diatas</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtAtasNama" Columns="50" />						
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Nama Bank</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNamaBank" Columns="35" />						
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Cabang / Unit</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtCabang" Columns="30" />						
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Kota Lokasi Bank</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtLokasiBank" Columns="40" />						
+					</td>					
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			<strong>Informasi Perpajakan</strong>
+		</p>
+		<table class="form" border="0" width="100%" cellspacing="2" cellpadding="3">
+			<tbody>
+				<tr>
+					<td class="fieldlabel" width="25%">Nomor Pokok Wajib Pajak (NPWP)</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtNPWPW" Columns="15" />
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Status</td>
+					<td class="fieldarea">
+						<com:TRadioButton ID="pajakmenikah" Text="Menikah" GroupName="statuspajak" AutoPostBack="false" />
+						<com:TRadioButton ID="pajaklajang" Text="Tidak Menikah" GroupName="statuspajak" AutoPostBack="false" />
+					</td>					
+				</tr>
+				<tr>
+					<td class="fieldlabel">Jumlah Tanggungan</td>
+					<td class="fieldarea">
+						<com:TTextBox ID="txtJumlahTanggungan" Columns="3" MaxLength="3" Text="0" />
+					</td>					
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			<strong>Admin Note</strong>
+		</p>
+		<table class="form" border="0" width="100%" cellspacing="2" cellpadding="3">
+			<tbody>
+				<tr>					
+					<td class="fieldarea">
+						<com:TTextBox ID="AdminNote" Columns="119" TextMode="MultiLine" />
+					</td>					
+				</tr>
+			</tbody>
+		</table>
+		<p align="center">
+			<com:TButton ID="btnSave" CssClass="button ui-button ui-widget ui-state-default ui-corner-all" Text="Save Changes" OnClick="saveData" ValidationGroup="editnewmember" />
+		</p>	
+	</div>	
+</com:TPanel>
+</com:TContent>

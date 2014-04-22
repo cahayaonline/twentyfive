@@ -1,0 +1,161 @@
+<%@ Title="CahayaOnline - Add New Product" %>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row-fluid">    
+    <div class="span_12">
+        <div class="box">
+            <div class="box-title">
+                <h3><i class="icon-plus"></i> Tambah Produk</h3>
+            </div>
+            <div class="box-content"> 
+                <com:TWizard ID="newwizardaddproduct" UseDefaultLayout="false" CssClass="form-wizard">        
+                    <prop:SideBarTemplate>           
+                        <com:TCustomDataList ID="SideBarList" RepeatDirection="Horizontal" RepeatLayout="Raw">                            
+                            <prop:HeaderTemplate>
+                                <ul class="row-fluid steps">
+                            </prop:HeaderTemplate>
+                            <prop:ItemTemplate>
+                                <com:TLinkButton ID="SideBarButton" ValidationGroup="addproduct" CssClass="step" />                                
+                            </prop:ItemTemplate>
+                            <prop:AlternatingItemTemplate>
+                                <com:TLinkButton ID="SideBarButton" ValidationGroup="addproduct" CssClass="step" />                              
+                            </prop:AlternatingItemTemplate>
+                            <prop:SelectedItemTemplate>
+                                <li class="span3"><com:TLinkButton ID="SideBarButton" Font.Bold="true" ValidationGroup="addproduct" CssClass="step" /></li>
+                            </prop:SelectedItemTemplate>                            
+                            <prop:FooterTemplate>
+                                </ul>
+                            </prop:FooterTemplate>
+                        </com:TCustomDataList>                        
+                    </prop:SideBarTemplate>
+                    <prop:StartNavigationTemplate>
+                        <div class="form-actions clearfix">
+                            <com:TLinkButton Text="Continue" CommandName="NextStep" ValidationGroup="addproduct" CssClass="btn btn-primary button-next" />
+                        </div>
+                    </prop:StartNavigationTemplate>
+                    <prop:StepNavigationTemplate>
+                        <div class="form-actions clearfix">
+                            <com:TLinkButton CausesValidation="False" CommandName="PreviousStep" Text="Previous" CssClass="btn button-previous" />
+                            <com:TLinkButton Text="Continue" CommandName="NextStep" ValidationGroup="addproduct" CssClass="btn btn-primary button-next" />
+                        </div>                        
+                    </prop:StepNavigationTemplate>
+                    <prop:FinishNavigationTemplate>
+                        Proses penambahan produk telah selesai.
+                        <br/>                 
+                        <i>Silahkan tekan tombol save dibawah, untuk menyimpan inputan yang telah dilakukan</i>                    
+                        <div class="form-actions">
+                            <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" Text="Save" OnClick="Page.saveData" ValidationGroup="addproduct">
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();                                    
+                                    $('<%=$this->btnSave->ClientId%>').addClassName('disabled');						
+                                </prop:ClientSide.OnPreDispatch>
+                                <prop:ClientSide.OnLoading>
+                                    $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                                </prop:ClientSide.OnLoading>
+                                <prop:ClientSide.OnComplete>																	
+                                    $('<%=$this->btnSave->ClientId%>').disabled='';						
+                                    $('<%=$this->btnSave->ClientId%>').removeClassName('disabled');                                    					
+                                    $('loading').hide();
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveLinkButton>
+                        </div>                        
+                    </prop:FinishNavigationTemplate>
+                    <com:TWizardStep Title="General">
+                        <div class="tab-content">
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtProductID" CssClass="control-label" Text="Product ID" />
+                                <div class="controls">
+                                    <com:TTextBox ID="txtProductID" Columns="30" CssClass="input-xlarge" Attributes.OnKeyUp="formatangka(this,true)" />
+                                    <com:TRequiredFieldValidator ValidationGroup="addproduct" Display="Dynamic" ControlToValidate="txtProductID" FocusOnError="true" ErrorMessage="You did not enter product id"/>	                    
+                                    <com:TCustomValidator ID="checkproductid" ValidationGroup="addproduct" Display="Dynamic" ControlToValidate="txtProductID" FocusOnError="true" OnServerValidate="checkProductID" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtProductName" CssClass="control-label" Text="Product Name" />
+                                <div class="controls">
+                                    <com:TTextBox ID="txtProductName" Columns="40" CssClass="input-xlarge" />
+                                    <com:TRequiredFieldValidator ValidationGroup="addproduct" Display="Dynamic" ControlToValidate="txtProductName" FocusOnError="true" ErrorMessage="You did not enter product name"/>	                    
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtModel" CssClass="control-label" Text="Model" />
+                                <div class="controls">
+                                     <com:TTextBox ID="txtModel" Columns="15" CssClass="input-xlarge" />
+                                     <com:TRequiredFieldValidator ValidationGroup="addproduct" Display="Dynamic" ControlToValidate="txtModel" FocusOnError="true" ErrorMessage="You did not enter model name"/>	                                           
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtSKU" CssClass="control-label" Text="SKU" />
+                                <div class="controls">
+                                    <com:TTextBox ID="txtSKU" Columns="15" CssClass="input-xlarge" Attributes.OnKeyUp="formatangka(this,true)" />
+                                    <com:TCustomValidator ID="checksku" ValidationGroup="addproduct" Display="Dynamic" ControlToValidate="txtSKU" FocusOnError="true" OnServerValidate="checkSKU" />
+                                </div>
+                            </div>                        
+                            <div class="control-group">                                
+                                <label for="txtDesc" class="control-label">Description</label>
+                                <div class="controls">
+                                    <com:THtmlArea ID="txtDesc" Width="800" />
+                                </div>
+                            </div>
+                            <div class="control-group">                                
+                                <label for="txtDescDetails" class="control-label">Description Details</label>
+                                <div class="controls">
+                                    <com:THtmlArea ID="txtDescDetails" Width="800" />
+                                </div>
+                            </div>
+                        </div>
+                    </com:TWizardStep>
+                    <com:TWizardStep Title="Data">
+                        <div class="tab-content">
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtPrice" CssClass="control-label" Text="Price" />
+                                <div class="controls">                                    
+                                    <com:TTextBox ID="txtPrice" Columns="10" CssClass="input-xlarge" Attributes.OnKeyUp="formatangka(this,false)" />
+                                    <com:TRequiredFieldValidator ValidationGroup="addproduct" Display="Dynamic" ControlToValidate="txtPrice" FocusOnError="true" ErrorMessage="You did not enter product price"/>	                                           
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtDefaultOmset" CssClass="control-label" Text="Default Omset" />
+                                <div class="controls">                                    
+                                    <com:TTextBox ID="txtDefaultOmset" Columns="10" CssClass="input-xlarge" Attributes.OnKeyUp="formatangka(this,false)" />
+                                    <com:TRequiredFieldValidator ValidationGroup="addproduct" Display="Dynamic" ControlToValidate="txtDefaultOmset" FocusOnError="true" ErrorMessage="You did not enter product price"/>	                                           
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="txtQty" CssClass="control-label" Text="Quantity" />
+                                <div class="controls">                                    
+                                    <com:TTextBox ID="txtQty" Columns="4" MaxLength="4" Text="1" CssClass="input-xlarge" Attributes.OnKeyUp="formatangka(this,true)" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="cmbStatus" CssClass="control-label" Text="Status" />
+                                <div class="controls">                                    
+                                    <com:TDropDownList ID="cmbStatus"  CssClass="input-medium">
+                                        <com:TListItem Value="0" Text="Disabled"  />
+                                        <com:TListItem Value="1" Text="Enabled"  />
+                                    </com:TDropDownList> 
+                                </div>
+                            </div>
+                        </div>                     
+                    </com:TWizardStep>
+                    <com:TWizardStep Title="Link">
+                        <div class="tab-content">
+                            <div class="control-group">
+                                <com:TLabel ForControl="listCategories" CssClass="control-label" Text="Categories" />
+                                <div class="controls">
+                                    <com:TListBox SelectionMode="Multiple" ID="listCategories" ROws="6" CssClass="input-xxlarge" />                      
+                                </div>
+                            </div>   
+                        </div>                        
+                    </com:TWizardStep>
+                    <com:TWizardStep Title="Finish">
+                        
+                    </com:TWizardStep>
+                </com:TWizard>                    
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+</com:TContent>
+<com:TContent ID="jscontent">
+    <script src="<%=$this->theme->baseUrl%>/assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+</com:TContent>

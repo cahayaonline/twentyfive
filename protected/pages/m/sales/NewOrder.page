@@ -1,0 +1,377 @@
+<%@ Title="CahayaOnline - New Order" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-shopping-cart"></i> New Order
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Transaksi order baru
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:NModalPanel ID="modalChooseProduct">
+    <div id="panel" class="portlet" style="width:700px;position: fixed;top: 150px;left: 320px;z-index: 2000;">
+        <div class="portlet-header"><strong>Daftar Product</strong></div>
+        <div class="portlet-content">
+            <a href="#" Class="btn btn-black btn-cross" OnClick="new Modal.Box('<%=$this->modalChooseProduct->ClientID%>').hide()"><span></span>Close</a>
+        </div>
+    </div>
+</com:NModalPanel>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box box-green">
+            <div class="box-title">
+                <h3><i class="icon-group"></i> Member Information</h3>
+                <div class="box-tool">
+                    <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                                            
+                </div>
+            </div>
+            <div class="box-content">
+                <com:TActiveHiddenField ID="hiddenmemberid" />
+                <com:TActiveHiddenField ID="hiddenstock" />
+                <div class="control-group">
+                    <com:TLabel ForControl="txtIBO" CssClass="control-label" Text="No. IBO" />  
+                    <div class="controls">
+                        <com:TAutoComplete ID="txtIBO" OnSuggest="suggestIBO" OnSuggestionSelected="iboSuggetionSelected" ResultPanel.CssClass="acomplete" ResultPanel.Style="position:relative" Suggestions.DataKeyField="member_id" CssClass="smallInput" Columns="30"></td>
+                           <prop:Suggestions.ItemTemplate>
+                            <li><%# $this->Data['ibo'] %>-<%# $this->Data['member_name']%></li>
+                           </prop:Suggestions.ItemTemplate>
+                            <prop:ClientSide.OnPreDispatch>                                    
+                                $('loadingibo').show();
+                            </prop:ClientSide.OnPreDispatch>                        
+                            <prop:ClientSide.onLoading>                                    
+                                $('<%=$this->txtMemberName->clientId%>').disabled='disabled';
+                            </prop:ClientSide.onLoading>					
+                            <prop:ClientSide.onComplete>						
+                                $('<%=$this->txtMemberName->clientId%>').disabled='';
+                                $('loadingibo').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TAutoComplete> <img id="loadingibo" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <com:TLabel ForControl="txtIBO" CssClass="control-label" Text="Member Name" />  
+                    <div class="controls">
+                        <com:TAutoComplete ID="txtMemberName" OnSuggest="suggestMember" OnSuggestionSelected="memberSuggetionSelected" ResultPanel.CssClass="acomplete" ResultPanel.Style="position:relative" Suggestions.DataKeyField="member_id" CssClass="input-xlarge"></td>
+                           <prop:Suggestions.ItemTemplate>
+                            <li><a href="#"><%# $this->Data['ibo'] %>-<%# $this->Data['member_name']%></a></li>
+                           </prop:Suggestions.ItemTemplate>
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loadingmembername').show();
+                            </prop:ClientSide.OnPreDispatch>					
+                            <prop:ClientSide.onLoading>                                    
+                                $('<%=$this->txtIBO->clientId%>').disabled='disabled';
+                            </prop:ClientSide.onLoading>
+                            <prop:ClientSide.onComplete>						
+                                $('loadingmembername').hide();
+                                $('<%=$this->txtIBO->clientId%>').disabled='';
+                            </prop:ClientSide.OnComplete>
+                        </com:TAutoComplete> <img id="loadingmembername" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;" /> 
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <com:TActiveLinkButton ID="btnGo" Text="Go" OnClick="createOrder" ValidationGroup="addneworder" CssClass="btn btn-primary">
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();
+                        </prop:ClientSide.OnPreDispatch>					
+                        <prop:ClientSide.onLoading>                                    
+                            $('<%=$this->btnGo->clientId%>').disabled='disabled';
+                        </prop:ClientSide.onLoading>
+                        <prop:ClientSide.onComplete>						                    
+                            $('<%=$this->btnGo->clientId%>').disabled='';
+                            $('loading').hide();
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton>     
+                    <com:TActiveLinkButton ID="btnCancel" Text="Cancel" OnClick="cancelOrder" CssClass="btn btn-primary">
+                        <prop:ClientSide.OnPreDispatch>
+                            $('loading').show();
+                        </prop:ClientSide.OnPreDispatch>					
+                        <prop:ClientSide.onLoading>                                    
+                            $('<%=$this->btnCancel->clientId%>').disabled='disabled';
+                        </prop:ClientSide.onLoading>
+                        <prop:ClientSide.onComplete>						                    
+                            $('<%=$this->btnCancel->clientId%>').disabled='';
+                            $('loading').hide();
+                        </prop:ClientSide.OnComplete>
+                    </com:TActiveLinkButton><com:TActiveLabel ID="errorMessage" /><com:TRequiredFieldValidator ValidationGroup="addneworder" Display="Dynamic" ControlToValidate="hiddenmemberid" ErrorMessage="You did not enter member name or member name is incorect"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<com:TActivePanel Visible="<%= $this->getAddProcess(false) %>">   
+    <com:TActiveHiddenField ID="hiddenproductid" />
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-plus"></i> Tambah Produk</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
+                        <a href="#" data-action="close"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="control-group">
+                        <com:TLabel ForControl="txtProductName" CssClass="control-label" Text="Pilih Produk" />                                        
+                        <div class="controls">                            
+                            <com:TAutoComplete ID="txtProductName" OnSuggest="suggestProduct" OnSuggestionSelected="productSuggetionSelected" ResultPanel.CssClass="acomplete" ResultPanel.Style="position: relative" Suggestions.DataKeyField="product_id" CssClass="smallInput" Columns="30"></td>
+                                <prop:Suggestions.ItemTemplate>
+                                    <li><a href="#"><%# $this->Data['product_name']%></a></li>
+                               </prop:Suggestions.ItemTemplate>
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loadingproduct').show();
+                                </prop:ClientSide.OnPreDispatch>					
+                                <prop:ClientSide.onLoading>                                                                
+                                </prop:ClientSide.onLoading>
+                                <prop:ClientSide.onComplete>						
+                                    $('loadingproduct').hide();                            
+                                </prop:ClientSide.OnComplete>                  
+                              </com:TAutoComplete> 
+                              <com:TActiveLinkButton Text="List Product" OnClick="showListProduct" ClientSide.PostState="false"> 
+                                    <prop:ClientSide.OnPreDispatch>
+                                        $('loadingproduct').show();
+                                    </prop:ClientSide.OnPreDispatch>					
+                                    <prop:ClientSide.onLoading>                                                                
+                                    </prop:ClientSide.onLoading>
+                                    <prop:ClientSide.onComplete>						
+                                        $('loadingproduct').hide();                            
+                                    </prop:ClientSide.OnComplete>  
+                              </com:TActiveLinkButton>
+                              <com:TRequiredFieldValidator ValidationGroup="addproducttocart" Display="Dynamic" ControlToValidate="hiddenproductid" ErrorMessage="You did not enter product name or product name is incorect"/>  
+                              <img id="loadingproduct" src="<%=$this->Page->Theme->baseUrl%>/img/ajax-loader-1.gif" style="display:none;" /> 
+                        </div>
+                    </div>                    
+                    <div class="control-group">
+                        <com:TLabel ForControl="txtQTY" CssClass="control-label" Text="Quantity" />                                        
+                        <div class="controls"> 
+                            <com:TActiveTextBox ID="txtQTY" CssClass="input-mini" Text="1" Attributes.OnKeyUp="formatangka(this,false)" />                    
+                            <com:TRequiredFieldValidator ValidationGroup="addproducttocart" Display="Dynamic" ControlToValidate="txtQTY" FocusOnError="true" ErrorMessage="You did not enter quantity product"/>  
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <com:TLabel ForControl="txtLaba" CssClass="control-label" Text="Laba (%)" />                                        
+                        <div class="controls"> 
+                            <com:TActiveTextBox ID="txtLaba" CssClass="input-mini" Text="0" Attributes.OnKeyUp="formatangka(this,false)" />                    
+                            <com:TRequiredFieldValidator ValidationGroup="addproducttocart" Display="Dynamic" ControlToValidate="txtLaba" FocusOnError="true" ErrorMessage="You did not enter laba each product"/>  
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <com:TActiveButton ID="btnAddProduct" Text="Tambah" OnClick="addProduct" ValidationGroup="addproducttocart" CssClass="btn btn-primary">
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();
+                            </prop:ClientSide.OnPreDispatch>					
+                            <prop:ClientSide.onLoading>                                    
+                                $('<%=$this->btnAddProduct->clientId%>').disabled='disabled';
+                            </prop:ClientSide.onLoading>
+                            <prop:ClientSide.onComplete>						                    
+                                $('<%=$this->btnAddProduct->clientId%>').disabled='';
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveButton>
+                        <com:TActiveCustomValidator ValidationGroup="addproducttocart" Display="Fixed" ControlToValidate="txtQTY" FocusOnError="true" OnServerValidate="checkQTY" />								
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-red">
+                <div class="box-title">
+                    <h3><i class="icon-shopping-cart"></i> Daftar Order</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                                                
+                    </div>
+                </div>
+                <div class="box-content">
+                    <com:TActiveDataGrid
+                        CssClass="table table-striped table-bordered"        
+                        ID="gridCart"
+                        DataKeyField="product_id"
+                        AutoGenerateColumns="false"        
+                        ShowFOoter="false" 
+                        OnItemCreated="itemCreated"
+                        OnEditCommand="editItem"
+                        OnUpdateCommand="saveItem"
+                        OnCancelCommand="cancelItem"
+                        OnDeleteCommand="deleteItem"
+                        >
+
+                        <com:TActiveLiteralColumn
+                            ID="ProductColumn"
+                            HeaderText="Product"            
+                            HeaderStyle.Width="160px"
+                            DataField="product_name"
+                            HeaderStyle.CssClass="left" 
+                            ItemStyle.CssClass="left"
+                            />
+                        <com:TActiveLiteralColumn
+                            ID="ModelColumn"
+                            HeaderText="Model"
+                            HeaderStyle.Width="110px"
+                            DataField="model"
+                            HeaderStyle.CssClass="left" 
+                            ItemStyle.CssClass="left"
+                            />
+                        <com:TActiveBoundColumn
+                            ID="QuantityColumn"
+                            ItemStyle.HorizontalAlign="Right"
+                            ItemStyle.Wrap="false"          
+                            HeaderText="QTY"
+                            HeaderStyle.Width="15px"
+                            DataField="quantity"            
+                            HeaderStyle.CssClass="right"
+                            ItemStyle.CssClass="right"
+                            />       
+                        <com:TActiveLiteralColumn
+                            ID="UnitPriceColumn"
+                            HeaderText="Unit Price"
+                            HeaderStyle.Width="90px"
+                            DataField="price"
+                            HeaderStyle.CssClass="right" 
+                            ItemStyle.CssClass="right"
+                            />
+                        <com:TActiveLiteralColumn
+                            ID="TotalUnitPriceColumn"
+                            HeaderText="Total Unit Price"
+                            HeaderStyle.Width="90px"
+                            DataField="totalunitprice"
+                            HeaderStyle.CssClass="right" 
+                            ItemStyle.CssClass="right"
+                            />        
+                        <com:TActiveBoundColumn
+                            ID="LabaColumn"
+                            ItemStyle.HorizontalAlign="Right"
+                            ItemStyle.Wrap="false"          
+                            HeaderText="Laba (%)"
+                            HeaderStyle.Width="60px"
+                            DataField="laba"            
+                            HeaderStyle.CssClass="right"
+                            ItemStyle.CssClass="right"
+                            />  
+                        <com:TActiveLiteralColumn
+                            ID="OmsetColumn"
+                            HeaderText="Omset"
+                            HeaderStyle.Width="90px"
+                            DataField="omset"
+                            HeaderStyle.CssClass="right" 
+                            ItemStyle.CssClass="right"
+                            />
+                        <com:TActiveLiteralColumn
+                            ID="TotalPrice"
+                            HeaderText="Total Price"
+                            HeaderStyle.Width="90px"
+                            DataField="totalprice"
+                            HeaderStyle.CssClass="right" 
+                            ItemStyle.CssClass="right"
+                            />
+                        <com:TActiveEditCommandColumn
+                            HeaderText=""            
+                            UpdateText="Save"         
+                            HeaderStyle.Width="60px"
+                            ItemStyle.CssClass="right"
+                            />
+                        <com:TActiveButtonColumn
+                            ID="DeleteColumn"
+                            HeaderText=""
+                            HeaderStyle.Width="50px"            
+                            Text="Delete"
+                            CommandName="delete"
+                            ItemStyle.CssClass="left"
+                            />       
+                    </com:TActiveDataGrid>
+                    <com:TActiveHiddenField ID="hiddentotalprice" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="box box-red">
+                <div class="box-title">
+                    <h3><i class="icon-road"></i> Pengiriman</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                                                
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab-1-1" data-toggle="tab">Existing Address</a></li>
+                        <li><a href="#tab-1-2" data-toggle="tab">New Address</a></li>                        
+                    </ul>
+                </div>
+                <div class="box-content">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-1-1">
+                            <strong></strong> 
+                            <p><strong>Address :</strong> <%=$this->session['currentPageNewOrder']['datamember']['address']%>, <%=$this->session['currentPageNewOrder']['datamember']['city']%>, <%=$this->session['currentPageNewOrder']['datamember']['postal_code']%></p>
+                        </div>
+                        <div class="tab-pane" id="tab-1-2">
+                            <p><strong>TAB #2</strong> </p>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="box box-red">
+                <div class="box-title">
+                    <h3><i class="icon-money"></i> Pembayaran</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                                                
+                    </div>
+                </div>
+                <div class="box-content invoice-amount">
+                    <div class="control-group">
+                        <com:TLabel ForControl="cmbOrderStatus" CssClass="control-label" Text="Method" />                                        
+                        <div class="controls"> 
+                            <com:TActiveDropDownList ID="cmbPaymentMethod" AutoPostBack="false" />      
+                            <com:TRequiredFieldValidator InitialValue="none" ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbPaymentMethod" ErrorMessage="Please choose payment method."/>
+                            <com:TActiveCustomValidator ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbPaymentMethod" FocusOnError="true" OnServerValidate="checkNewOrder" />								
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <com:TLabel ForControl="cmbOrderStatus" CssClass="control-label" Text="Status Order" />                                        
+                        <div class="controls"> 
+                            <com:TActiveDropDownList ID="cmbOrderStatus" AutoPostBack="false" />
+                            <com:TRequiredFieldValidator InitialValue="none" ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbOrderStatus" ErrorMessage="<br />Please set order status of transaction."/>
+                        </div>
+                    </div>                    
+                    <p>
+                        <strong>Total Quantity: </strong>
+                        <com:TActiveLabel Text="<%=$this->getTotalFromCart('quantity')%>" />
+                    </p>
+                    <p>
+                        <strong>Total Unit Price:</strong>        
+                        <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('totalunitprice'))%>" />
+                    </p>
+                    <p>
+                        <strong>Total Omset:</strong>     
+                        <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('omset'))%>" />
+                    </p>
+                    <p>
+                        <strong>Total Price:</strong> 
+                        <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('totalprice'))%>" />
+                    </p>
+                    <p>
+                        <br>
+                        <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-success btn-xlarge" Text="Save Order" OnClick="saveOrder" ValidationGroup="saveneworder">
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();                                
+                                $('<%=$this->btnSave->ClientId%>').addClassName('disabled');                
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSave->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('<%=$this->btnSave->ClientId%>').disabled='';						
+                                $('<%=$this->btnSave->ClientId%>').removeClassName('disabled');                                		
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton> 
+                        <com:TRequiredFieldValidator ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="hiddentotalprice" ErrorMessage="Total price must be greater than from zero (0)."/>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>  
+</com:TActivePanel>
+</com:TContent>

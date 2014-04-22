@@ -1,0 +1,127 @@
+<%@ Title="CahayaOnline - Deposit" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-money"></i> Deposit
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Deposit Member
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">  
+    <div class="row-fluid">        
+        <div class="span12">
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-group"></i> Informasi Member</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                         
+                    </div>
+                </div>
+                <div class="box-content">
+                    <dl>
+                        <dt>No. IBO :</dt>
+                        <dd><%=$this->dataMember['ibo']%></dd>
+                        <dt>Name :</dt>
+                        <dd><%=$this->dataMember['member_name']%></dd>
+                        <dt>Deposit Bonus :</dt>
+                        <dd><com:TLiteral ID="literalDepositBonus" /></dd>
+                        <dt>Saldo Deposit :</dt>
+                        <dd><com:TLiteral ID="literalSaldoDeposit" /></dd>
+                    </dl>                                       
+                </div>
+            </div>            
+        </div>                
+    </div>	        
+    <div class="row-fluid">        
+        <div class="span12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="icon-zoom-in"></i> Filter</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>
+                    </div>
+                </div>      
+                <div class="box-content">
+                    <div class="control-group">
+                        <com:TLabel ForControl="cmbFilterMonth" CssClass="control-label" Text="Tahun/Bulan" />  
+                        <div class="controls">
+                            <com:TActiveDatePicker ID="cmbFilterMonth" DateFormat="yyyy-MMMM" Culture="id"  FromYear="<%=$this->TGL->tanggal('Y',$this->dataMember['date_reg'])%>" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" OnCallBack="changeFilterDate">
+                                <prop:ClientSide.OnPreDispatch>
+                                    $('loading').show();
+                                </prop:ClientSide.OnPreDispatch>					
+                                <prop:ClientSide.onLoading>                                    
+                                    $('<%=$this->cmbFilterMonth->clientId%>').disabled='disabled';
+                                </prop:ClientSide.onLoading>
+                                <prop:ClientSide.onComplete>						                    
+                                    $('<%=$this->cmbFilterMonth->clientId%>').disabled='';
+                                    $('loading').hide();
+                                </prop:ClientSide.OnComplete>
+                            </com:TActiveDatePicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-money"></i> Mutasi Bulan <com:TActiveLabel Text="<%=$this->TGL->tanggal('F Y',$_SESSION['currentPageDeposit']['filter_date'])%>" /></h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>
+                    </div>
+                </div> 
+                <div class="box-content">
+                    <com:TActiveRepeater ID="RepeaterMutasi">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-advance">	
+                                <thead>
+                                <tr>												
+                                    <th scope="col" width="20">No</th>                            
+                                    <th scope="col" width="170">Tanggal</th>                            					                            
+                                    <th scope="col">Aktivitas</th>                            
+                                    <th scope="col">Kredit</th>                            
+                                    <th scope="col">Debit</th>                            
+                                    <th scope="col">Jumlah</th>                                                                                    
+                                </tr>								
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr class="table-flag-blue">				
+                                <td><%#$this->DataItem['no']%></td>                        
+                                <td><%#$this->Page->TGL->tanggal('d F Y H:m:s',$this->DataItem['date_activity'])%></td>
+                                <td><%#$this->DataItem['aktivitas']%></td>
+                                <td><%#$this->Page->finance->toRupiah ($this->DataItem['kredit'])%></td>											
+                                <td><%#$this->Page->finance->toRupiah ($this->DataItem['debit'])%></td>											
+                                <td><%#$this->Page->finance->toRupiah ($this->DataItem['accountbalance'])%></td>	
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr class="table-flag-orange">				
+                                <td><%#$this->DataItem['no']%></td>                        
+                                <td><%#$this->Page->TGL->tanggal('d F Y H:m:s',$this->DataItem['date_activity'])%></td>
+                                <td><%#$this->DataItem['aktivitas']%></td>
+                                <td><%#$this->Page->finance->toRupiah ($this->DataItem['kredit'])%></td>											
+                                <td><%#$this->Page->finance->toRupiah ($this->DataItem['debit'])%></td>											
+                                <td><%#$this->Page->finance->toRupiah ($this->DataItem['accountbalance'])%></td>	
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>                            
+                            </tbody>
+                            </table>
+                        </prop:FooterTemplate>	
+                        <prop:EmptyTemplate>
+                            <div class="grid_15">
+                                <p id="info" class="info">
+                                    <span class="info_inner">Tidak ada transaksi</span>
+                                </p>
+                            </div>
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>            
+                </div>
+            </div>
+        </div>        
+    </div>
+</com:TPanel>
+</com:TContent>

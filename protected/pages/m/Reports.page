@@ -1,0 +1,155 @@
+<%@ Title="CahayaOnline - Reports" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-file-text-alt"></i> Summary Reports
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Ringkasan laporan
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box">
+                <div class="box-title">
+                    <h3><i class="icon-zoom-in"></i> Search / Filter</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <com:TLabel ForControl="cmbPeriodAwal" CssClass="control-label" Text="Periode Awal" />  
+                                <div class="controls">
+                                    <com:TActiveDatePicker ID="cmbPeriodAwal" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="1940" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" AutoPostBack="false"  />                
+                                </div>
+                            </div>                            
+                            <div class="control-group">
+                                <com:TLabel ForControl="chkWithDate" CssClass="control-label" Text="Calculate based Date" />  
+                                <div class="controls">
+                                    <com:TActiveCheckBox ID="chkWithDate" AutoPostBack="false" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <com:TLabel ForControl="cmbPeriodAkhir" CssClass="control-label" Text="Periode Akhir" />  
+                                <div class="controls">
+                                    <com:TActiveDatePicker ID="cmbPeriodAkhir" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="1940" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" AutoPostBack="false" />
+                                </div>
+                            </div>
+                        </div>                          
+                    </div>
+                    <div class="form-actions">
+                        <com:TActiveLinkButton ID="btnSearch" Text="Search" OnClick="filterReports" CssClass="btn btn-primary">
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();
+                                $('<%=$this->btnSearch->ClientId%>').removeClassName('button');
+                                $('<%=$this->btnSearch->ClientId%>').addClassName('button_grey');						
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('<%=$this->btnSearch->ClientId%>').disabled='';						
+                                $('<%=$this->btnSearch->ClientId%>').removeClassName('button_grey');
+                                $('<%=$this->btnSearch->ClientId%>').addClassName('button');												
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="row-fluid">    
+        <div class="span12">
+            <div class="box box-orange">
+                <div class="box-title">
+                    <h3><i class="icon-bar-chart"></i> General</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-up"></i></a>
+                        <a data-action="close" href="#"><i class="icon-remove"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <ul class="weekly-changes">
+                        <li>
+                            <p>
+                                <i class="icon-arrow-up light-green"></i>
+                                <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->dataToko['totalbelanja'])%>" CssClass="light-green" Width="150px" />
+                                Total Omset Belanja Seluruhnya
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="icon-minus light-blue"></i>
+                                <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->dataToko['totalomset'])%>" CssClass="light-blue" Width="150px" />
+                                Total Omset Pribadi Seluruhnya
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="icon-arrow-down light-red"></i>
+                                <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->dataToko['bonuspribadi'])%>" CssClass="light-red" Width="150px" />
+                                Total Bonus Pribadi Seluruhnya
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="icon-arrow-up light-green"></i>                                
+                                <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->dataToko['bonusgroup'])%>" CssClass="light-green" Width="150px" />
+                                Total Bonus Group Seluruhnya
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="icon-arrow-down light-red"></i>                                
+                                <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->dataToko['totalbonus'])%>" CssClass="light-red" Width="150px" />
+                                Total Bonus Deposit Seluruhnya
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="icon-arrow-down light-red"></i>                                
+                                <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->dataToko['totalbonusdeposit'])%>" CssClass="light-red" Width="150px" />
+                                Total Bonus Seluruhnya
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="icon-arrow-down light-red"></i>                                
+                                <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->dataToko['totalbonuscash'])%>" CssClass="light-red" Width="150px" />
+                                Total Bonus Cash Seluruhnya
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="icon-arrow-down light-red"></i>                                
+                                <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->dataToko['totalomsettoko'])%>" CssClass="light-red" Width="150px" />
+                                Total Omset Toko
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="icon-minus light-blue"></i>                                
+                                <com:TActiveLabel Text="0" CssClass="light-red" Width="150px" />
+                                Total Deposit Expired Seluruhnya
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="icon-arrow-down light-red"></i>                                
+                                <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->dataToko['totalpendapatan'])%>" CssClass="light-red" Width="150px" />
+                                Total Pendapatan Toko
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>    
+</com:TPanel>		
+</com:TContent>

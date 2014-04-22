@@ -1,0 +1,46 @@
+<com:TContent ID="maincontent">
+<com:TContent ID="contentsecondchildcategorymenu">
+    <div class="grid_16">
+        <%include Application.layouts.SecondChildCategoryMenu%>        
+    </div>
+    <div class="clearfix"></div>
+</com:TContent>
+<com:TPanel  Visible="<%= $this->getDefaultProcess() %>">
+    <div class="grid_11"><h2><%=$this->dataCategory['name']%></h2></div>
+    <br /><br /><br />    
+    <com:TActiveRepeater ID="RepeaterS" AllowPaging="true" PageSize="10" AllowCustomPaging="true" DataKeyField="product_id">        
+        <prop:ItemTemplate>	  
+            <div class="grid_4">
+                <div class="product">
+                    <a title="Details" href="#"><img src="<%#$this->Page->setup->getImagesProduct($this->DataItem['image'])%>" onerror="no_photo(this,'<%#$this->Page->setup->getAddress()%>/images/product/no_image-40x40.jpg')"/></a>
+                    <p><%#$this->DataItem['model']%></p>							
+                </div>
+                <p><%#$this->DataItem['product_name']%></p>
+                <div class="price-label">
+                    <strike>$117.50</strike>
+                    <p class="price">£96.<sup>35</sup></p>
+                </div>
+            </div>
+        </prop:ItemTemplate>	
+        <prop:AlternatingItemTemplate>	
+            <div class="grid_4">
+                <div class="product">
+                    <a title="Details" href="#"><img src="<%=$this->page->setup->getAddress()%>/images/product/case4.jpg" alt="Transformers computer case" /></a>
+                    <p>Case Model</p>							
+                </div>
+                <p><%#$this->DataItem['product_name']%></p>
+                <div class="price-label">
+                    <strike>$117.50</strike>
+                    <p class="price">£96.<sup>35</sup></p>
+                </div>
+            </div>
+        </prop:AlternatingItemTemplate>	
+        <prop:FooterTemplate>
+            <div class="clearfix"></div>
+        </prop:FooterTemplate>
+        <prop:EmptyTemplate>
+            No Product Item
+        </prop:EmptyTemplate>
+    </com:TActiveRepeater>
+</com:TPanel>
+</com:TContent>

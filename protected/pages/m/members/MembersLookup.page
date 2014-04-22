@@ -1,0 +1,31 @@
+<com:TContent ID="maincontent">		
+	<com:TActiveRepeater ID="RepeaterS" DataKeyField="member_id" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+		<prop:HeaderTemplate>			
+			<table class="box-table-a" border="0" width="100%" cellspacing="9" cellpadding="0">	
+				<tbody>
+				<tr>												
+					<th scope="col">IBO</th>
+					<th scope="col">Member Name</th>				
+					<th scope="col">Created</th>													
+				</tr>								
+		</prop:HeaderTemplate>
+		<prop:ItemTemplate>
+			<tr>				
+				<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+				<td><a href="javascript:void(0)" OnClick="sendValueToParentAddMember('<%#$this->DataItem['member_id']%>','<%#$this->DataItem['ibo']%>','<%#$this->DataItem['member_name']%>')"><%#$this->DataItem['member_name']%></a></td>				
+				<td><%#$this->Page->TGL->tanggal('j/m/Y',$this->DataItem['date_reg'])%></td>															
+			</tr>
+		</prop:ItemTemplate>				
+		<prop:AlternatingItemTemplate>
+			<tr>				
+				<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+				<td><a href="javascript:void(0)" OnClick="sendValueToParentAddMember('<%#$this->DataItem['member_id']%>','<%#$this->DataItem['ibo']%>','<%#$this->DataItem['member_name']%>')"><%#$this->DataItem['member_name']%></a></td>				
+				<td><%#$this->Page->TGL->tanggal('j/m/Y',$this->DataItem['date_reg'])%></td>															
+			</tr>
+		</prop:AlternatingItemTemplate>
+		<prop:FooterTemplate>
+			</table>
+		</prop:FooterTemplate>		
+	</com:TActiveRepeater>
+	<%include Application.Paging%>
+</com:TContent>

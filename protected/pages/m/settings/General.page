@@ -1,0 +1,125 @@
+<%@ Title="CahayaOnline - Setting General" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-gear"></i> General
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Digunakan untuk mengatur seting sistem secara umum.
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>" CssClass="row-fluid">   
+    <div class="span12">
+        <div class="box box-green">
+            <div class="box-title">
+                <h3><i class="icon-gear"></i> Data Perusahaan</h3>
+                <div class="box-tool">
+                    <a data-action="collapse" href="#"><i class="icon-chevron-up"></i></a>                     
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="control-group" id="divNamaPerusahaan">
+                    <label For="" class="control-label">Nama Perusahaan</label>                                        
+                    <div class="controls">
+                        <com:TTextBox ID="txtNamaPerusahaan" CssClass="input-xlarge" />
+                        <com:TRequiredFieldValidator ControlToValidate="txtNamaPerusahaan" Display="Dynamic" ErrorMessage="Isi <strong>nama</strong> perusahaan" ValidationGroup="settinggeneralValidator" FocusOnError="true">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divNamaPerusahaan').addClassName('error');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divNamaPerusahaan').removeClassName('error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                </div>
+                <div class="control-group" id="divNamaPemilik">
+                    <label For="" class="control-label">Nama Pimpinan</label>                                        
+                    <div class="controls">
+                        <com:TTextBox ID="txtNamaPemilik" CssClass="input-large" />
+                        <com:TRequiredFieldValidator ControlToValidate="txtNamaPemilik" Display="Dynamic" ErrorMessage="Isi <strong>nama pimpinan</strong> perusahaan" ValidationGroup="settinggeneralValidator" FocusOnError="true">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divNamaPemilik').addClassName('error');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divNamaPemilik').removeClassName('error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                </div>
+                <div class="control-group" id="divAlamat">
+                    <label For="" class="control-label">Alamat</label>                                        
+                    <div class="controls">
+                        <com:TTextBox ID="txtAlamat" CssClass="input-xxlarge" />
+                        <com:TRequiredFieldValidator ControlToValidate="txtAlamat" Display="Dynamic" ErrorMessage="Isi <strong>alamat</strong> perusahaan" ValidationGroup="settinggeneralValidator" FocusOnError="true">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divAlamat').addClassName('error');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divAlamat').removeClassName('error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                </div>
+                <div class="control-group" id="divEmail">
+                    <label For="" class="control-label">Email</label>                                        
+                    <div class="controls">
+                        <com:TTextBox ID="txtEmail" CssClass="input-large" />
+                        <com:TRequiredFieldValidator ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="Isi <strong>email</strong>" ValidationGroup="settinggeneralValidator" FocusOnError="true">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divEmail').addClassName('error');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEmail').removeClassName('error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                        <com:TEmailAddressValidator ValidationGroup="settinggeneralValidator" ControlToValidate="txtEmail" FocusOnError="true" Display="Dynamic" Text="Format alamat email salah.">
+                            <prop:ClientSide.OnValidationError>
+                                $('divEmail').addClassName('error');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divEmail').removeClassName('error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TEmailAddressValidator>
+
+                    </div>
+                </div>
+                <div class="control-group" id="divTelepon">
+                    <label For="" class="control-label">Telepon</label>                                        
+                    <div class="controls">
+                        <com:TTextBox ID="txtTelepon" CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,true)" />
+                        <com:TRequiredFieldValidator ControlToValidate="txtTelepon" Display="Dynamic" ErrorMessage="Isi <strong>nomor</strong> telepon" ValidationGroup="settinggeneralValidator" FocusOnError="true">			
+                            <prop:ClientSide.OnValidationError>
+                                $('divTelepon').addClassName('error');
+                            </prop:ClientSide.OnValidationError>
+                            <prop:ClientSide.OnValidationSuccess>
+                                $('divTelepon').removeClassName('error');
+                            </prop:ClientSide.OnValidationSuccess>
+                        </com:TRequiredFieldValidator>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label For="" class="control-label">Fax</label>                                        
+                    <div class="controls">
+                        <com:TTextBox ID="txtFax" CssClass="input-medium" />
+                    </div>
+                </div>
+                <div class="form-actions">
+                        <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-primary" OnClick="saveData" ValidationGroup="settinggeneralValidator">
+                            <prop:Text><i class="icon-ok"></i> Simpan</prop:Text>
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();                                             
+                                $('<%=$this->btnSave->ClientId%>').addClassName='disabled';
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSave->ClientId%>').disabled='disabled';									                                
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.onComplete>
+                                $('<%=$this->btnSave->ClientId%>').disabled='';																								                                                    
+                                $('<%=$this->btnSave->ClientId%>').removeClassName='disabled';
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
+                    </div>
+            </div>
+        </div>
+    </div>
+</com:TPanel>
+</com:TContent>

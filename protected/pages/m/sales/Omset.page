@@ -1,0 +1,149 @@
+<%@ Title="CahayaOnline - Omset" %>
+<com:TContent ID="titlecontent">
+    <i class="icon-money"></i> Omset Members
+</com:TContent>
+<com:TContent ID="titledesccontent">
+    Omset Members
+</com:TContent>
+<com:TContent ID="maincontent">
+<com:TPanel Visible="<%= $this->getDefaultProcess() %>">	
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-green">
+                <div class="box-title">
+                    <h3><i class="icon-zoom-in"></i> Search / Filter</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                                                
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <com:TLabel ForControl="noibo" CssClass="control-label" Text="No. IBO" />  
+                                <div class="controls">
+                                    <com:TTextBox ID="noibo" CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,true)" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="membername" CssClass="control-label" Text="Nama Member" />  
+                                <div class="controls">                                    
+                                    <com:TTextBox ID="membername" CssClass="input-large" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="cmbStatus" CssClass="control-label" Text="Status" />  
+                                <div class="controls">                                    
+                                    <com:TDropDownList ID="cmbStatus" AutoPostBack="false" CssClass="input-small">                    
+                                        <com:TListItem Value="active" Text="Active"/>
+                                        <com:TListItem Value="inactive" Text="Inactive"/>
+                                        <com:TListItem Value="closed" Text="Closed"/>
+                                    </com:TDropDownList> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <com:TLabel ForControl="cmbPeriodAwal" CssClass="control-label" Text="Periode Awal" />  
+                                <div class="controls">                                    
+                                   <com:TActiveDatePicker ID="cmbPeriodAwal" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" AutoPostBack="false"  />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="cmbPeriodAkhir" CssClass="control-label" Text="Periode Akhir" />  
+                                <div class="controls">                                    
+                                   <com:TActiveDatePicker ID="cmbPeriodAkhir" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" AutoPostBack="false" />
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <com:TLabel ForControl="chkWithDate" CssClass="control-label" Text="Calculate based Date" />  
+                                <div class="controls">                                    
+                                   <com:TActiveCheckBox ID="chkWithDate" AutoPostBack="false" />
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="form-actions">
+                        <com:TActiveLinkButton ID="btnSearch" Text="<i class='icon-zoom-in'></i> Search" OnClick="searchClient" CssClass="btn btn-primary">
+                            <prop:ClientSide.OnPreDispatch>
+                                $('loading').show();                                
+                                $('<%=$this->btnSearch->ClientId%>').addClassName('disabled');						
+                            </prop:ClientSide.OnPreDispatch>
+                            <prop:ClientSide.OnLoading>
+                                $('<%=$this->btnSearch->ClientId%>').disabled='disabled';						
+                            </prop:ClientSide.OnLoading>
+                            <prop:ClientSide.OnComplete>																	
+                                $('<%=$this->btnSearch->ClientId%>').disabled='';						
+                                $('<%=$this->btnSearch->ClientId%>').removeClassName('disabled');                                												
+                                $('loading').hide();
+                            </prop:ClientSide.OnComplete>
+                        </com:TActiveLinkButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>	
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box box-black">
+                <div class="box-title">
+                    <h3><i class="icon-money"></i> Daftar Omset Member</h3>
+                    <div class="box-tool">
+                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                                                
+                    </div>
+                </div>
+                <div class="box-content">
+                    <com:TActiveRepeater ID="RepeaterS" DataKeyField="member_id" AllowPaging="true" PageSize="10" AllowCustomPaging="true">
+                        <prop:HeaderTemplate>			
+                            <table class="table table-advance">	
+                                <thead>
+                                <tr>												
+                                    <th scope="col" width="100">IBO</th>
+                                    <th scope="col" width="350">Member Name</th>
+                                    <th scope="col" width="100">Omset Belanja</th>
+                                    <th scope="col" width="100">Omset Pribadi</th>																																		
+                                    <th scope="col" width="100">Total Omset Group Kanan</th>
+                                    <th scope="col" width="100">Total Omset Group Kiri</th>										                            
+                                </tr>								
+                                </thead>
+                                <tbody>
+                        </prop:HeaderTemplate>
+                        <prop:ItemTemplate>
+                            <tr>				
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															                        
+                                <td><%#$this->DataItem['omsetbelanja']%></td>
+                                <td><%#$this->DataItem['totalomset']%></td>
+                                <td><%#$this->DataItem['totalomsetgroupkanan']%></td>											
+                                <td><%#$this->DataItem['totalomsetgroupkiri']%></td>											                        
+                            </tr>
+                        </prop:ItemTemplate>				
+                        <prop:AlternatingItemTemplate>
+                            <tr>				
+                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															                        
+                                <td><%#$this->DataItem['omsetbelanja']%></td>
+                                <td><%#$this->DataItem['totalomset']%></td>
+                                <td><%#$this->DataItem['totalomsetgroupkanan']%></td>											
+                                <td><%#$this->DataItem['totalomsetgroupkiri']%></td>											                        
+                            </tr>
+                        </prop:AlternatingItemTemplate>
+                        <prop:FooterTemplate>                           
+                            </tbody>
+                            </table>
+                        </prop:FooterTemplate>	
+                        <prop:EmptyTemplate>
+                            <div class="grid_15">
+                                <p id="info" class="info">
+                                    <span class="info_inner">Tidak ada members</span>
+                                </p>
+                            </div>
+                        </prop:EmptyTemplate>
+                    </com:TActiveRepeater>
+                    <%include Application.CustomPaging%>
+                </div>
+            </div>
+        </div>
+    </div>    
+</com:TPanel>		
+</com:TContent>
