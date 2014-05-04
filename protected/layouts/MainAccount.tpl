@@ -33,58 +33,6 @@
     Please wait while process your request !!!
 </div>
 <script src="<%=$this->page->setup->getAddress()%>/resources/system.js" type="text/javascript"></script>
-<div id="theme-setting">
-    <a href="#"><i class="icon-gears icon-2x"></i></a>
-    <ul>
-        <li>
-            <span>Skin</span>
-            <ul class="colors" data-target="body" data-prefix="skin-">
-                <li class="active"><a class="blue" href="#"></a></li>
-                <li><a class="red" href="#"></a></li>
-                <li><a class="green" href="#"></a></li>
-                <li><a class="orange" href="#"></a></li>
-                <li><a class="yellow" href="#"></a></li>
-                <li><a class="pink" href="#"></a></li>
-                <li><a class="magenta" href="#"></a></li>
-                <li><a class="gray" href="#"></a></li>
-                <li><a class="black" href="#"></a></li>
-            </ul>
-        </li>
-        <li>
-            <span>Navbar</span>
-            <ul class="colors" data-target="#navbar" data-prefix="navbar-">
-                <li class="active"><a class="blue" href="#"></a></li>
-                <li><a class="red" href="#"></a></li>
-                <li><a class="green" href="#"></a></li>
-                <li><a class="orange" href="#"></a></li>
-                <li><a class="yellow" href="#"></a></li>
-                <li><a class="pink" href="#"></a></li>
-                <li><a class="magenta" href="#"></a></li>
-                <li><a class="gray" href="#"></a></li>
-                <li><a class="black" href="#"></a></li>
-            </ul>
-        </li>
-        <li>
-            <span>Sidebar</span>
-            <ul class="colors" data-target="#main-container" data-prefix="sidebar-">
-                <li class="active"><a class="blue" href="#"></a></li>
-                <li><a class="red" href="#"></a></li>
-                <li><a class="green" href="#"></a></li>
-                <li><a class="orange" href="#"></a></li>
-                <li><a class="yellow" href="#"></a></li>
-                <li><a class="pink" href="#"></a></li>
-                <li><a class="magenta" href="#"></a></li>
-                <li><a class="gray" href="#"></a></li>
-                <li><a class="black" href="#"></a></li>
-            </ul>
-        </li>
-        <li>
-            <span></span>
-            <a data-target="navbar" href="#"><i class="icon-check-empty"></i> Fixed Navbar</a>
-            <a class="pull-right visible-desktop" data-target="sidebar" href="#"><i class="icon-check-empty"></i> Fixed Sidebar</a>
-        </li>
-    </ul>
-</div>	
 <!-- BEGIN Navbar -->
 <div id="navbar" class="navbar">
     <div class="navbar-inner">
@@ -93,18 +41,27 @@
             <a href="#" class="brand">
                 <small>
                     <i class="icon-desktop"></i>
-                     Cahaya Online Backend System
+                    Selamat Berbelanja
                 </small>
             </a>
             <!-- END Brand -->
-            <!-- BEGIN Responsive Sidebar Collapse -->
-            <a href="#" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-reorder"></i>
-            </a>
-            <!-- END Responsive Sidebar Collapse -->
+				<!-- BEGIN Responsive Sidebar Collapse -->
+					<a href="#" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-reorder">
+					</i>
+				</a>
+				<!-- END Responsive Sidebar Collapse -->
             <!-- BEGIN Navbar Buttons -->
-            <ul class="nav flaty-nav pull-right">                
-                <!-- END Button Messages -->    
+				<ul class="nav flaty-nav pull-right">
+			<a href="#" class="brand">
+				<small>
+					Deposit Bonus : Rp.100.000.000.000,- # Saldo Deposit : Rp.100.000.000.000,-
+				</small>
+			</a>
+			<!-- BEGIN Button Tasks -->
+                <li class="hidden-phone">
+                    </li>
+            <!-- END Button Messages -->    
                 <li class="user-profile">
                      <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
                         <img class="nav-user-photo" src="<%=$this->Page->setup->getUrlPhotoUser().$this->Page->Pengguna->getDataUser('userid')%>_70x68.jpg" onerror="no_photo(this,'<%=$this->Page->setup->getUrlPhotoUser().'no_photo.jpg'%>')" alt="photo <%=$this->page->Pengguna->getUsername()%>" />
@@ -133,10 +90,10 @@
                         </li>
                         <li>
                             <a href="#">
-                                <i class="icon-question"></i>
-                                Help
+                                <i class="icon-comment"></i>
+                                Messages
                             </a>
-                        </li>
+						</li>
                         <li class="divider"></li>
                         <li>
                             <a href="<%=$this->Service->constructUrl('a.Logout')%>">
@@ -163,32 +120,31 @@
             <li<%=$this->Page->showDashboard==true?' class="active"':''%>>
                 <a href="<%=$this->Service->constructUrl('a.Home')%>">
                     <i class="icon-dashboard"></i>
-                    <span>Dashboard</span>
+                    <span>Informasi Member</span>
                 </a>
             </li>
             <li<%=$this->Page->showMembers==true?' class="active"':''%>>
                 <a href="#" class="dropdown-toggle">
                     <i class="icon-group"></i>
-                    <span>Members</span>
+                    <span>Member</span>
                     <b class="arrow icon-angle-right"></b>
                 </a>
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">                                        
                     <li<%=$this->Page->showAddNewMember==true?' class="active"':''%>><a href="<%=$this->Service->constructUrl('a.members.AddNewMember')%>">Tambah Member</a></li>
-                    <li<%=$this->Page->showEditMember==true?' class="active"':''%>><a href="<%=$this->Service->constructUrl('a.members.EditMember')%>">Profiles</a></li>                                                                          
-                    <li<%=$this->Page->showDeposit==true?' class="active"':''%>><a href="<%=$this->Service->constructUrl('a.members.Deposit')%>">Deposit</a></li>                               
+                    <li<%=$this->Page->showDeposit==true?' class="active"':''%>><a href="<%=$this->Service->constructUrl('a.members.Deposit')%>">Mutasi Deposit</a></li>                               
                 </ul>
             </li>    
             <li<%=$this->Page->showSales==true?' class="active"':''%>>
                 <a href="#" class="dropdown-toggle">
                     <i class="icon-shopping-cart"></i>
-                    <span>Sales</span>
+                    <span>Keranjang Belanja</span>
                     <b class="arrow icon-angle-right"></b>
                 </a>
                 <!-- BEGIN Submenu -->
                 <ul class="submenu">                    
-                    <li<%=$this->Page->showNewOrder==true?' class="active"':''%>><a href="<%=$this->Service->constructUrl('a.sales.NewOrder')%>">New Order</a></li>
-                    <li<%=$this->Page->showSalesHome==true?' class="active"':''%>><a href="<%=$this->Service->constructUrl('a.Sales')%>">Orders</a></li>                                                        
+                    <li<%=$this->Page->showNewOrder==true?' class="active"':''%>><a href="<%=$this->Service->constructUrl('a.sales.NewOrder')%>">Transaksi Baru</a></li>
+                    <li<%=$this->Page->showSalesHome==true?' class="active"':''%>><a href="<%=$this->Service->constructUrl('a.Sales')%>">Daftar Transaksi</a></li>                                                        
                 </ul>
             </li>
             <li<%=$this->Page->showKonfirmasiDeposit==true?' class="active"':''%>>
@@ -198,7 +154,7 @@
                 </a>
             </li>
         </ul>
-        <!-- END Navlist -->
+		<!-- END Navlist -->
         <!-- BEGIN Sidebar Collapse Button -->
         <div id="sidebar-collapse" class="visible-desktop">
             <i class="icon-double-angle-left"></i>

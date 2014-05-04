@@ -1,7 +1,7 @@
 <%@ Title="CahayaOnline - Admin Login" %>
 <com:TContent ID="content">
-    <h3>Login to your account</h3>
-    <hr />
+    <h3><center>Login Admin Account</center></h3>
+    <hr/>
     <div id="panelUsername" class="control-group">
         <div class="controls">
             <com:TTextBox ID="txtUsername" Attributes.placeholder="Username" CssClass="input-block-level" />
@@ -28,9 +28,14 @@
             </com:TRequiredFieldValidator>
         </div>
     </div>
+	<div class="form-group">
+		<label class="checkbox">
+			<input type="checkbox" value="remember"/>Remember Me
+		</label>
+	</div>
     <div class="control-group">
         <div class="controls">
-            <com:TActiveButton ID="btnLogin" CssClass="btn btn-primary input-block-level" Text="Sign In" Width="300px" ValidationGroup="userlogin" Onclick="doLogin">                            
+            <com:TActiveButton ID="btnLogin" CssClass="btn btn-primary input-block-level" Text="Sign In" Width="130px" ValidationGroup="userlogin" Onclick="doLogin">                            
                 <prop:ClientSide.OnLoading>
                     $('<%=$this->btnLogin->ClientId%>').disabled='disabled';									
                     $('<%=$this->btnLogin->ClientId%>').addClassName='disabled';
@@ -43,8 +48,8 @@
         </div>
         <com:TActiveLabel ID="errormessage"/>      
     </div>
-    <hr/>
+	<hr/>
     <p class="clearfix">
-        <a href="#" class="goto-forgot pull-left">Forgot Password?</a>
+        <a href="#" class="goto-forgot pull-left">Forgot Password ?</a>
     </p>
 </com:TContent>

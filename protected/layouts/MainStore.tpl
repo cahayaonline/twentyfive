@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width">    
     <link rel="shortcut icon" href="<%=$this->Page->setup->getStoreProduct('favicon.ico')%>">
     <link href="<%=$this->Page->Theme->baseUrl%>/css/style.css" media="screen" rel="stylesheet" type="text/css">
-    <com:TContentPlaceHolder ID="csscontent" />
+    <com:TContentPlaceHolder ID="csscontent"/>
 </com:THead>
 <body>
 <com:TForm>
@@ -40,13 +40,13 @@
         </div><!-- .grid_3 -->
         <div class="grid_3">
             <div class="search">
-                 <com:TTextBox ID="search" CssClass="entry_form" Attributes.placeholder="Search entire store here..." />
+                 <com:TTextBox ID="search" CssClass="entry_form" Attributes.placeholder="Search entire store here..."/>
              </div>
         </div><!-- .grid_3 -->
         <div class="grid_6">
             <ul id="cart_nav">
                 <li>
-                    <com:TContentPlaceHolder ID="contentTopShoppingCart" />                       
+                    <com:TContentPlaceHolder ID="contentTopShoppingCart"/>                       
                 </li>
             </ul>
             <nav class="private">

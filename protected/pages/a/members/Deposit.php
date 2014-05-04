@@ -21,8 +21,6 @@ class Deposit extends MainPageAccount {
         $_SESSION['currentPageDeposit']['datamember']['accountbalance']=$accountbalance;        
         $this->cmbFilterMonth->Text=$_SESSION['currentPageDeposit']['filter_date'];
         $deposit_akhir=$this->finance->getAccountBalance('all');
-        $this->literalDepositBonus->Text=$this->finance->toRupiah($deposit_akhir['sisa_bonus']);
-        $this->literalSaldoDeposit->Text=$this->finance->toRupiah($deposit_akhir['saldo_deposit']);
         $this->populateMutasi();
     }
     public function changeFilterDate($sender,$param) {                

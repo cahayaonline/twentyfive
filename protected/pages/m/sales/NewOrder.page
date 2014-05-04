@@ -25,10 +25,10 @@
                 </div>
             </div>
             <div class="box-content">
-                <com:TActiveHiddenField ID="hiddenmemberid" />
-                <com:TActiveHiddenField ID="hiddenstock" />
+                <com:TActiveHiddenField ID="hiddenmemberid"/>
+                <com:TActiveHiddenField ID="hiddenstock"/>
                 <div class="control-group">
-                    <com:TLabel ForControl="txtIBO" CssClass="control-label" Text="No. IBO" />  
+                    <com:TLabel ForControl="txtIBO" CssClass="control-label" Text="No. IBO"/>  
                     <div class="controls">
                         <com:TAutoComplete ID="txtIBO" OnSuggest="suggestIBO" OnSuggestionSelected="iboSuggetionSelected" ResultPanel.CssClass="acomplete" ResultPanel.Style="position:relative" Suggestions.DataKeyField="member_id" CssClass="smallInput" Columns="30"></td>
                            <prop:Suggestions.ItemTemplate>
@@ -44,11 +44,11 @@
                                 $('<%=$this->txtMemberName->clientId%>').disabled='';
                                 $('loadingibo').hide();
                             </prop:ClientSide.OnComplete>
-                        </com:TAutoComplete> <img id="loadingibo" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;" />
+                        </com:TAutoComplete> <img id="loadingibo" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;"/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <com:TLabel ForControl="txtIBO" CssClass="control-label" Text="Member Name" />  
+                    <com:TLabel ForControl="txtIBO" CssClass="control-label" Text="Member Name"/>  
                     <div class="controls">
                         <com:TAutoComplete ID="txtMemberName" OnSuggest="suggestMember" OnSuggestionSelected="memberSuggetionSelected" ResultPanel.CssClass="acomplete" ResultPanel.Style="position:relative" Suggestions.DataKeyField="member_id" CssClass="input-xlarge"></td>
                            <prop:Suggestions.ItemTemplate>
@@ -64,10 +64,9 @@
                                 $('loadingmembername').hide();
                                 $('<%=$this->txtIBO->clientId%>').disabled='';
                             </prop:ClientSide.OnComplete>
-                        </com:TAutoComplete> <img id="loadingmembername" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;" /> 
+                        </com:TAutoComplete> <img id="loadingmembername" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;"/> 
                     </div>
                 </div>
-                
                 <div class="form-actions">
                     <com:TActiveLinkButton ID="btnGo" Text="Go" OnClick="createOrder" ValidationGroup="addneworder" CssClass="btn btn-primary">
                         <prop:ClientSide.OnPreDispatch>
@@ -99,7 +98,7 @@
     </div>
 </div>
 <com:TActivePanel Visible="<%= $this->getAddProcess(false) %>">   
-    <com:TActiveHiddenField ID="hiddenproductid" />
+    <com:TActiveHiddenField ID="hiddenproductid"/>
     <div class="row-fluid">
         <div class="span12">
             <div class="box box-green">
@@ -112,9 +111,9 @@
                 </div>
                 <div class="box-content">
                     <div class="control-group">
-                        <com:TLabel ForControl="txtProductName" CssClass="control-label" Text="Pilih Produk" />                                        
+                        <com:TLabel ForControl="txtProductName" CssClass="control-label" Text="Pilih Produk"/>                                        
                         <div class="controls">                            
-                            <com:TAutoComplete ID="txtProductName" OnSuggest="suggestProduct" OnSuggestionSelected="productSuggetionSelected" ResultPanel.CssClass="acomplete" ResultPanel.Style="position: relative" Suggestions.DataKeyField="product_id" CssClass="smallInput" Columns="30"></td>
+                            <com:TAutoComplete ID="txtProductName" OnSuggest="suggestProduct" OnSuggestionSelected="productSuggetionSelected" ResultPanel.CssClass="acomplete" ResultPanel.Style="position: relative" Suggestions.DataKeyField="product_id" CssClass="span12" Columns="30"></td>
                                 <prop:Suggestions.ItemTemplate>
                                     <li><a href="#"><%# $this->Data['product_name']%></a></li>
                                </prop:Suggestions.ItemTemplate>
@@ -138,18 +137,18 @@
                                     </prop:ClientSide.OnComplete>  
                               </com:TActiveLinkButton>
                               <com:TRequiredFieldValidator ValidationGroup="addproducttocart" Display="Dynamic" ControlToValidate="hiddenproductid" ErrorMessage="You did not enter product name or product name is incorect"/>  
-                              <img id="loadingproduct" src="<%=$this->Page->Theme->baseUrl%>/img/ajax-loader-1.gif" style="display:none;" /> 
+                              <img id="loadingproduct" src="<%=$this->Page->Theme->baseUrl%>/img/ajax-loader-1.gif" style="display:none;"/> 
                         </div>
                     </div>                    
                     <div class="control-group">
-                        <com:TLabel ForControl="txtQTY" CssClass="control-label" Text="Quantity" />                                        
+                        <com:TLabel ForControl="txtQTY" CssClass="control-label" Text="Jumlah"/>                                        
                         <div class="controls"> 
                             <com:TActiveTextBox ID="txtQTY" CssClass="input-mini" Text="1" Attributes.OnKeyUp="formatangka(this,false)" />                    
                             <com:TRequiredFieldValidator ValidationGroup="addproducttocart" Display="Dynamic" ControlToValidate="txtQTY" FocusOnError="true" ErrorMessage="You did not enter quantity product"/>  
                         </div>
                     </div>
                     <div class="control-group">
-                        <com:TLabel ForControl="txtLaba" CssClass="control-label" Text="Laba (%)" />                                        
+                        <com:TLabel ForControl="txtLaba" CssClass="control-label" Text="Omset (%)"/>                                        
                         <div class="controls"> 
                             <com:TActiveTextBox ID="txtLaba" CssClass="input-mini" Text="0" Attributes.OnKeyUp="formatangka(this,false)" />                    
                             <com:TRequiredFieldValidator ValidationGroup="addproducttocart" Display="Dynamic" ControlToValidate="txtLaba" FocusOnError="true" ErrorMessage="You did not enter laba each product"/>  
@@ -168,7 +167,7 @@
                                 $('loading').hide();
                             </prop:ClientSide.OnComplete>
                         </com:TActiveButton>
-                        <com:TActiveCustomValidator ValidationGroup="addproducttocart" Display="Fixed" ControlToValidate="txtQTY" FocusOnError="true" OnServerValidate="checkQTY" />								
+                        <com:TActiveCustomValidator ValidationGroup="addproducttocart" Display="Fixed" ControlToValidate="txtQTY" FocusOnError="true" OnServerValidate="checkQTY"/>								
                     </div>
                 </div>
             </div>
@@ -178,7 +177,7 @@
         <div class="span12">
             <div class="box box-red">
                 <div class="box-title">
-                    <h3><i class="icon-shopping-cart"></i> Daftar Order</h3>
+                    <h3><i class="icon-shopping-cart"></i> Daftar Belanja</h3>
                     <div class="box-tool">
                         <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                                                
                     </div>
@@ -196,10 +195,9 @@
                         OnCancelCommand="cancelItem"
                         OnDeleteCommand="deleteItem"
                         >
-
                         <com:TActiveLiteralColumn
                             ID="ProductColumn"
-                            HeaderText="Product"            
+                            HeaderText="Nama Barang"            
                             HeaderStyle.Width="160px"
                             DataField="product_name"
                             HeaderStyle.CssClass="left" 
@@ -208,7 +206,7 @@
                         <com:TActiveLiteralColumn
                             ID="ModelColumn"
                             HeaderText="Model"
-                            HeaderStyle.Width="110px"
+                            HeaderStyle.Width="90px"
                             DataField="model"
                             HeaderStyle.CssClass="left" 
                             ItemStyle.CssClass="left"
@@ -217,7 +215,7 @@
                             ID="QuantityColumn"
                             ItemStyle.HorizontalAlign="Right"
                             ItemStyle.Wrap="false"          
-                            HeaderText="QTY"
+                            HeaderText="Jml"
                             HeaderStyle.Width="15px"
                             DataField="quantity"            
                             HeaderStyle.CssClass="right"
@@ -225,7 +223,7 @@
                             />       
                         <com:TActiveLiteralColumn
                             ID="UnitPriceColumn"
-                            HeaderText="Unit Price"
+                            HeaderText="Harga Satuan"
                             HeaderStyle.Width="90px"
                             DataField="price"
                             HeaderStyle.CssClass="right" 
@@ -233,7 +231,7 @@
                             />
                         <com:TActiveLiteralColumn
                             ID="TotalUnitPriceColumn"
-                            HeaderText="Total Unit Price"
+                            HeaderText="Total Harga"
                             HeaderStyle.Width="90px"
                             DataField="totalunitprice"
                             HeaderStyle.CssClass="right" 
@@ -243,7 +241,7 @@
                             ID="LabaColumn"
                             ItemStyle.HorizontalAlign="Right"
                             ItemStyle.Wrap="false"          
-                            HeaderText="Laba (%)"
+                            HeaderText="Omset (%)"
                             HeaderStyle.Width="60px"
                             DataField="laba"            
                             HeaderStyle.CssClass="right"
@@ -251,7 +249,7 @@
                             />  
                         <com:TActiveLiteralColumn
                             ID="OmsetColumn"
-                            HeaderText="Omset"
+                            HeaderText="Omset Belanja"
                             HeaderStyle.Width="90px"
                             DataField="omset"
                             HeaderStyle.CssClass="right" 
@@ -259,7 +257,7 @@
                             />
                         <com:TActiveLiteralColumn
                             ID="TotalPrice"
-                            HeaderText="Total Price"
+                            HeaderText="Total Bayar"
                             HeaderStyle.Width="90px"
                             DataField="totalprice"
                             HeaderStyle.CssClass="right" 
@@ -275,7 +273,7 @@
                             ID="DeleteColumn"
                             HeaderText=""
                             HeaderStyle.Width="50px"            
-                            Text="Delete"
+                            Text="Hapus"
                             CommandName="delete"
                             ItemStyle.CssClass="left"
                             />       
@@ -321,34 +319,34 @@
                 </div>
                 <div class="box-content invoice-amount">
                     <div class="control-group">
-                        <com:TLabel ForControl="cmbOrderStatus" CssClass="control-label" Text="Method" />                                        
+                        <com:TLabel ForControl="cmbOrderStatus" CssClass="control-label" Text="Cara Pembayaran"/>                                        
                         <div class="controls"> 
-                            <com:TActiveDropDownList ID="cmbPaymentMethod" AutoPostBack="false" />      
-                            <com:TRequiredFieldValidator InitialValue="none" ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbPaymentMethod" ErrorMessage="Please choose payment method."/>
+                            <com:TActiveDropDownList ID="cmbPaymentMethod" AutoPostBack="false"/>      
+                            <com:TRequiredFieldValidator InitialValue="none" ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbPaymentMethod" ErrorMessage="Pilih Cara Pembayaran !!"/>
                             <com:TActiveCustomValidator ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbPaymentMethod" FocusOnError="true" OnServerValidate="checkNewOrder" />								
                         </div>
                     </div>
                     <div class="control-group">
-                        <com:TLabel ForControl="cmbOrderStatus" CssClass="control-label" Text="Status Order" />                                        
+                        <com:TLabel ForControl="cmbOrderStatus"CssClass="control-label"Text="Status Order"/>                                        
                         <div class="controls"> 
                             <com:TActiveDropDownList ID="cmbOrderStatus" AutoPostBack="false" />
-                            <com:TRequiredFieldValidator InitialValue="none" ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbOrderStatus" ErrorMessage="<br />Please set order status of transaction."/>
+                            <com:TRequiredFieldValidator InitialValue="none" ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbOrderStatus" ErrorMessage="<br />Pilih Status Order !!"/>
                         </div>
                     </div>                    
                     <p>
-                        <strong>Total Quantity: </strong>
+                        <strong>Total Jumlah :</strong>
                         <com:TActiveLabel Text="<%=$this->getTotalFromCart('quantity')%>" />
                     </p>
                     <p>
-                        <strong>Total Unit Price:</strong>        
+                        <strong>Total Harga Satuan :</strong>        
                         <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('totalunitprice'))%>" />
                     </p>
                     <p>
-                        <strong>Total Omset:</strong>     
+                        <strong>Total Omset Belanja :</strong>     
                         <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('omset'))%>" />
                     </p>
                     <p>
-                        <strong>Total Price:</strong> 
+                        <strong>Total Bayar :</strong> 
                         <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('totalprice'))%>" />
                     </p>
                     <p>
@@ -367,7 +365,7 @@
                                 $('loading').hide();
                             </prop:ClientSide.OnComplete>
                         </com:TActiveLinkButton> 
-                        <com:TRequiredFieldValidator ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="hiddentotalprice" ErrorMessage="Total price must be greater than from zero (0)."/>
+                        <com:TRequiredFieldValidator ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="hiddentotalprice" ErrorMessage="Total Bayar Tidak Boleh Nol (0)"/>
                     </p>
                 </div>
             </div>

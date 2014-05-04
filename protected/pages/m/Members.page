@@ -20,23 +20,23 @@
                     <div class="row-fluid">
                         <div class="span6">                                
                             <div class="control-group">
-                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. IBO" />  
+                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. IBO"/>  
                                 <div class="controls">
-                                    <com:TTextBox ID="noiboFilter" CssClass="smallInput" Attributes.OnKeyUp="formatangka(this,true)" />
+                                    <com:TTextBox ID="noiboFilter" CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,true)"/>
                                 </div>
                             </div>
                             <div class="control-group">
-                                <com:TLabel ForControl="membernameFilter" CssClass="control-label" Text="Nama Member" />  
+                                <com:TLabel ForControl="membernameFilter" CssClass="control-label" Text="Nama Member"/>  
                                 <div class="controls">
-                                    <com:TTextBox Columns="30" ID="membernameFilter" CssClass="smallInput" />
+                                    <com:TTextBox Columns="30" ID="membernameFilter" CssClass="input-large"/>
                                 </div>
                             </div>
                         </div>
                         <div class="span6">
                             <div class="control-group">
-                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Status" />
+                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Status"/>
                                 <div class="controls">
-                                    <com:TDropDownList ID="cmbStatusFilter" AutoPostBack="false" CssClass="smallInput">                    
+                                    <com:TDropDownList ID="cmbStatusFilter" AutoPostBack="false" CssClass="input-small">                    
                                         <com:TListItem Value="1" Text="Active"/>
                                         <com:TListItem Value="2" Text="Inactive"/>
                                         <com:TListItem Value="3" Text="Closed"/>
@@ -44,9 +44,9 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <com:TLabel ForControl="emailFilter" CssClass="control-label" Text="Email" />
+                                <com:TLabel ForControl="emailFilter" CssClass="control-label" Text="Email"/>
                                 <div class="controls">
-                                    <com:TTextBox Columns="40" ID="emailFilter" CssClass="smallInput" />
+                                    <com:TTextBox Columns="40" ID="emailFilter" CssClass="input-medium"/>
                                 </div>
                             </div>
                         </div>

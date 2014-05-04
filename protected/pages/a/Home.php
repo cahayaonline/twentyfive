@@ -44,9 +44,7 @@ class Home extends MainPageAccount {
         $this->dataMember['totalbonuscash']=$totalbonuscash;
         
         $deposit_akhir=$this->finance->getAccountBalance('all');
-        $this->literalDepositBonus->Text=$this->finance->toRupiah($deposit_akhir['sisa_bonus']);
-        $this->literalSaldoDeposit->Text=$this->finance->toRupiah($deposit_akhir['saldo_deposit']);
-        
+               
         $latestmember=$this->member->getLastMember();
         $this->dataMember['latest_left']=$latestmember['left'];
         $this->dataMember['latest_right']=$latestmember['right'];                

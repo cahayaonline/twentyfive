@@ -1,9 +1,9 @@
-<%@ Title="CahayaOnline - Deposit" %>
+<%@ Title="CahayaOnline - Konfirmasi" %>
 <com:TContent ID="titlecontent">
-    <i class="icon-money"></i> Konfirmasi Deposit
+    <i class="icon-money"></i> Konfirmasi Transaksi
 </com:TContent>
 <com:TContent ID="titledesccontent">
-    Konfirmasi Deposit Member
+    Konfirmasi Transaksi Member
 </com:TContent>
 <com:TContent ID="csscontent">
 <link rel="stylesheet" href="<%=$this->page->theme->baseUrl%>/assets/data-tables/DT_bootstrap.css">
@@ -23,7 +23,7 @@
                     <div class="control-group">
                         <label class="control-label">Bank Tujuan</label>
                         <div class="controls">
-                            <com:TActiveDropDownList ID="cmbBankTujuan" OnCallBack="changeBankTujuan" CssClass="input-xlarge">
+                            <com:TActiveDropDownList ID="cmbBankTujuan" OnCallBack="changeBankTujuan" CssClass="span9">
                                 <prop:ClientSide.OnPreDispatch>
                                     $('loading').show();                                 
                                     $('<%=$this->cmbBankTujuan->ClientId%>').disabled='disabled';						
@@ -42,8 +42,8 @@
                         <label class="control-label">Kriteria</label>
                         <div class="controls">
                             <com:TActiveDropDownList ID="cmbKriteria" CssClass="input-medium" OnCallBack="changeCmbKriteria">                    
-                                <com:TListItem Value="bulanan" Text="Periode Transfer"/>
-                                <com:TListItem Value="harian" Text="Tanggal Transfer"/>                                
+                                <com:TListItem Value="bulanan" Text="Periode Bulan"/>
+                                <com:TListItem Value="harian" Text="Periode Tanggal"/>                                
                                 <prop:ClientSide.OnPreDispatch>
                                     $('loading').show();                                 
                                     $('<%=$this->cmbKriteria->ClientId%>').disabled='disabled';						
@@ -61,22 +61,22 @@
                     <com:TPanel CssClass="control-group" Visible="<%=$_SESSION['currentPageKonfirmasiDeposit']['cmbKriteria']=='harian'%>">
                         <label class="control-label">Tanggal</label>
                         <div class="controls">
-                            <com:TDatePicker ID="cmbHarian" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%=date('Y')%>" InputMode="DropDownList" />
+                            <com:TDatePicker ID="cmbHarian" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%=date('Y')%>" InputMode="DropDownList"/>
                         </div>
                     </com:TPanel>                     
                     <com:TPanel CssClass="control-group" Visible="<%=$_SESSION['currentPageKonfirmasiDeposit']['cmbKriteria']=='bulanan'%>">
                         <label class="control-label">Bulan</label>
                         <div class="controls">
-                            <com:TDatePicker ID="cmbBulanan" DateFormat="MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%=date('Y')%>" InputMode="DropDownList" ShowCalendar="false" />
+                            <com:TDatePicker ID="cmbBulanan" DateFormat="MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%=date('Y')%>" InputMode="DropDownList" ShowCalendar="false"/>
                         </div>
                     </com:TPanel> 
                     <div class="control-group" id="divJenisKonfirmasi">
                         <label class="control-label">Jenis Konfirmasi</label>
                         <div class="controls">
                             <com:TDropDownList ID="cmbJenisKonfirmasi">
-                                <com:TListItem Value="none" Text=" --- Jenis Konfirmasi ---" />
-                                <com:TListItem Value="konfirmasideposit" Text="Konfirmasi Tambah Deposit" />
-                                <com:TListItem Value="konfirmasiorder" Text="Konfirmasi Order/Pembayaran" />
+                                <com:TListItem Value="none" Text=" --- ALL ---"/>
+                                <com:TListItem Value="konfirmasideposit" Text="Konfirmasi Tambah Deposit"/>
+                                <com:TListItem Value="konfirmasiorder" Text="Konfirmasi Order/Pembayaran"/>
                             </com:TDropDownList>
                         </div>
                     </div>
@@ -111,13 +111,13 @@
                         <div class="row-fluid">
                             <div class="span7">
                                 <label>                                        
-                                    <com:TTextBox ID="txtKriteria" />
+                                    <com:TTextBox ID="txtKriteria"/>
                                     <com:TDropDownList ID="cmbKriteria2" AutoPostBack="false" CssClass="input-medium">
                                         <com:TListItem Value="ibo" Text="No. IBO"/>
                                         <com:TListItem Value="member_name" Text="Nama Member"/>
                                         <com:TListItem Value="kode_transfer" Text="Kode Transfer"/>
                                     </com:TDropDownList>                                            
-                                    <com:TActiveLinkButton ID="btnSearchMember" CssClass="btn btn-circle btn-primary btn-small" Text="<i class='icon-search'></i>" Attributes.Title="Cari" OnClick="searchRecord" ValidationGroup="filterForm">
+                                    <com:TActiveLinkButton ID="btnSearchMember" CssClass="btn btn-circle btn-primary btn-small" Text="<i class='icon-search'></i> "Attributes.Title="Cari" OnClick="searchRecord" ValidationGroup="filterForm">
                                         <prop:ClientSide.OnPreDispatch>
                                             $('loading').show();                                             
                                             $('<%=$this->btnSearchMember->ClientId%>').disabled='disabled';
@@ -170,7 +170,7 @@
                                 <td><%#$this->DataItem['nama_bank']%></td>
                                 <td><%#$this->Page->finance->getCaraPembayaran($this->DataItem['carapembayaran'])%></td>
                                 <td>
-                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small" />
+                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small"/>
                                 </td>
                             </tr>
                         </prop:ItemTemplate>				
@@ -184,7 +184,7 @@
                                 <td><%#$this->DataItem['nama_bank']%></td>
                                 <td><%#$this->Page->finance->getCaraPembayaran($this->DataItem['carapembayaran'])%></td>
                                 <td>
-                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small" />
+                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small"/>
                                 </td>
                             </tr>
                         </prop:AlternatingItemTemplate>

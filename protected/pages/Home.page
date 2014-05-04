@@ -9,7 +9,7 @@
         <div class="slidnext"><span>Next</span></div>
         <div id="slider">
             <div class="slide">
-                <img src="<%=$this->Page->Theme->baseUrl%>/images/content/slide1.jpg" alt="" title="" />
+                <img src="<%=$this->Page->Theme->baseUrl%>/images/content/slide1.jpg" alt="" title=""/>
                 <div class="slid_text">
                     <h3 class="slid_title"><span>Breeze Theme</span></h3>
                     <p><span>Breeze is the 14 stylish HTML templates,</span></p>
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="slide">
-                <img src="<%=$this->Page->Theme->baseUrl%>/images/content/slide2.jpg" alt="" title="" />
+                <img src="<%=$this->Page->Theme->baseUrl%>/images/content/slide2.jpg" alt="" title=""/>
                 <div class="slid_text">
                     <h3 class="slid_title"><span>Flexibility</span></h3>
                     <p><span>Every product, which you are selling,</span></p>
@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="slide">
-                <img src="<%=$this->Page->Theme->baseUrl%>/images/content/slide3.jpg" alt="" title="" />
+                <img src="<%=$this->Page->Theme->baseUrl%>/images/content/slide3.jpg" alt="" title=""/>
                 <div class="slid_text">
                     <h3 class="slid_title"><span>Accuracy and Easiness</span></h3>
                     <p><span>Breeze design is mere and accurate,</span></p>

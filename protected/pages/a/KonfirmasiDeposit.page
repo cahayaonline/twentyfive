@@ -28,7 +28,7 @@
                                     $('loading').hide();
                                 </prop:ClientSide.OnComplete>
                             </com:TActiveDropDownList>
-                            <com:TRequiredFieldValidator InitialValue="none" ValidationGroup="konfirmasideposit" Display="Dynamic" ControlToValidate="cmbCaraPembayaran" ErrorMessage="<br />Isi cara pembayaran">	
+                            <com:TRequiredFieldValidator InitialValue="none" ValidationGroup="konfirmasideposit" Display="Dynamic" ControlToValidate="cmbCaraPembayaran" ErrorMessage="<br/>Isi cara pembayaran">	
                                 <prop:ClientSide.OnValidationError>
                                     $('divCaraPembayaran').addClassName('error');
                                 </prop:ClientSide.OnValidationError>
@@ -41,19 +41,19 @@
                     <div class="control-group">
                         <label class="control-label">Bank Tujuan</label>
                         <div class="controls">
-                            <com:TActiveDropDownList ID="cmbBankTujuan" CssClass="input-xxlarge" AutoPostBack="false" />                            
+                            <com:TActiveDropDownList ID="cmbBankTujuan" CssClass="input-xxlarge" AutoPostBack="false"/>                            
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">Tanggal Transfer</label>
                         <div class="controls">
-                            <com:TDatePicker ID="cmbTanggalTranfer" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="<%= @date('Y')-1 %>" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" />
+                            <com:TDatePicker ID="cmbTanggalTranfer" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="<%= @date('Y')-1 %>" UpToYear="<%= @date('Y') %>" InputMode="DropDownList"/>
                         </div>
                     </div>
                     <div class="control-group" id="divBankPengirim">                        
                         <label class="control-label">Nama Bank Pengirim</label>
                         <div class="controls">
-                            <com:TActiveTextBox ID="txtBankPengirim"  CssClass="input-xlarge"  />
+                            <com:TActiveTextBox ID="txtBankPengirim"  CssClass="input-xlarge"/>
                             <com:TRequiredFieldValidator ValidationGroup="konfirmasideposit" Display="Dynamic" ControlToValidate="txtBankPengirim" ErrorMessage="<br />Isi nama bank pengirim">	
                                 <prop:ClientSide.OnValidationError>
                                     $('divBankPengirim').addClassName('error');
@@ -67,7 +67,7 @@
                     <div class="control-group" id="divNoRekPengirim">
                         <label class="control-label">No.Rekening Pengirim</label>
                         <div class="controls">
-                            <com:TActiveTextBox ID="txtNoRekPengirim"  CssClass="input-large"  />
+                            <com:TActiveTextBox ID="txtNoRekPengirim"  CssClass="input-large"/>
                             <com:TRequiredFieldValidator ValidationGroup="konfirmasideposit" Display="Dynamic" ControlToValidate="txtNoRekPengirim" ErrorMessage="<br />Isi nomor rekening bank pengirim">	
                                 <prop:ClientSide.OnValidationError>
                                     $('divNoRekPengirim').addClassName('error');
@@ -81,8 +81,8 @@
                     <div class="control-group" id="divNamaPengirim">
                         <label class="control-label">Nama Pemilik Rekening</label>
                         <div class="controls">
-                            <com:TActiveTextBox ID="txtNamaPengirim"  CssClass="input-xlarge"  />
-                            <com:TRequiredFieldValidator ValidationGroup="konfirmasideposit" Display="Dynamic" ControlToValidate="txtNamaPengirim" ErrorMessage="<br />Isi nama pengirim">	
+                            <com:TActiveTextBox ID="txtNamaPengirim"  CssClass="input-xlarge"/>
+                            <com:TRequiredFieldValidator ValidationGroup="konfirmasideposit" Display="Dynamic" ControlToValidate="txtNamaPengirim" ErrorMessage="<br />Isi nama pemilik rekening">	
                                 <prop:ClientSide.OnValidationError>
                                     $('divNamaPengirim').addClassName('error');
                                 </prop:ClientSide.OnValidationError>
@@ -95,7 +95,7 @@
                     <div class="control-group" id="divJumlahPengirim">
                         <label class="control-label">Jumlah yang Ditransfer</label>
                         <div class="controls">
-                            <com:TActiveTextBox ID="txtJumlahTransfer"  CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,false)"  />
+                            <com:TActiveTextBox ID="txtJumlahTransfer"  CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,false)"/>
                             <com:TRequiredFieldValidator ValidationGroup="konfirmasideposit" Display="Dynamic" ControlToValidate="txtJumlahTransfer" ErrorMessage="<br />Isi jumlah transfer">	
                                 <prop:ClientSide.OnValidationError>
                                     $('divJumlahPengirim').addClassName('error');
@@ -110,16 +110,22 @@
                         <label class="control-label">Jenis Konfirmasi</label>
                         <div class="controls">
                             <com:TDropDownList ID="cmbJenisKonfirmasi">
-                                <com:TListItem Value="none" Text=" --- Jenis Konfirmasi ---" />
-                                <com:TListItem Value="konfirmasideposit" Text="Konfirmasi Tambah Deposit" />
-                                <com:TListItem Value="konfirmasiorder" Text="Konfirmasi Order/Pembayaran" />
+                                <com:TListItem Value="none" Text=" --- Jenis Konfirmasi ---"/>
+                                <com:TListItem Value="konfirmasideposit" Text="Konfirmasi Tambah Deposit"/>
+                                <com:TListItem Value="konfirmasiorder" Text="Konfirmasi Order/Pembayaran"/>
                             </com:TDropDownList>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">Berita Transfer</label>
                         <div class="controls">
-                            <com:TActiveTextBox ID="txtKeterangan"  CssClass="input-large" TextMode="MultiLine" />
+                            <com:TActiveTextBox ID="txtKeterangan"  CssClass="input-large" TextMode="MultiLine"/>
+                        </div>
+                    </div>
+					<div class="control-group" id="divBuktiTransfer">
+                        <label class="control-label">Kirim Bukti Transfer</label>
+                        <div class="controls">
+                            <com:TActiveTextBox ID="txtBuktiTransfer"  CssClass="input-small"/>
                         </div>
                     </div>
                     <div class="form-actions">

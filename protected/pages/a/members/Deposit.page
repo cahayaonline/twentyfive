@@ -1,36 +1,13 @@
-<%@ Title="CahayaOnline - Deposit" %>
+<%@ Title="CahayaOnline - Mutasi Transaksi Deposoit" %>
 <com:TContent ID="titlecontent">
-    <i class="icon-money"></i> Deposit
+    <i class="icon-money"></i> Mutasi Transaksi Deposit
 </com:TContent>
 <com:TContent ID="titledesccontent">
-    Deposit Member
+    Mutasi Transaksi Deposit Member
 </com:TContent>
 <com:TContent ID="maincontent">
 <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">  
-    <div class="row-fluid">        
-        <div class="span12">
-            <div class="box box-green">
-                <div class="box-title">
-                    <h3><i class="icon-group"></i> Informasi Member</h3>
-                    <div class="box-tool">
-                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                         
-                    </div>
-                </div>
-                <div class="box-content">
-                    <dl>
-                        <dt>No. IBO :</dt>
-                        <dd><%=$this->dataMember['ibo']%></dd>
-                        <dt>Name :</dt>
-                        <dd><%=$this->dataMember['member_name']%></dd>
-                        <dt>Deposit Bonus :</dt>
-                        <dd><com:TLiteral ID="literalDepositBonus" /></dd>
-                        <dt>Saldo Deposit :</dt>
-                        <dd><com:TLiteral ID="literalSaldoDeposit" /></dd>
-                    </dl>                                       
-                </div>
-            </div>            
-        </div>                
-    </div>	        
+    	        
     <div class="row-fluid">        
         <div class="span12">
             <div class="box">

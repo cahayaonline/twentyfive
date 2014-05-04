@@ -135,5 +135,5 @@
 </com:TContent>
 <com:TContent ID="jscontent">
 <script src="<%=$this->Theme->baseUrl%>/assets/flot/jquery.flot.js"></script>
-<com:TLiteral ID="statistikChart" />
+<com:TLiteral ID="statistikChart"/>
 </com:TContent>

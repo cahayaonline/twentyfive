@@ -29,7 +29,7 @@
 <![endif]-->
 <div class="login-wrapper">     
 <com:TForm>    
-<com:TContentPlaceHolder ID="content" />
+<com:TContentPlaceHolder ID="content"/>
 </com:TForm>
 </div>
 </body>

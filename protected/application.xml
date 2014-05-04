@@ -22,13 +22,13 @@
 	</services>    
     <parameters>
       <parameter id="db_host" value="localhost"/>
-        <parameter id="db_username" value=""/>
+        <parameter id="db_username" value="root"/>
         <parameter id="db_userpassword" value=""/>
-        <parameter id="db_name" value=""/>
+        <parameter id="db_name" value="cahayaonline"/>
         <parameter id="db_type" value="mysql"/>		
-        <parameter id="address_lokal" value=""/>
-        <parameter id="address_lan" value=""/>        
-        <parameter id="address_internet" value=""/>              
+        <parameter id="address_lokal" value="http://localhost/cahayaonline"/>
+        <parameter id="address_lan" value="http://192.168.56.101/~ixi/cahayaonline"/>        
+        <parameter id="address_internet" value="http://www.cahayaonline.com"/>              
         <parameter id="default_sponsor" value="none"/>
         <parameter id="product_images_dir" value="resources/images/product/"/>
         <parameter id="store_images_dir" value="resources/images/store/"/>

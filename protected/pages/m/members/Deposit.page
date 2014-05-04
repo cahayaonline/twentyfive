@@ -1,12 +1,12 @@
-<%@ Title="CahayaOnline - Deposit" %>
+<%@ Title="CahayaOnline - Mutasi Deposit" %>
 <com:TContent ID="titlecontent">
-    <i class="icon-money"></i> Deposit
+    <i class="icon-money"></i> Mutasi Transaksi Deposit
 </com:TContent>
 <com:TContent ID="titledesccontent">
-    Deposit Member
+    Mutasi Transaksi Deposit Member
 </com:TContent>
 <com:TContent ID="maincontent">
-<com:TActiveHiddenField ID="hiddenmemberid" />
+<com:TActiveHiddenField ID="hiddenmemberid"/>
 <com:TPanel Visible="<%= $this->getAddProcess(false) %>">  
     <div class="row-fluid">        
         <div class="span12">
@@ -55,9 +55,9 @@
                 </div>      
                 <div class="box-content">
                     <div class="control-group">
-                        <com:TLabel ForControl="txtJumlahDeposit" CssClass="control-label" Text="Jumlah" />  
+                        <com:TLabel ForControl="txtJumlahDeposit" CssClass="control-label" Text="Jumlah"/>  
                         <div class="controls">
-                            <com:TActiveTextBox ID="txtJumlahDeposit" CssClass="input-medium" Text="0" Attributes.OnKeyUp="formatangka(this)" />
+                            <com:TActiveTextBox ID="txtJumlahDeposit" CssClass="input-medium" Text="0" Attributes.OnKeyUp="formatangka(this)"/>
                         </div>
                     </div>
                     <div class="form-actions">
@@ -93,7 +93,7 @@
                     <div class="control-group">
                         <com:TLabel ForControl="cmbFilterMonth" CssClass="control-label" Text="Bulan" />  
                         <div class="controls">
-                            <com:TActiveDatePicker ID="cmbFilterMonth" DateFormat="yyyy-MMMM" Culture="id"  FromYear="<%=$this->TGL->tanggal('Y',$this->dataMember['date_reg'])%>" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" OnCallBack="changeFilterDate" />
+                            <com:TActiveDatePicker ID="cmbFilterMonth" DateFormat="yyyy-MMMM" Culture="id"  FromYear="<%=$this->TGL->tanggal('Y',$this->dataMember['date_reg'])%>" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" OnCallBack="changeFilterDate"/>
                         </div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="box-content">
                     <div class="control-group">
-                        <com:TLabel ForControl="txtIBO" CssClass="control-label" Text="No. IBO" />  
+                        <com:TLabel ForControl="txtIBO" CssClass="control-label" Text="No. IBO"/>  
                         <div class="controls">
                             <com:TAutoComplete ID="txtIBO" OnSuggest="suggestIBO" OnSuggestionSelected="iboSuggetionSelected" ResultPanel.CssClass="acomplete" Suggestions.DataKeyField="member_id" CssClass="smallInput" Columns="30"></td>
                                    <prop:Suggestions.ItemTemplate>
@@ -190,11 +190,11 @@
                                         $('<%=$this->txtMemberName->clientId%>').disabled='';
                                         $('loadingibo').hide();
                                     </prop:ClientSide.OnComplete>
-                              </com:TAutoComplete> <img id="loadingibo" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;" />
+                              </com:TAutoComplete> <img id="loadingibo" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;"/>
                         </div>
                     </div>
                     <div class="control-group">
-                        <com:TLabel ForControl="txtMemberName" CssClass="control-label" Text="Nama Member" />  
+                        <com:TLabel ForControl="txtMemberName" CssClass="control-label" Text="Nama Member"/>  
                         <div class="controls">
                             <com:TAutoComplete ID="txtMemberName" OnSuggest="suggestMember" OnSuggestionSelected="memberSuggetionSelected" ResultPanel.CssClass="acomplete" Suggestions.DataKeyField="member_id" CssClass="smallInput" Columns="30"></td>
                                <prop:Suggestions.ItemTemplate>
@@ -210,7 +210,7 @@
                                     $('loadingmembername').hide();
                                     $('<%=$this->txtIBO->clientId%>').disabled='';
                                 </prop:ClientSide.OnComplete>
-                          </com:TAutoComplete> <img id="loadingmembername" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;" /> 
+                          </com:TAutoComplete> <img id="loadingmembername" src="<%=$this->Page->Theme->baseUrl%>/css/images/ajax-loader-1.gif" style="display:none;"/> 
                         </div>
                     </div>
                     <div class="form-actions">
@@ -265,7 +265,7 @@
                                 <td><%#$this->Page->finance->toRupiah ($this->DataItem['sisa_bonus'])%></td>                        
                                 <td><%#$this->Page->finance->toRupiah ($this->DataItem['saldo_deposit'])%></td>
                                 <td>
-                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small" OnClick="Page.viewDepositMember" />
+                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small" OnClick="Page.viewDepositMember"/>
                                 </td>
                             </tr>
                         </prop:ItemTemplate>				
@@ -276,7 +276,7 @@
                                 <td><%#$this->Page->finance->toRupiah ($this->DataItem['sisa_bonus'])%></td>                        
                                 <td><%#$this->Page->finance->toRupiah ($this->DataItem['saldo_deposit'])%></td>                        
                                 <td>
-                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small" OnClick="Page.viewDepositMember" />
+                                    <com:TActiveLinkButton Text="<i class='icon-zoom-in'></i>" CssClass="btn btn-small" OnClick="Page.viewDepositMember"/>
                                 </td>
                             </tr>
                         </prop:AlternatingItemTemplate>

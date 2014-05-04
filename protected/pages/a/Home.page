@@ -1,9 +1,9 @@
-<%@ Title="CahayaOnline - Member Dashboard" %>
+<%@ Title="CahayaOnline - Informasi Member" %>
 <com:TContent ID="titlecontent">
-    <i class="icon-dashboard"></i> Dashboard
+    <i class="icon-dashboard"></i>Informasi Member
 </com:TContent>
 <com:TContent ID="titledesccontent">
-    Overview, stats, chat and more
+    Informasi Member (Omset, Bonus dan Jaringan)
 </com:TContent>
 <com:TContent ID="maincontent">
     <com:TPanel Visible="<%= $this->getDefaultProcess(false) %>">         
@@ -11,15 +11,8 @@
         <div class="span6">    
             <div class="box box-black">
                 <div class="box-title">
-                    <h3><i class="icon-group"></i> Informasi Member</h3>
+                    <h3><i class="icon-group"></i> Informasi Pribadi</h3>
                     <div class="box-tool">
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-warning">Aksi</a>
-                            <a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span class="caret"></span></a>
-                            <ul class="dropdown-menu dropdown-warning">                                                                
-                                <li><a href="<%=$this->Service->constructUrl('a.members.EditMember')%>"><i class="icon-edit"></i>Ubah Data</a></li>                                
-                            </ul>
-                        </div>
                         <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
                         <a href="#" data-action="close"><i class="icon-remove"></i></a>
                     </div>
@@ -34,11 +27,11 @@
                         <dd><%=$this->dataMember['city']%></dd>
                         <dt>Email :</dt>
                         <dd><%=$this->dataMember['email']%></dd>
-                        <dt>Mobile Phone</dt>
+                        <dt>Mobile Phone :</dt>
                         <dd><%=$this->dataMember['mobile_phone']%></dd>
                         <dt>Disponsori Oleh :</dt>
                         <dd><%=$this->dataMember['sponsor_name']%></dd>
-                        <dt>Posisi :</dt>
+                        <dt>Jalur :</dt>
                         <dd><%=$this->dataMember['position']%></dd>
                         <dt>Tanggal Bergabung :</dt>
                         <dd><%=$this->TGL->tanggal('d F Y',$this->dataMember['date_reg'])%></dd>
@@ -49,7 +42,7 @@
         <div class="span6">    
             <div class="box box-black">
                 <div class="box-title">
-                    <h3><i class="icon-group"></i> Informasi Downline</h3>
+                    <h3><i class="icon-group"></i> Informasi Jaringan</h3>
                     <div class="box-tool">
                         <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
                         <a href="#" data-action="close"><i class="icon-remove"></i></a>
@@ -57,23 +50,23 @@
                 </div>
                 <div class="box-content">
                     <dl>
-                        <dt>Jumlah di Sisi Kanan :</dt>
+                        <dt>Jumlah Member di Jalur Kanan :</dt>
                         <dd><%=$this->dataMember['right']%></dd>
-                        <dt>Jumlah di Sisi Kiri :</dt>
+                        <dt>Jumlah Member di Jalur Kiri :</dt>
                         <dd><%=$this->dataMember['left']%></dd>
-                        <dt>Total Downline :</dt>
-                        <dd><%=$this->dataMember['left']+$this->dataMember['right']%></dd>                                                
+                        <dt>Total Member :</dt>
+                        <dd><%=$this->dataMember['left']+$this->dataMember['right']%></dd>
+						<dt>Jumlah Sponsoring di Jalur Kanan :</dt>
+						-
+						<dt>Jumlah Sponsoring di Jalur Kiri :</dt>
+						-
                         <dt>Total Sponsoring : </dt>                    
                         <dd><%=$this->member->getCountSponsoring ()%></dd>
-                        <dt>ID Downline Terakhir [kanan] :</td>
+                        <dt>ID Member Terakhir [kanan] :</td>
                         <dd><%=$this->dataMember['latest_right']%></dd>                    
-                        <dt>ID Downline Terakhir [kiri] :</td>
+                        <dt>ID Member Terakhir [kiri] :</td>
                         <dd><%=$this->dataMember['latest_left']%></dd>                    
                     </dl>                    
-                    <br />
-                    <br />
-                    <br />
-                    <br />
                 </div>
             </div>
         </div>
@@ -101,14 +94,13 @@
                         <dt>Total Omset Group Kiri :</dt>
                         <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageDashboard']['datamember']['totalomsetgroupleft'])%>" /></dd>                                                
                     </dl>                        
-                    <br /><br /><br /><br />
                 </div>
             </div>
         </div>
         <div class="span6">    
             <div class="box box-black">
                 <div class="box-title">
-                    <h3><i class="icon-group"></i> Informasi Bonus & Deposit</h3>
+                    <h3><i class="icon-group"></i> Informasi Bonus</h3>
                     <div class="box-tool">
                         <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
                         <a href="#" data-action="close"><i class="icon-remove"></i></a>
@@ -116,20 +108,17 @@
                 </div>
                 <div class="box-content">
                     <dl>                        
-                        <dt>Bonus Pribadi</dt>
+                        <dt>Bonus Pribadi :</dt>
                         <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageDashboard']['datamember']['bonuspribadi'])%>" /></dd>                        
-                        <dt>Bonus Group</dt>
+                        <dt>Bonus Group :</dt>
                         <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageDashboard']['datamember']['bonusgroup'])%>" /></dd>                        
-                        <dt>Total Bonus</dt>
+                        <dt>Total Bonus :</dt>
                         <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageDashboard']['datamember']['totalbonus'])%>" /></dd>                        
-                        <dt>Total Bonus Deposit</dt>
+                        <dt>Total Bonus Deposit :</dt>
                         <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageDashboard']['datamember']['totalbonusdeposit'])%>" /></dd>                        
-                        <dt>Total Bonus Cash</dt>
+                        <dt>Total Bonus Tunai :</dt>
                         <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageDashboard']['datamember']['totalbonuscash'])%>" /></dd>
-                        <dt>Deposit Bonus</dt>
-                        <dd><com:TLiteral ID="literalDepositBonus" /></dd>
-                        <dt>Saldo Deposit :</dt>
-                        <dd><com:TLiteral ID="literalSaldoDeposit" /></dd>
+                       
                     </dl>                        
                 </div>
             </div>
@@ -139,7 +128,7 @@
         <div class="span12">
             <div class="box box-green">
                 <div class="box-title">
-                    <h3><i class="icon-search"></i> Advanced Filter & Search</h3>
+                    <h3><i class="icon-search"></i>Searching Member</h3>
                     <div class="box-tool">
                         <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
                     </div>
@@ -150,40 +139,34 @@
                             <div class="control-group">
                                 <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. IBO" />                                        
                                 <div class="controls">
-                                    <com:TTextBox ID="noiboFilter" CssClass="input-large" Attributes.OnKeyUp="formatangka(this,true)" />                                        
+                                    <com:TTextBox ID="noiboFilter" CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,true)" />                                        
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Status" />                                        
+                             <div class="control-group">
+                                <com:TLabel ForControl="membernameFilter" CssClass="control-label" Text="Nama Member" />                                        
                                 <div class="controls">
-                                    <com:TDropDownList ID="cmbStatusFilter" AutoPostBack="false" CssClass="span3">                    
-                                        <com:TListItem Value="1" Text="Active"/>
-                                        <com:TListItem Value="2" Text="Inactive"/>
-                                        <com:TListItem Value="3" Text="Closed"/>
-                                    </com:TDropDownList>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Posisi" />                                        
-                                <div class="controls">
-                                    <com:TDropDownList ID="cmbPosisiFilter" AutoPostBack="false" CssClass="span3">                    
-                                        <com:TListItem Value="1" Text="Kiri"/>
-                                        <com:TListItem Value="2" Text="Kanan"/>                    
-                                    </com:TDropDownList>                                  
+                                    <com:TTextBox ID="membernameFilter" CssClass="input-medium" />                
                                 </div>
                             </div>
                         </div>
                         <div class="span6 ">    
                             <div class="control-group">
-                                <com:TLabel ForControl="membernameFilter" CssClass="control-label" Text="Nama Member" />                                        
+                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Jalur" />                                        
                                 <div class="controls">
-                                    <com:TTextBox ID="membernameFilter" CssClass="input-xlarge" />                
+                                    <com:TDropDownList ID="cmbPosisiFilter" AutoPostBack="false" CssClass="input-small">                    
+                                        <com:TListItem Value="1" Text="Kiri"/>
+                                        <com:TListItem Value="2" Text="Kanan"/>                    
+                                    </com:TDropDownList>                                  
                                 </div>
-                            </div>                            
-                            <div class="control-group">
-                                <com:TLabel ForControl="emailFilter" CssClass="control-label" Text="Email" />                                        
+                            </div>
+							<div class="control-group">
+                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Status" />                                        
                                 <div class="controls">
-                                    <com:TTextBox ID="emailFilter" CssClass="input-large" />                 
+                                    <com:TDropDownList ID="cmbStatusFilter" AutoPostBack="false" CssClass="input-small">                    
+                                        <com:TListItem Value="1" Text="Active"/>
+                                        <com:TListItem Value="2" Text="Inactive"/>
+                                        <com:TListItem Value="3" Text="Closed"/>
+                                    </com:TDropDownList>
                                 </div>
                             </div>
                         </div>                        
@@ -210,7 +193,7 @@
         <div class="span12">    
             <div class="box box-black">
                 <div class="box-title">
-                    <h3><i class="icon-group"></i> Daftar Member di Posisi Kanan</h3>
+                    <h3><i class="icon-group"></i> Daftar Member di Jalur Kanan</h3>
                     <div class="box-tool">                        
                         <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
                         <a href="#" data-action="close"><i class="icon-remove"></i></a>
@@ -222,10 +205,9 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="100">IBO</th>
-                                    <th scope="col" width="350">Member Name</th>																							
-                                    <th scope="col" width="100">Downline</th>																																		
-                                    <th scope="col">Omset Pribadi <br/>(<%=$this->Page->TGL->tanggal ('F Y')%>)</th>
+                                    <th scope="col" width="115">No. Pelanggan</th>
+                                    <th scope="col" width="250">Nama Member</th>																							
+                                    <th scope="col">Omset Pribadi (<%=$this->Page->TGL->tanggal ('F Y')%>)</th>
                                     <th scope="col">Status</th>										                                    
                                 </tr>								
                                 </thead>
@@ -235,7 +217,6 @@
                             <tr class="table-flag-blue">				
                                 <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>
-                                <td><%#$this->DataItem['downline']%></td>											
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>                                
                             </tr>
@@ -244,7 +225,6 @@
                             <tr class="table-flag-orange">
                                 <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>
-                                <td><%#$this->DataItem['downline']%></td>																								
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>                                
                             </tr>
@@ -255,7 +235,7 @@
                         </prop:FooterTemplate>		
                         <prop:EmptyTemplate>                            
                             <div class="alert alert-info">
-                                <strong>Info !</strong>Tidak memiliki Downline.</span>
+                                <strong>Info !! </strong>Tidak Memiliki Member.</span>
                             </div>
                         </prop:EmptyTemplate>
                     </com:TActiveRepeater>                    
@@ -276,7 +256,7 @@
         <div class="span12">    
             <div class="box box-black">
                 <div class="box-title">
-                    <h3><i class="icon-group"></i> Daftar Member di Posisi Kiri</h3>
+                    <h3><i class="icon-group"></i> Daftar Member di Jalur Kiri</h3>
                     <div class="box-tool">                        
                         <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
                         <a href="#" data-action="close"><i class="icon-remove"></i></a>
@@ -288,10 +268,9 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="100">IBO</th>
-                                    <th scope="col" width="350">Member Name</th>																							
-                                    <th scope="col" width="100">Downline</th>																																		
-                                    <th scope="col">Omset Pribadi <br/>(<%=$this->Page->TGL->tanggal ('F Y')%>)</th>
+                                    <th scope="col" width="115">No. Pelanggan</th>
+                                    <th scope="col" width="250">Nama Member</th>																							
+                                    <th scope="col">Omset Pribadi (<%=$this->Page->TGL->tanggal ('F Y')%>)</th>
                                     <th scope="col">Status</th>										                                    
                                 </tr>								
                                 </thead>
@@ -301,7 +280,6 @@
                             <tr class="table-flag-blue">				
                                 <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>															
-                                <td><%#$this->DataItem['downline']%></td>											
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>                                
                             </tr>
@@ -310,7 +288,6 @@
                             <tr class="table-flag-orange">
                                 <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>				
-                                <td><%#$this->DataItem['downline']%></td>																								
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>                                
                             </tr>
@@ -321,7 +298,7 @@
                         </prop:FooterTemplate>		
                         <prop:EmptyTemplate>
                             <div class="alert alert-info">
-                                <strong>Info !</strong>Tidak memiliki Downline.</span>
+                                <strong>Info !! </strong>Tidak Memiliki Member.</span>
                             </div>
                         </prop:EmptyTemplate>
                     </com:TActiveRepeater>

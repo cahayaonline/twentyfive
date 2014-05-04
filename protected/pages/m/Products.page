@@ -8,19 +8,6 @@
 <com:TContent ID="maincontent">
 <com:TPanel Visible="<%= $this->getDefaultProcess() %>">   
     <div class="row-fluid">    
-        <div class="span12">
-            <div class="box box-green">
-                <div class="box-title">
-                    <h3><i class="icon-search"></i> Advanced Filter & Search</h3>
-                    <div class="box-tool">
-                        <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
-                    </div>
-                </div>
-                <div class="box-content" style="display:none;">
-                    test
-                </div>
-            </div>
-       </div>   
     </div>
     <div class="row-fluid">
         <div class="span12">
@@ -35,8 +22,8 @@
                     <div class="btn-toolbar pull-right clearfix">
                         <div class="btn-group">                             
                             <a class="btn btn-circle" href="<%=$this->Service->constructUrl('m.products.AddNewProduct')%>" title="Add new product"><i class='icon-plus'></i></a>                            
-                            <com:TLinkButton CssClass="btn btn-circle" Text="<i class='icon-edit'></i>" Attributes.Title="Edit selected" OnClick="editSelectedProduct" />                            
-                            <com:TLinkButton CssClass="btn btn-circle" Text="<i class='icon-trash'></i>" Attributes.Title="Delete selected" OnClick="deleteSelectedProduct" />                            
+                            <com:TLinkButton CssClass="btn btn-circle" Text="<i class='icon-edit'></i>" Attributes.Title="Edit selected" OnClick="editSelectedProduct"/>                            
+                            <com:TLinkButton CssClass="btn btn-circle" Text="<i class='icon-trash'></i>" Attributes.Title="Delete selected" OnClick="deleteSelectedProduct"/>                            
                         </div>
                         <div class="btn-group">
                             <a class="btn btn-circle" title="Print" href="#"><i class="icon-print"></i></a>
@@ -53,13 +40,13 @@
                             <div class="span5">
                                 <div class="dataTables_length">
                                     <label>
-                                        <com:TActiveDropDownList ID="cmbPageSize" width="75px" OnSelectedIndexChanged="changePageSize">
-                                            <com:TListItem Value="10" Text="10" />                            
-                                            <com:TListItem Value="15" Text="15" />
-                                            <com:TListItem Value="25" Text="25" />
-                                            <com:TListItem Value="50" Text="50" />
-                                            <com:TListItem Value="100" Text="100" />
-                                            <com:TListItem Value="all" Text="All" />
+                                        <com:TActiveDropDownList ID="cmbPageSize" width="70px" OnSelectedIndexChanged="changePageSize">
+                                            <com:TListItem Value="10" Text="10"/>                            
+                                            <com:TListItem Value="15" Text="15"/>
+                                            <com:TListItem Value="25" Text="25"/>
+                                            <com:TListItem Value="50" Text="50"/>
+                                            <com:TListItem Value="100" Text="100"/>
+                                            <com:TListItem Value="all" Text="All"/>
                                         </com:TActiveDropDownList>
                                         Records per page
                                     </label>
@@ -69,10 +56,10 @@
                                 <div class="dataTables_filter">                                    
                                     <label>
                                         Quick Search :
-                                        <com:TTextBox ID="txtKriteria" />
+                                        <com:TTextBox ID="txtKriteria"/>
                                         <com:TDropDownList ID="cmbKriteria" AutoPostBack="false" CssClass="input-medium">
-                                            <com:TListItem Text="Product ID" value="product_id"/>
                                             <com:TListItem Text="Product Name" value="product_name"/>
+											<com:TListItem Text="Product ID" value="product_id"/>
                                         </com:TDropDownList>           
                                         <com:TActiveLinkButton CssClass="btn btn-circle btn-primary btn-small" Text="<i class='icon-search'></i>" Attributes.Title="Cari" OnClick="filterRecord" ValidationGroup="filterForm"/>
                                         <com:TRequiredFieldValidator ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true">				
@@ -119,7 +106,7 @@
                                     <div class="btn-group">
                                         <a class="btn btn-small" title="View" href="<%#$this->Service->constructUrl('m.products.ProductDetails',array('p'=>'general','id'=>$this->DataItem['product_id']))%>"><i class="icon-zoom-in"></i></a>
                                         <a class="btn btn-small" title="Edit" href="<%#$this->Service->constructUrl('m.products.EditProduct',array('id'=>$this->DataItem['product_id']))%>"><i class="icon-edit"></i></a>                                    
-                                        <com:TActiveLinkButton CssClass="btn btn-small btn-danger" Text="<i class='icon-trash'></i>" Attributes.Title="Delete" OnClick="Page.deleteRecord" ClientSide.PostState="false" />
+                                        <com:TActiveLinkButton CssClass="btn btn-small btn-danger" Text="<i class='icon-trash'></i>" Attributes.Title="Delete" OnClick="Page.deleteRecord" ClientSide.PostState="false"/>
                                     </div>                                
                                 </td>                                
                             </tr>
@@ -137,7 +124,7 @@
                                     <div class="btn-group">
                                         <a class="btn btn-small" title="View" href="<%#$this->Service->constructUrl('m.products.ProductDetails',array('p'=>'general','id'=>$this->DataItem['product_id']))%>"><i class="icon-zoom-in"></i></a>
                                         <a class="btn btn-small" title="Edit" href="<%#$this->Service->constructUrl('m.products.EditProduct',array('id'=>$this->DataItem['product_id']))%>"><i class="icon-edit"></i></a>                                    
-                                        <com:TActiveLinkButton CssClass="btn btn-small btn-danger" Text="<i class='icon-trash'></i>" Attributes.Title="Delete" OnClick="Page.deleteRecord" ClientSide.PostState="false" />
+                                        <com:TActiveLinkButton CssClass="btn btn-small btn-danger" Text="<i class='icon-trash'></i>" Attributes.Title="Delete" OnClick="Page.deleteRecord" ClientSide.PostState="false"/>
                                     </div>                                
                                 </td>                                
                             </tr>

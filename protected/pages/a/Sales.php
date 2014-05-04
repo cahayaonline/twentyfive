@@ -111,7 +111,6 @@ class Sales extends MainPageSales {
         $this->idProcess='view';
         $this->dataOrder=$_SESSION['currentPageSales']['dataorder'];         
         if ($this->dataOrder['order_status_id'] == 5) {
-            $this->btnDelete->CssClass='button_grey';           
         }
         $this->RepeaterProduct->DataSource=$_SESSION['currentPageSales']['dataorder']['products'];
         $this->RepeaterProduct->dataBind();
