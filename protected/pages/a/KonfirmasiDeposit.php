@@ -17,13 +17,11 @@ class KonfirmasiDeposit extends MainPageAccount {
 	}
     public function changeCaraPembayaran($sender,$param) {
         if ($this->cmbCaraPembayaran->Text == 'tunai') {
-            $this->cmbBankTujuan->Enabled=false;            
             $this->txtBankPengirim->Enabled=false;
             $this->txtNoRekPengirim->Enabled=false;
             $this->txtNamaPengirim->Enabled=false;            
         }else {
-            $this->cmbBankTujuan->Enabled=true;            
-            $this->txtBankPengirim->Enabled=true;
+            $this->txtBankPengirim->Enabled=true;            
             $this->txtNoRekPengirim->Enabled=true;
             $this->txtNamaPengirim->Enabled=true;            
         }

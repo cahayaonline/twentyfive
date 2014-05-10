@@ -1,6 +1,6 @@
 <%@ Title="CahayaOnline - Informasi Member" %>
 <com:TContent ID="titlecontent">
-    <i class="icon-dashboard"></i>Informasi Member
+    <i class="icon-dashboard"></i>Informasi Member (ID <%=$this->Pengguna->getDataUser('member_id')%>)
 </com:TContent>
 <com:TContent ID="titledesccontent">
     Informasi Member (Omset, Bonus dan Jaringan)
@@ -137,7 +137,7 @@
                     <div class="row-fluid">
                         <div class="span6">    
                             <div class="control-group">
-                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. IBO" />                                        
+                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="ID. Member" />                                        
                                 <div class="controls">
                                     <com:TTextBox ID="noiboFilter" CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,true)" />                                        
                                 </div>
@@ -205,8 +205,9 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="115">No. Pelanggan</th>
-                                    <th scope="col" width="250">Nama Member</th>																							
+                                    <th scope="col" width="90">ID. Member</th>
+									<th scope="col" width="95">No. Member</th>
+                                    <th scope="col" width="240">Nama Member</th>																							
                                     <th scope="col">Omset Pribadi (<%=$this->Page->TGL->tanggal ('F Y')%>)</th>
                                     <th scope="col">Status</th>										                                    
                                 </tr>								
@@ -215,7 +216,8 @@
                         </prop:HeaderTemplate>
                         <prop:ItemTemplate>
                             <tr class="table-flag-blue">				
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>                                
@@ -223,7 +225,8 @@
                         </prop:ItemTemplate>				
                         <prop:AlternatingItemTemplate>
                             <tr class="table-flag-orange">
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>                                
@@ -268,8 +271,9 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="115">No. Pelanggan</th>
-                                    <th scope="col" width="250">Nama Member</th>																							
+                                    <th scope="col" width="90">ID. Member</th>
+									<th scope="col" width="95">No. Member</th>
+                                    <th scope="col" width="240">Nama Member</th>																							
                                     <th scope="col">Omset Pribadi (<%=$this->Page->TGL->tanggal ('F Y')%>)</th>
                                     <th scope="col">Status</th>										                                    
                                 </tr>								
@@ -278,7 +282,8 @@
                         </prop:HeaderTemplate>
                         <prop:ItemTemplate>
                             <tr class="table-flag-blue">				
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>															
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>                                
@@ -286,7 +291,8 @@
                         </prop:ItemTemplate>				
                         <prop:AlternatingItemTemplate>
                             <tr class="table-flag-orange">
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>				
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>                                

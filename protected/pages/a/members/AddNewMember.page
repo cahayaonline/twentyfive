@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <com:TLabel ForControl="txtNoIBOSponsorID" CssClass="control-label" Text="No. Pelanggan"/>
+                                <com:TLabel ForControl="txtNoIBOSponsorID" CssClass="control-label" Text="No. Member"/>
                                 <div class="controls">
                                     <com:TActiveTextBox ID="txtNoIBOSponsorID" Columns="13" MaxLength="13" ReadOnly="true" CssClass="smallInput"/> 							
                                     <com:TActiveHiddenField ID="hdnIBOSponsorID"/>
@@ -227,7 +227,7 @@
                         </div>            
                         <h4><strong>Informasi Login</strong></h4>
                         <p>
-                            Username yang digunakan oleh member adalah E-mail atau No. Handphone
+                            Username yang digunakan adalah ID Member, E-mail atau No. Handphone
                         </p>
                         <div class="row-fluid">
                             <div class="span6">
@@ -253,9 +253,6 @@
                     <com:TWizardStep Title="Informasi <br />Rekening Bank" AllowReturn="false">			
                         <div class="tab-content">
                             <h4><strong>Informasi Rekening Bank</strong></h4>
-                            <p>
-                                Untuk tujuan pembayaran bonus IBO (jika ada), Bank yang direkomendasikan adalah Bank CIMB Niaga & BCA. Untuk Bank lain, dikenakan biaya Rp 10.000
-                            </p>
                             <div class="row-fluid">
                                 <div class="span12">
                                     <div class="control-group">
@@ -413,9 +410,6 @@
                             </div>
                         </div>                                                                        		
                         <h4><strong>Informasi Rekening Bank</strong></h4>
-                        <p>
-                            Untuk tujuan pembayaran bonus IBO (jika ada), Bank yang direkomendasikan adalah Bank CIMB Niaga & BCA. Untuk Bank lain, dikenakan biaya Rp 10.000
-                        </p>
                         <div class="row-fluid">                                                    
                             <div class="span12">                                
                                 <dt>

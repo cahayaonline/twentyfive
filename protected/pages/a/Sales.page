@@ -30,15 +30,15 @@
                     </com:TActiveLinkButton>
                 </div>
                 <ul class="nav nav-tabs">
-					<li><a href="#tab-2-4" data-toggle="tab">Produk</a></li>
+					<li class="active"><a href="#tab-2-4" data-toggle="tab">Produk</a></li>
 					<li><a href="#tab-2-3" data-toggle="tab">Pengiriman</a></li>
 					<li><a href="#tab-2-2" data-toggle="tab">Pembayaran</a></li>
-                    <li class="active"><a href="#tab-2-1" data-toggle="tab">Summary Order</a></li>
+                    <li><a href="#tab-2-1" data-toggle="tab">Summary Order</a></li>
                 </ul>
             </div>
             <div class="box-content">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab-2-1">
+                    <div class="tab-pane" id="tab-2-1">
                         <dl>
                             <dt>Order ID: </dt>
                             <dd>#<%=$this->dataOrder['order_id']%></dd>
@@ -71,7 +71,7 @@
                     <div class="tab-pane" id="tab-2-3">
                         -
                     </div>
-                    <div class="tab-pane" id="tab-2-4">
+                    <div class="tab-pane active" id="tab-2-4">
                         <com:TActiveRepeater ID="RepeaterProduct">
                             <prop:HeaderTemplate>			
                                 <table class="table table-striped table-bordered">	
@@ -214,7 +214,7 @@
                                 <p> 
                                     <i class="icon-money"></i>
                                     Total Daftar Belanja 
-                                    <com:TActiveLabel ID="lblDaftarOrder" CssClass="value" />
+                                    <com:TActiveLabel ID="lblDaftarOrder" CssClass="value"/>
                                 </p>
                             </li>
                         </ul>
@@ -234,10 +234,9 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="30">NO</th>
                                     <th scope="col" width="70">Order ID</th>
-                                    <th scope="col" width="100">Cara Pembayaran</th>
-                                    <th scope="col">Status</th>																		
+                                    <th scope="col" width="105">Cara Pembayaran</th>
+                                    <th scope="col">Status</th>																	
                                     <th scope="col">Omset Belanja</th>																																		
                                     <th scope="col">Total Bayar</th>																																		
                                     <th scope="col">Tanggal Order</th>
@@ -248,9 +247,8 @@
                         </prop:HeaderTemplate>
                         <prop:ItemTemplate>
                             <tr class="table-flag-blue">
-                                <td width="30"><%#$this->DataItem['no']%></td>
-                                <td width="70"><com:TActiveLinkButton Text="<%#$this->DataItem['order_id']%>" ClientSide.PostState="false" OnClick="Page.showOrderDetails" Attributes.Title="Order Details" /></td>
-                                <td><%#$this->DataItem['member_name']%></td>
+                                <td width="70"><com:TActiveLinkButton Text="<%#$this->DataItem['order_id']%>" ClientSide.PostState="false" OnClick="Page.showOrderDetails" Attributes.Title="Order Details"/></td>
+                                <td><%#$this->DataItem['------']%></td>
                                 <td><%#$this->DataItem['name']%></td>											
                                 <td><%#$this->page->finance->toRupiah($this->DataItem['totalomset'])%></td>																						
                                 <td><%#$this->page->finance->toRupiah($this->DataItem['totalprice'])%></td>																						
@@ -260,9 +258,8 @@
                         </prop:ItemTemplate>				
                         <prop:AlternatingItemTemplate>
                             <tr class="table-flag-orange">				
-                                <td width="30"><%#$this->DataItem['no']%></td>
                                 <td width="70"><com:TActiveLinkButton Text="<%#$this->DataItem['order_id']%>" ClientSide.PostState="false" OnClick="Page.showOrderDetails" Attributes.Title="Order Details" /></td>
-                                <td><%#$this->DataItem['member_name']%></td>
+                                <td><%#$this->DataItem['------']%></td>
                                 <td><%#$this->DataItem['name']%></td>											
                                 <td><%#$this->page->finance->toRupiah($this->DataItem['totalomset'])%></td>																						
                                 <td><%#$this->page->finance->toRupiah($this->DataItem['totalprice'])%></td>																						

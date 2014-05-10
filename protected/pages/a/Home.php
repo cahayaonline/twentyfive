@@ -78,7 +78,6 @@ class Home extends MainPageAccount {
             if ($ibo != '')$cluasa .= " AND ibo='$ibo'"; 
             $membername=addslashes($this->membernameFilter->Text);
             if ($membername != '')$cluasa .= " AND member_name LIKE '%$membername%'";
-            $email=addslashes($this->emailFilter->Text);
             if ($email != '')$cluasa .= " AND email LIKE '%$email%'";            
             $str = "$str $cluasa";
             $jumlah_baris=$this->DB->getCountRowsOfTable ("members WHERE rgt=$right AND member_id > $member_id $cluasa",'member_id');
@@ -129,7 +128,6 @@ class Home extends MainPageAccount {
             if ($ibo != '')$cluasa .= " AND ibo='$ibo'"; 
             $membername=addslashes($this->membernameFilter->Text);
             if ($membername != '')$cluasa .= " AND member_name LIKE '%$membername%'";
-            $email=addslashes($this->emailFilter->Text);
             if ($email != '')$cluasa .= " AND email LIKE '%$email%'";            
             $str = "$str $cluasa";
             $jumlah_baris=$this->DB->getCountRowsOfTable ("members WHERE lft=$left AND member_id > $member_id $cluasa",'member_id');

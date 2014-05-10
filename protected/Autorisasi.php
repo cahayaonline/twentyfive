@@ -44,8 +44,7 @@ class Autorisasi extends TModule implements IUserManager {
 		$um->setUser($username);
 		$result = $um->getUser();                
 		$password=hash('sha256', $result['salt'] . hash('sha256', $password));		
-        echo "{$result['userpassword']}==$password";
-		if (($result['userpassword']==$password))
+        if (($result['userpassword']==$password))
 			return true;
 		else
 			return false;

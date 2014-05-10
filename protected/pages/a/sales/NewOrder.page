@@ -239,39 +239,33 @@
                 </div>
                 <div class="box-content invoice-amount">
                     <div class="control-group">
-                        <com:TLabel CssClass="control-label"Text="Cara Pembayaran :" />                                        
+                        <com:TLabel CssClass="control-label"Text="Cara Pembayaran :"/>                                        
                         <div class="controls"> 
-                            <com:TActiveDropDownList ID="cmbPaymentMethod" AutoPostBack="false" CssClass="input-medium"/>      
+                            <com:TActiveDropDownList ID="cmbPaymentMethod" AutoPostBack="false" CssClass="span12"/>      
                             <com:TRequiredFieldValidator InitialValue="none" ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbPaymentMethod" ErrorMessage="Pilih Cara Pembayaran !!"/>
-                            <com:TActiveCustomValidator ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbPaymentMethod" FocusOnError="true" OnServerValidate="checkNewOrder" />								
+                            <com:TActiveCustomValidator ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="cmbPaymentMethod" FocusOnError="true" OnServerValidate="checkNewOrder"/>								
                         </div>
                     </div>                                  
 					<div class="control-group">
-						<label class="control-label">Total Jumlah :</label>
-						<div class="controls">
-							<com:TActiveLabel Text="<%=$this->getTotalFromCart('quantity')%>" />
-						</div>
-					</div>
-                    <div class="control-group">
-						<label class="control-label">Total Harga Satuan :</label>
-						<div class="controls">
-							<com:TActiveLabel Text="<%=$this->getTotalFromCart('quantity')%>" />
-						</div>
-					</div>
-                    <div class="control-group">
-						<label class="control-label">Total Omset Belanja :</label>
-						<div class="controls">
-							<com:TActiveLabel Text="<%=$this->getTotalFromCart('quantity')%>" />
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label"><strong>Total Bayar :</strong></label>
-						<div class="controls">
-							<com:TActiveLabel Text="<%=$this->getTotalFromCart('quantity')%>" />
-						</div>
-					</div>
+					<p>
+                        <strong>Total Jumlah :</strong>
+                        <com:TActiveLabel Text="<%=$this->getTotalFromCart('quantity')%>"/>
+						 <div class="controls">
+					</div> 
+					</p>
                     <p>
-                        <br>
+                        <strong>Total Harga :</strong>        
+                        <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('totalunitprice'))%>"/>
+                    </p>
+                    <p>
+                        <strong>Total Omset Belanja :</strong>     
+                        <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('omset'))%>"/>
+                    </p>
+                    <p>
+                        <strong>Total Bayar (Rp) :</strong> 
+                        <strong><com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('totalprice'))%>"/></strong>
+                    </p>
+                    <p>
                         <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-success btn-xlarge" Text="Save Order" OnClick="saveOrder" ValidationGroup="saveneworder">
                             <prop:ClientSide.OnPreDispatch>
                                 $('loading').show();                                
@@ -294,3 +288,4 @@
     </div>  
 </com:TActivePanel>
 </com:TContent>
+

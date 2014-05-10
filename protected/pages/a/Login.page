@@ -4,7 +4,7 @@
 	<hr/>
     <div class="form-group">
         <div class="controls">
-			<com:TTextBox ID="txtUsername" Attributes.placeholder="Email or Phone" CssClass="input-block-level"/>
+			<com:TTextBox ID="txtUsername" Attributes.placeholder="Email, ID or Phone" CssClass="input-block-level"/>
             <com:TRequiredFieldValidator ValidationGroup="userlogin" Display="Dynamic" ControlToValidate="txtUsername" FocusOnError="true" ErrorMessage="Masukkan Email atau Handphone"CssClass="help-inline">
                 <prop:ClientSide.OnValidationError>
                     $('panelUsername').addClassName('error');

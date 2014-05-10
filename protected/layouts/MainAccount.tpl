@@ -55,7 +55,7 @@
 				<ul class="nav flaty-nav pull-right">
 			<a href="#" class="brand">
 				<small>
-					Deposit Bonus : Rp.100.000.000.000,- # Saldo Deposit : Rp.100.000.000.000,-
+					Deposit Bonus Rp. <com:TLiteral ID="literalDepositBonus" />,-  Saldo Deposit Rp. <com:TLiteral ID="literalSaldoDeposit" />,-
 				</small>
 			</a>
 			<!-- BEGIN Button Tasks -->
@@ -173,10 +173,10 @@
             </div>
         </div>
         <!-- END Page Title -->
-        <com:TContentPlaceHolder ID="maincontent" /> 
+        <com:TContentPlaceHolder ID="maincontent"/> 
         <footer>
             <p>2013 © Cahaya Online Backend System by Yacanet.com.</p>
-            <com:TJavascriptLogger />
+            <com:TJavascriptLogger/>
         </footer>
         <a id="btn-scrollup" class="btn btn-circle btn-large" href="#"><i class="icon-chevron-up"></i></a>              
     </div>
@@ -193,7 +193,7 @@
 <script src="<%=$this->page->theme->baseUrl%>/assets/bootstrap/bootstrap.min.js"></script>
 <script src="<%=$this->page->theme->baseUrl%>/assets/nicescroll/jquery.nicescroll.min.js"></script>
 <!--page specific plugin scripts-->
-<com:TContentPlaceHolder ID="jscontent" />
+<com:TContentPlaceHolder ID="jscontent"/>
 <!--flaty scripts-->
 <script src="<%=$this->page->theme->baseUrl%>/js/flaty.js"></script>
 </body>

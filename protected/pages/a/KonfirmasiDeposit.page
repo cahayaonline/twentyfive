@@ -114,12 +114,20 @@
                                 <com:TListItem Value="konfirmasideposit" Text="Konfirmasi Tambah Deposit"/>
                                 <com:TListItem Value="konfirmasiorder" Text="Konfirmasi Order/Pembayaran"/>
                             </com:TDropDownList>
+							<com:TRequiredFieldValidator InitialValue="none" ValidationGroup="konfirmasideposit" Display="Dynamic" ControlToValidate="cmbJenisKonfirmasi" ErrorMessage="<br/>Isi jenis konfirmasi">	
+                                <prop:ClientSide.OnValidationError>
+                                    $('divCaraPembayaran').addClassName('error');
+                                </prop:ClientSide.OnValidationError>
+                                <prop:ClientSide.OnValidationSuccess>
+                                    $('divCaraPembayaran').removeClassName('error');
+                                </prop:ClientSide.OnValidationSuccess>
+                            </com:TRequiredFieldValidator> 
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">Berita Transfer</label>
                         <div class="controls">
-                            <com:TActiveTextBox ID="txtKeterangan"  CssClass="input-large" TextMode="MultiLine"/>
+                            <com:TActiveTextBox ID="BeritaTransfer"  CssClass="input-large" TextMode="MultiLine"/>
                         </div>
                     </div>
 					<div class="control-group" id="divBuktiTransfer">

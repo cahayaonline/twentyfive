@@ -43,7 +43,7 @@ class UserManager extends TAuthManager {
 			$dataUser['page']='m';
 			$this->dataUser['data_user']=$dataUser;	
 		}elseif ($this->page == 'a'){
-            $str = "SELECT member_id AS userid,member_id,ibo,member_name,address,city,email,mobile_phone,sponsor_id,lft,rgt,position,date_reg FROM members WHERE mobile_phone='$username' OR email='$username'";
+            $str = "SELECT member_id AS userid,member_id,ibo,member_name,address,city,email,mobile_phone,sponsor_id,lft,rgt,position,date_reg FROM members WHERE mobile_phone='$username' OR email='$username' OR member_id='{$this->username}'";
             $this->db->setFieldTable(array('userid','member_id','ibo','member_name','address','city','email','mobile_phone','sponsor_id','lft','rgt','date_reg','position'));
             $r=$this->db->getRecord($str);                
             $result=array();
@@ -76,7 +76,7 @@ class UserManager extends TAuthManager {
 			$r = $this->db->getRecord($str);				
 			$result=isset($r[1])?$r[1]:array();							
 		}elseif ($this->page == 'a') {
-            $str = "SELECT password AS userpassword,salt FROM members WHERE mobile_phone='{$this->username}' OR email='{$this->username}'";
+            $str = "SELECT password AS userpassword,salt FROM members WHERE mobile_phone='{$this->username}' OR email='{$this->username}' OR member_id='{$this->username}'";
 			$this->db->setFieldTable (array('userpassword','salt'));							
 			$r = $this->db->getRecord($str);				            
 			$result=isset($r[1])?$r[1]:array();							

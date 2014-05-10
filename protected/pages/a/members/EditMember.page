@@ -3,7 +3,7 @@
     <i class="icon-group"></i> Edit Member <com:TLiteral ID="txtMemberName"/>
 </com:TContent>
 <com:TContent ID="titledesccontent">
-    Ubah data Member
+    Ubah Data Member
 </com:TContent>
 <com:TContent ID="maincontent">
 <com:TPanel Visible="<%= $this->getEditProcess(false) %>">	
@@ -167,16 +167,16 @@
                 </div>
                 <div class="box-content">
                     <p>
-                        Username yang digunakan oleh member adalah E-Mail atau No. Handphone
+                        Username yang digunakan adalah ID Member, E-Mail atau No. Handphone
                     </p>
                     <div class="control-group">
-                        <label for="<%=$this->txtPassword1->ClientID%>" class="control-label">Password</label>                                        
+                        <label for="<%=$this->txtPassword1->ClientID%>" class="control-label">Password Baru</label>                                        
                         <div class="controls">
                             <com:TTextBox ID="txtPassword1" Columns="15" TextMode="Password" CssClass="smallInput"/>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label for="<%=$this->txtPassword2->ClientID%>" class="control-label">Re-type Password</label>                                        
+                        <label for="<%=$this->txtPassword2->ClientID%>" class="control-label">Ketik Ulang Password Baru</label>                                        
                         <div class="controls">
                             <com:TTextBox ID="txtPassword2" Columns="15" TextMode="Password" CssClass="smallInput"/>							
                             <com:TCompareValidator ValidationGroup="editnewmember" Display="Dynamic" ControlToValidate="txtPassword2" ControlToCompare="txtPassword1" FocusOnError="true" ErrorMessage="Member password is incorect"/>	
