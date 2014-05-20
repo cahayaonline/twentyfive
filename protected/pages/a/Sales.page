@@ -13,7 +13,7 @@
     <div class="span12">
         <div class="box box-black">
             <div class="box-title">
-                <h3><i class="icon-shopping-cart"></i> Detail Order #<%=$this->dataOrder['order_id']%></h3>
+                <h3><i class="icon-shopping-cart"></i> Detail ID. Order <%=$this->dataOrder['order_id']%></h3>
                 <div class="box-tool">                   
                     <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                     
                     <com:TActiveLinkButton ID="btnClose" OnClick="closeViewOrder" Text="<i class='icon-remove'></i>">
@@ -77,8 +77,8 @@
                                 <table class="table table-striped table-bordered">	
                                     <thead>
                                     <tr>												
-                                        <th width="200">Nama Barang</th>
-                                        <th width="100" scope="col">Model</th>
+                                        <th width="30" scope="col">SKU</th>
+										<th width="220">Nama Barang</th>
                                         <th scope="col">Jml</th>
                                         <th scope="col">Harga Satuan</th>																		
                                         <th scope="col">Total Harga</th>																																		
@@ -91,8 +91,8 @@
                             </prop:HeaderTemplate>
                             <prop:ItemTemplate>
                                 <tr>
-                                    <td class="left"><%#$this->DataItem['name']%></td>
                                     <td class="left"><%#$this->DataItem['model']%></td>
+									<td class="left"><%#$this->DataItem['name']%></td>
                                     <td class="center"><%#$this->DataItem['quantity']%></td>
                                     <td class="right"><%#$this->page->finance->toRupiah($this->DataItem['price'])%></td>																						
                                     <td class="right"><%#$this->page->finance->toRupiah($this->DataItem['total'])%></td>																						
@@ -103,8 +103,8 @@
                             </prop:ItemTemplate>				
                             <prop:AlternatingItemTemplate>
                                 <tr>
-                                    <td class="left"><%#$this->DataItem['name']%></td>
                                     <td class="left"><%#$this->DataItem['model']%></td>
+									<td class="left"><%#$this->DataItem['name']%></td>
                                     <td class="center"><%#$this->DataItem['quantity']%></td>
                                     <td class="right"><%#$this->page->finance->toRupiah($this->DataItem['price'])%></td>																						
                                     <td class="right"><%#$this->page->finance->toRupiah($this->DataItem['total'])%></td>																						
@@ -115,7 +115,7 @@
                             </prop:AlternatingItemTemplate>
                             <prop:FooterTemplate>
                                 <tr class="footer">
-                                    <td colspan="7" class="right">Total</td>
+                                    <td colspan="7" class="right">Grand Total</td>
                                     <td class="right"><%=$this->page->finance->toRupiah($this->Page->dataOrder['totalprice'])%></td>
                                 </tr>
                                 </tbody>
@@ -153,7 +153,7 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <com:TLabel ForControl="txtOrderid" CssClass="control-label" Text="No. Order" />  
+                                <com:TLabel ForControl="txtOrderid" CssClass="control-label" Text="ID. Order" />  
                                 <div class="controls">
                                     <com:TTextBox ID="txtOrderid" CssClass="input-small"/>                                    
                                 </div>
@@ -234,7 +234,7 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="70">Order ID</th>
+                                    <th scope="col" width="70">ID. Order </th>
                                     <th scope="col" width="105">Cara Pembayaran</th>
                                     <th scope="col">Status</th>																	
                                     <th scope="col">Omset Belanja</th>																																		

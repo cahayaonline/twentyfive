@@ -3,7 +3,7 @@
     <i class="icon-group"></i> Members Profile 
 </com:TContent>
 <com:TContent ID="titledesccontent">
-    Ringkasan informasi member [#<%=$this->dataMember['member_id']%> - <%=$this->dataMember['member_name']%>]
+    Ringkasan Informasi Member [ID. <%=$this->dataMember['member_id']%> - <%=$this->dataMember['member_name']%>]
 </com:TContent>
 <com:TContent ID="maincontent">
 <com:TPanel Visible="<%= $this->getViewProcess(false) %>">            
@@ -11,7 +11,7 @@
         <div class="span12">    
             <div class="box box-black">
                 <div class="box-title">
-                    <h3><i class="icon-calendar"></i> Periode</h3>
+                    <h3><i class="icon-calendar"></i> Periode Order</h3>
                     <div class="box-tool">                        
                         <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                        
                         <a href="#" data-action="close"><i class="icon-remove"></i></a>
@@ -20,9 +20,11 @@
                 <div class="box-content">
                     <com:TDatePicker ID="cmbPeriodAwal" DateFormat="dd-MMMM-yyyy" Culture="id" FromYear="2013" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" />
                     s.d <com:TDatePicker ID="cmbPeriodAkhir" DateFormat="dd-MMMM-yyyy" Culture="id"  FromYear="2013" UpToYear="<%= @date('Y') %>" InputMode="DropDownList" ShowCalendar="false" />                                    
-                    <com:TActiveCheckBox ID="chkWithDate" AutoPostBack="false" /> Calculate based Date
+                    <br>
+					<com:TActiveCheckBox ID="chkWithDate" AutoPostBack="false" /> Calculate Based Date
                     <com:TActiveButton ID="btnCalculate" Text="Calculate" OnClick="calculate" CssClass="btn btn-primary">
-                        <prop:ClientSide.OnPreDispatch>
+                    </br>    
+						<prop:ClientSide.OnPreDispatch>
                             $('loading').show();                              						
                         </prop:ClientSide.OnPreDispatch>
                         <prop:ClientSide.OnLoading>
@@ -49,7 +51,7 @@
                             $('loading').hide();
                         </prop:ClientSide.OnComplete>
                     </com:TActiveLinkButton>
-                </div>
+				</div>
             </div>
         </div>
     </div>
@@ -74,9 +76,9 @@
                     <dl>
                         <dt>Nama Member :</dt>
                         <dd><%=$this->dataMember['member_name']%></dd>
-                        <dt>Alamat : </dt>
+                        <dt>Alamat Identitas: </dt>
                         <dd><%=$this->dataMember['address']%></dd>
-                        <dt>City :</td>
+                        <dt>Kabupaten / Kota :</td>
                         <dd><%=$this->dataMember['city']%></dd>
                         <dt>Email :</dt>
                         <dd><%=$this->dataMember['email']%></dd>
@@ -84,7 +86,7 @@
                         <dd><%=$this->dataMember['mobile_phone']%></dd>
                         <dt>Disponsori Oleh :</dt>
                         <dd><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->dataMember['sponsor_id']))%>"><%=$this->dataMember['sponsor_name']%></a></dd>
-                        <dt>Posisi :</dt>
+                        <dt>Jalur :</dt>
                         <dd><%=$this->dataMember['position']%></dd>
                         <dt>Tanggal Bergabung :</dt>
                         <dd><%=$this->TGL->tanggal('d F Y',$this->dataMember['date_reg'])%></dd>
@@ -189,7 +191,7 @@
                     <div class="row-fluid">
                         <div class="span6">    
                             <div class="control-group">
-                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. IBO" />                                        
+                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. Member/ ID" />                                        
                                 <div class="controls">
                                     <com:TTextBox ID="noiboFilter" CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,true)" />                                        
                                 </div>
@@ -257,10 +259,10 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="100">IBO</th>
-                                    <th scope="col" width="350">Member Name</th>																							
-                                    <th scope="col" width="10">Downline</th>																																		
-                                    <th scope="col" width="100">Omset Pribadi</th>
+                                    <th scope="col" width="80">ID. Member</th>
+									<th scope="col" width="90">No. Member</th>
+                                    <th scope="col" width="200">Nama Member</th>																							
+                                    <th scope="col">Omset Pribadi <br>(<%=$this->Page->TGL->tanggal ('F Y')%>)</br></th>
                                     <th scope="col">Status</th>										
                                     <th scope="col">Actions</th>
                                 </tr>								
@@ -269,9 +271,9 @@
                         </prop:HeaderTemplate>
                         <prop:ItemTemplate>
                             <tr class="table-flag-blue">				
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>				
-                                <td><%#$this->DataItem['downline']%></td>											
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
                                 <td>
@@ -282,9 +284,9 @@
                         </prop:ItemTemplate>				
                         <prop:AlternatingItemTemplate>
                             <tr class="table-flag-orange">
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>				
-                                <td><%#$this->DataItem['downline']%></td>																								
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
                                 <td>
@@ -303,7 +305,7 @@
                             </div>
                         </prop:EmptyTemplate>
                     </com:TActiveRepeater>                    
-                    <com:TActiveCustomPager ID="pagerright" OnCallBack="Page.renderCallbackRight" ControlToPaginate="RepeaterRight" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedRight" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="5" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
+                    <com:TActiveCustomPager ID="pagerright" OnCallBack="Page.renderCallbackRight" ControlToPaginate="RepeaterRight" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedRight" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="10" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
                         <prop:ClientSide.OnPreDispatch>
                             $('loadingpagerright').show();
                         </prop:ClientSide.OnPreDispatch>					
@@ -332,10 +334,10 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="100">IBO</th>
-                                    <th scope="col" width="350">Member Name</th>																							
-                                    <th scope="col" width="10">Downline</th>																																		
-                                    <th scope="col" width="100">Omset Pribadi</th>
+                                    <th scope="col" width="80">ID. Member</th>
+									<th scope="col" width="90">No. Member</th>
+                                    <th scope="col" width="200">Nama Member</th>																							
+                                    <th scope="col">Omset Pribadi <br>(<%=$this->Page->TGL->tanggal ('F Y')%>)</br></th>
                                     <th scope="col">Status</th>										
                                     <th scope="col">Actions</th>
                                 </tr>								
@@ -344,9 +346,9 @@
                         </prop:HeaderTemplate>
                         <prop:ItemTemplate>
                             <tr class="table-flag-blue">				
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>															
-                                <td><%#$this->DataItem['downline']%></td>											
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
                                 <td>
@@ -357,9 +359,9 @@
                         </prop:ItemTemplate>				
                         <prop:AlternatingItemTemplate>
                             <tr class="table-flag-orange">
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>				
-                                <td><%#$this->DataItem['downline']%></td>																								
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
                                 <td>
@@ -379,7 +381,7 @@
                         </prop:EmptyTemplate>
                     </com:TActiveRepeater>
                     <div class="pagination">
-                        <com:TActiveCustomPager ID="pagerleft" OnCallBack="Page.renderCallbackLeft" ControlToPaginate="RepeaterLeft" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedLeft" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="5" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
+                        <com:TActiveCustomPager ID="pagerleft" OnCallBack="Page.renderCallbackLeft" ControlToPaginate="RepeaterLeft" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedLeft" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="10" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
                             <prop:ClientSide.OnPreDispatch>
                                 $('loadingpagerleft').show();
                             </prop:ClientSide.OnPreDispatch>					

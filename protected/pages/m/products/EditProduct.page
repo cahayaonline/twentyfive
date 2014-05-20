@@ -94,14 +94,14 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <com:TLabel ForControl="txtModel" CssClass="control-label" Text="Model" />
+                                <com:TLabel ForControl="txtModel" CssClass="control-label" Text="SKU" />
                                 <div class="controls">
                                      <com:TTextBox ID="txtModel" Columns="15" CssClass="input-xlarge" Text="<%=$this->dataProduct['model']%>" />
                                      <com:TRequiredFieldValidator ValidationGroup="editproduct" Display="Dynamic" ControlToValidate="txtModel" FocusOnError="true" ErrorMessage="You did not enter model name"/>	                                           
                                 </div>
                             </div>
                             <div class="control-group">
-                                <com:TLabel ForControl="txtSKU" CssClass="control-label" Text="SKU" />
+                                <com:TLabel ForControl="txtSKU" CssClass="control-label" Text="Model" />
                                 <div class="controls">
                                     <com:TTextBox ID="txtSKU" Columns="15" CssClass="input-xlarge" Attributes.OnKeyUp="formatangka(this,true)" Text="<%=$this->dataProduct['sku']%>" />
                                     <com:TCustomValidator ID="checksku" ValidationGroup="editproduct" Display="Dynamic" ControlToValidate="txtSKU" FocusOnError="true" OnServerValidate="checkSKU" />

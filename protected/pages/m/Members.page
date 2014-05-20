@@ -20,7 +20,7 @@
                     <div class="row-fluid">
                         <div class="span6">                                
                             <div class="control-group">
-                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. IBO"/>  
+                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. Member/ ID"/>  
                                 <div class="controls">
                                     <com:TTextBox ID="noiboFilter" CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,true)"/>
                                 </div>
@@ -34,9 +34,9 @@
                         </div>
                         <div class="span6">
                             <div class="control-group">
-                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Status"/>
+                                <com:TLabel ForControl="cmbStatusFilter" CssClass="control-label" Text="Status Member"/>
                                 <div class="controls">
-                                    <com:TDropDownList ID="cmbStatusFilter" AutoPostBack="false" CssClass="input-small">                    
+                                    <com:TDropDownList ID="cmbStatusFilter" AutoPostBack="false" CssClass="span6">                    
                                         <com:TListItem Value="1" Text="Active"/>
                                         <com:TListItem Value="2" Text="Inactive"/>
                                         <com:TListItem Value="3" Text="Closed"/>
@@ -44,9 +44,14 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <com:TLabel ForControl="emailFilter" CssClass="control-label" Text="Email"/>
+                                <com:TLabel ForControl="cmbStatusData" CssClass="control-label" Text="Status Data"/>
                                 <div class="controls">
-                                    <com:TTextBox Columns="40" ID="emailFilter" CssClass="input-medium"/>
+                                    <com:TDropDownList ID="cmbStatusData" AutoPostBack="false" CssClass="span10">                    
+                                        <com:TListItem Value="1" Text="All"/>
+                                        <com:TListItem Value="2" Text="Terverifikasi"/>
+                                        <com:TListItem Value="3" Text="Belum Verifikasi"/>
+										<com:TListItem Value="4" Text="Menunggu Verifikasi"/>
+                                    </com:TDropDownList>
                                 </div>
                             </div>
                         </div>
@@ -83,11 +88,12 @@
                             <table class="table table-advance">	
                                 <thead>                                
                                 <tr>												
-                                    <th width="100">IBO</th>
-                                    <th width="350">Member Name</th>																							
-                                    <th width="10">Downline</th>																																		
-                                    <th width="100">Omset Pribadi</th>
-                                    <th>Status</th>										
+                                    <th scope="col" width="80">ID. Member</th>
+									<th width="90">No. Member</th>
+                                    <th width="200">Member Name</th>																							
+                                    <th width="100">Status Data</th>																																		
+                                    <th scope="col">Omset Pribadi (<%=$this->Page->TGL->tanggal ('F Y')%>)</th>
+                                    <th>Status Member</th>										
                                     <th>Actions</th>
                                 </tr>	
                                 </thead>
@@ -95,9 +101,10 @@
                         </prop:HeaderTemplate>
                         <prop:ItemTemplate>
                             <tr class="table-flag-blue">				
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>															
-                                <td><%#$this->DataItem['downline']%></td>											
+                                <td><%#$this->DataItem['status_data']%></td>											
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
                                 <td>
@@ -108,9 +115,10 @@
                         </prop:ItemTemplate>				
                         <prop:AlternatingItemTemplate>
                             <tr class="table-flag-orange">
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><%#$this->DataItem['member_name']%></td>				
-                                <td><%#$this->DataItem['downline']%></td>																								
+                                <td><%#$this->DataItem['status_data']%></td>																								
                                 <td><%#$this->DataItem['totalomset']%></td>
                                 <td><%#$this->DataItem['enabled']==true?'<span class="badge badge-success">Active</span>':'<span class="badge">Not Active</span>'%><span class="label active"></span></td>
                                 <td>

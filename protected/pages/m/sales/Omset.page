@@ -20,10 +20,10 @@
                     <div class="row-fluid">
                         <div class="span6">
                             <div class="control-group">
-                                <com:TLabel ForControl="noibo" CssClass="control-label" Text="No. IBO" />  
+                                <com:TLabel ForControl="noibo" CssClass="control-label" Text="No. Member / ID" />  
                                 <div class="controls">
                                     <com:TTextBox ID="noibo" CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,true)" />
-                                </div>
+								</div>
                             </div>
                             <div class="control-group">
                                 <com:TLabel ForControl="membername" CssClass="control-label" Text="Nama Member" />  
@@ -98,19 +98,21 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="100">IBO</th>
-                                    <th scope="col" width="350">Member Name</th>
+                                    <th scope="col" width="70">ID. Member</th>
+									<th scope="col" width="70">No. Member</th>
+                                    <th scope="col" width="200">Member Name</th>
                                     <th scope="col" width="100">Omset Belanja</th>
                                     <th scope="col" width="100">Omset Pribadi</th>																																		
-                                    <th scope="col" width="100">Total Omset Group Kanan</th>
-                                    <th scope="col" width="100">Total Omset Group Kiri</th>										                            
+                                    <th scope="col" width="103">Total Omset Group Kanan</th>
+                                    <th scope="col" width="103">Total Omset Group Kiri</th>										                            
                                 </tr>								
                                 </thead>
                                 <tbody>
                         </prop:HeaderTemplate>
                         <prop:ItemTemplate>
                             <tr>				
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															                        
                                 <td><%#$this->DataItem['omsetbelanja']%></td>
                                 <td><%#$this->DataItem['totalomset']%></td>
@@ -120,7 +122,8 @@
                         </prop:ItemTemplate>				
                         <prop:AlternatingItemTemplate>
                             <tr>				
-                                <td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
+                                <td><%#$this->DataItem['member_id']%></td>
+								<td><%#$this->DataItem['ibo']==''?'-':$this->DataItem['ibo']%></td>
                                 <td><a href="<%=$this->Service->constructUrl('m.members.SummaryMember',array('id'=>$this->DataItem['member_id']))%>"><%#$this->DataItem['member_name']%></a></td>															                        
                                 <td><%#$this->DataItem['omsetbelanja']%></td>
                                 <td><%#$this->DataItem['totalomset']%></td>

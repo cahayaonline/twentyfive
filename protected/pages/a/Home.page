@@ -21,9 +21,9 @@
                     <dl>
                         <dt>Nama Member :</dt>
                         <dd><%=$this->dataMember['member_name']%></dd>
-                        <dt>Alamat : </dt>
+                        <dt>Alamat Identitas: </dt>
                         <dd><%=$this->dataMember['address']%></dd>
-                        <dt>City :</td>
+                        <dt>Kabupaten / Kota :</td>
                         <dd><%=$this->dataMember['city']%></dd>
                         <dt>Email :</dt>
                         <dd><%=$this->dataMember['email']%></dd>
@@ -118,7 +118,6 @@
                         <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageDashboard']['datamember']['totalbonusdeposit'])%>" /></dd>                        
                         <dt>Total Bonus Tunai :</dt>
                         <dd><com:TActiveLabel Text="<%=$this->finance->toRupiah($_SESSION['currentPageDashboard']['datamember']['totalbonuscash'])%>" /></dd>
-                       
                     </dl>                        
                 </div>
             </div>
@@ -137,7 +136,7 @@
                     <div class="row-fluid">
                         <div class="span6">    
                             <div class="control-group">
-                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="ID. Member" />                                        
+                                <com:TLabel ForControl="noiboFilter" CssClass="control-label" Text="No. Member/ ID" />                                        
                                 <div class="controls">
                                     <com:TTextBox ID="noiboFilter" CssClass="input-medium" Attributes.OnKeyUp="formatangka(this,true)" />                                        
                                 </div>
@@ -205,9 +204,9 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="90">ID. Member</th>
-									<th scope="col" width="95">No. Member</th>
-                                    <th scope="col" width="240">Nama Member</th>																							
+                                    <th scope="col" width="80">ID. Member</th>
+									<th scope="col" width="90">No. Member</th>
+                                    <th scope="col" width="200">Nama Member</th>																							
                                     <th scope="col">Omset Pribadi (<%=$this->Page->TGL->tanggal ('F Y')%>)</th>
                                     <th scope="col">Status</th>										                                    
                                 </tr>								
@@ -242,7 +241,7 @@
                             </div>
                         </prop:EmptyTemplate>
                     </com:TActiveRepeater>                    
-                    <com:TActiveCustomPager ID="pagerright" OnCallBack="Page.renderCallbackRight" ControlToPaginate="RepeaterRight" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedRight" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="5" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
+                    <com:TActiveCustomPager ID="pagerright" OnCallBack="Page.renderCallbackRight" ControlToPaginate="RepeaterRight" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedRight" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="10" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
                         <prop:ClientSide.OnPreDispatch>
                             $('loadingpagerright').show();
                         </prop:ClientSide.OnPreDispatch>					
@@ -271,9 +270,9 @@
                             <table class="table table-advance">	
                                 <thead>
                                 <tr>												
-                                    <th scope="col" width="90">ID. Member</th>
-									<th scope="col" width="95">No. Member</th>
-                                    <th scope="col" width="240">Nama Member</th>																							
+                                    <th scope="col" width="80">ID. Member</th>
+									<th scope="col" width="90">No. Member</th>
+                                    <th scope="col" width="200">Nama Member</th>																							
                                     <th scope="col">Omset Pribadi (<%=$this->Page->TGL->tanggal ('F Y')%>)</th>
                                     <th scope="col">Status</th>										                                    
                                 </tr>								
@@ -309,7 +308,7 @@
                         </prop:EmptyTemplate>
                     </com:TActiveRepeater>
                     <div class="pagination">
-                        <com:TActiveCustomPager ID="pagerleft" OnCallBack="Page.renderCallbackLeft" ControlToPaginate="RepeaterLeft" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedLeft" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="5" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
+                        <com:TActiveCustomPager ID="pagerleft" OnCallBack="Page.renderCallbackLeft" ControlToPaginate="RepeaterLeft" Mode="Numeric" OnPageIndexChanged="Page.Page_ChangedLeft" PrevPageText="&laquo; Previous" NextPageText="Next &raquo;" PageButtonCount="10" FirstPageText="First" LastPageText="Last" CssClass="pagination text-center">	
                             <prop:ClientSide.OnPreDispatch>
                                 $('loadingpagerleft').show();
                             </prop:ClientSide.OnPreDispatch>					

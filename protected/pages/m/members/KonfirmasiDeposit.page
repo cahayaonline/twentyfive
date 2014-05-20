@@ -113,9 +113,9 @@
                                 <label>                                        
                                     <com:TTextBox ID="txtKriteria"/>
                                     <com:TDropDownList ID="cmbKriteria2" AutoPostBack="false" CssClass="input-medium">
-                                        <com:TListItem Value="ibo" Text="No. IBO"/>
-                                        <com:TListItem Value="member_name" Text="Nama Member"/>
                                         <com:TListItem Value="kode_transfer" Text="Kode Transfer"/>
+										<com:TListItem Value="ibo" Text="No. IBO"/>
+                                        <com:TListItem Value="member_name" Text="Nama Member"/>
                                     </com:TDropDownList>                                            
                                     <com:TActiveLinkButton ID="btnSearchMember" CssClass="btn btn-circle btn-primary btn-small" Text="<i class='icon-search'></i> "Attributes.Title="Cari" OnClick="searchRecord" ValidationGroup="filterForm">
                                         <prop:ClientSide.OnPreDispatch>
@@ -130,7 +130,8 @@
                                             $('loading').hide();
                                         </prop:ClientSide.OnComplete>
                                     </com:TActiveLinkButton>                                    
-                                    <com:TRequiredFieldValidator ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true">				
+                                    <br>
+									<com:TRequiredFieldValidator ControlToValidate="txtKriteria" Display="Dynamic" ErrorMessage="Isi Kriteria pencarian" ValidationGroup="filterForm" FocusOnError="true">				
                                         <prop:ClientSide.OnValidationError>
                                             $('<%=$this->txtKriteria->ClientID%>').addClassName('error');
                                         </prop:ClientSide.OnValidationError>
@@ -138,7 +139,8 @@
                                             $('<%=$this->txtKriteria->ClientID%>').removeClassName('error');
                                         </prop:ClientSide.OnValidationSuccess>
                                     </com:TRequiredFieldValidator>
-                                </label>          
+									</br>
+								</label>          
                             </div>                            
                         </div>
                     </div>

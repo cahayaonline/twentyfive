@@ -67,11 +67,12 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <com:TLabel ForControl="txtLaba" CssClass="control-label" Text="Omset (%)" />                                        
+                        <com:TLabel ForControl="txtLaba" CssClass="control-label" Text="Omset (%)"/>                                        
                         <div class="controls"> 
-                            <com:TActiveTextBox ID="txtLaba" CssClass="input-mini" Text="0" Attributes.OnKeyUp="formatangka(this,false)" />                    
+                            <com:TActiveTextBox ID="txtLaba" CssClass="input-small" Text="0" Attributes.OnKeyUp="formatangka(this,false)" />                    
                             <com:TRequiredFieldValidator ValidationGroup="addproducttocart" Display="Dynamic" ControlToValidate="txtLaba" FocusOnError="true" ErrorMessage="You did not enter laba each product"/>  
-                        </div>
+								<p>Persentase Omset Hanya di Isi Jika Ingin Mengubah Nilai Omset Belanja</p>
+						</div>
                     </div>
                     <div class="form-actions">
                         <com:TActiveButton ID="btnAddProduct" Text="Tambah" OnClick="addProduct" ValidationGroup="addproducttocart" CssClass="btn btn-primary">
@@ -116,18 +117,18 @@
                         >
 
                         <com:TActiveLiteralColumn
-                            ID="ProductColumn"
-                            HeaderText="Nama Barang"            
-                            HeaderStyle.Width="160px"
-                            DataField="product_name"
+                            ID="ModelColumn"
+                            HeaderText="SKU"
+                            HeaderStyle.Width="30px"
+                            DataField="model"
                             HeaderStyle.CssClass="left" 
                             ItemStyle.CssClass="left"
                             />
-                        <com:TActiveLiteralColumn
-                            ID="ModelColumn"
-                            HeaderText="Model"
-                            HeaderStyle.Width="90px"
-                            DataField="model"
+						<com:TActiveLiteralColumn
+                            ID="ProductColumn"
+                            HeaderText="Nama Barang"            
+                            HeaderStyle.Width="220px"
+                            DataField="product_name"
                             HeaderStyle.CssClass="left" 
                             ItemStyle.CssClass="left"
                             />
@@ -212,19 +213,18 @@
                         <a data-action="collapse" href="#"><i class="icon-chevron-down"></i></a>                                                
                     </div>
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab-1-1" data-toggle="tab">Existing Address</a></li>
-                        <li><a href="#tab-1-2" data-toggle="tab">New Address</a></li>                        
+                        <li class="active"><a href="#tab-1-1" data-toggle="tab">Daftar Alamat</a></li>
                     </ul>
                 </div>
                 <div class="box-content">
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab-1-1">
                             <strong></strong> 
-                            <p><strong>Address :</strong> <%=$this->session['currentPageNewOrder']['datamember']['address']%>, <%=$this->session['currentPageNewOrder']['datamember']['city']%>, <%=$this->session['currentPageNewOrder']['datamember']['postal_code']%></p>
-                        </div>
-                        <div class="tab-pane" id="tab-1-2">
-                            <p><strong>TAB #2</strong> </p>
-                        </div>                        
+                            <p><strong>Alamat Identitas :</strong> <%=$this->session['currentPageNewOrder']['datamember']['address']%>, (Kabupaten / Kota, <%=$this->session['currentPageNewOrder']['datamember']['city']%>) (Kecamatan, <%=$this->session['currentPageNewOrder']['datamember']['city']%>) (Kelurahan, <%=$this->session['currentPageNewOrder']['datamember']['city']%>), Kode Pos <%=$this->session['currentPageNewOrder']['datamember']['postal_code']%></p>
+							<p><strong>Alamat Rumah :</strong> <%=$this->session['currentPageNewOrder']['datamember']['address']%>, (Kabupaten / Kota, <%=$this->session['currentPageNewOrder']['datamember']['city']%>) (Kecamatan, <%=$this->session['currentPageNewOrder']['datamember']['city']%>) (Kelurahan, <%=$this->session['currentPageNewOrder']['datamember']['city']%>), Kode Pos <%=$this->session['currentPageNewOrder']['datamember']['postal_code']%></p>
+							<p><strong>Alamat Kantor :</strong> <%=$this->session['currentPageNewOrder']['datamember']['address']%>, (Kabupaten / Kota, <%=$this->session['currentPageNewOrder']['datamember']['city']%>) (Kecamatan, <%=$this->session['currentPageNewOrder']['datamember']['city']%>) (Kelurahan, <%=$this->session['currentPageNewOrder']['datamember']['city']%>), Kode Pos <%=$this->session['currentPageNewOrder']['datamember']['postal_code']%></p>
+							<p><strong>Alamat Lain :</strong> <%=$this->session['currentPageNewOrder']['datamember']['address']%>, (Kabupaten / Kota, <%=$this->session['currentPageNewOrder']['datamember']['city']%>) (Kecamatan, <%=$this->session['currentPageNewOrder']['datamember']['city']%>) (Kelurahan, <%=$this->session['currentPageNewOrder']['datamember']['city']%>), Kode Pos <%=$this->session['currentPageNewOrder']['datamember']['postal_code']%></p>
+						</div>
                     </div>
                 </div>
             </div>
@@ -262,10 +262,20 @@
                         <com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('omset'))%>"/>
                     </p>
                     <p>
+						<strong>Ongkos Kirim :</strong>
+						0
+					</p>
+					<p>
+						<strong>Biaya Kelebihan Beban  :</strong>
+						0
+						<br>(khusus pengiriman jumlah beban tertentu)</br>
+					</p>
+					<p>
                         <strong>Total Bayar (Rp) :</strong> 
                         <strong><com:TActiveLabel Text="<%=$this->finance->toRupiah($this->getTotalFromCart('totalprice'))%>"/></strong>
                     </p>
-                    <p>
+                    <br>
+					<p>
                         <com:TActiveLinkButton ID="btnSave" CssClass="btn btn-success btn-xlarge" Text="Save Order" OnClick="saveOrder" ValidationGroup="saveneworder">
                             <prop:ClientSide.OnPreDispatch>
                                 $('loading').show();                                
@@ -281,11 +291,13 @@
                             </prop:ClientSide.OnComplete>
                         </com:TActiveLinkButton> 
                         <com:TRequiredFieldValidator ValidationGroup="saveneworder" Display="Dynamic" ControlToValidate="hiddentotalprice" ErrorMessage="Total Bayar Tidak Boleh Nol (0)"/>
-                    </p>
-                </div>
+					</p>
+						</div>
+                    </div> 
+				</div> 			
+					<div class="control-group">
+				</div>
             </div>
         </div>
-    </div>  
 </com:TActivePanel>
 </com:TContent>
-

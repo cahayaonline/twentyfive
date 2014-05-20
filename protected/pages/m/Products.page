@@ -84,7 +84,7 @@
                                     <th style="width:18px"><input type="checkbox" /></th>                                
                                     <th style="width:100px">Product ID</th>
                                     <th style="width:200px">Product Name</th>
-                                    <th>Model</th>																		
+                                    <th>SKU</th>																		
                                     <th>Price</th>																																		
                                     <th>Omset</th>
                                     <th>Stock</th>                                		

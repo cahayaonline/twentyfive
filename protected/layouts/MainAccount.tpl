@@ -85,7 +85,7 @@
                         <li>
                             <a href="<%=$this->Service->constructUrl('a.members.EditMember')%>">
                                 <i class="icon-user"></i>
-                                Edit Profile
+                                Form Aplikasi
                             </a>
                         </li>
                         <li>
@@ -175,7 +175,7 @@
         <!-- END Page Title -->
         <com:TContentPlaceHolder ID="maincontent"/> 
         <footer>
-            <p>2013 © Cahaya Online Backend System by Yacanet.com.</p>
+            <p>2013 © CahayaOnline Backend System</p>
             <com:TJavascriptLogger/>
         </footer>
         <a id="btn-scrollup" class="btn btn-circle btn-large" href="#"><i class="icon-chevron-up"></i></a>              

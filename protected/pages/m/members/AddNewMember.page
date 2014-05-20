@@ -53,7 +53,7 @@
                         <com:TActiveHiddenField ID="hdnMemberID" />
                         <div class="tab-content">
                             <div class="control-group">
-                                <com:TLabel ForControl="txtMemberID" CssClass="control-label" Text="Member ID" />
+                                <com:TLabel ForControl="txtMemberID" CssClass="control-label" Text="ID. Member" />
                                 <div class="controls">                                    
                                      <com:TActiveTextBox ID="txtMemberID" Columns="13" MaxLength="13" Text="0" ReadOnly="true" CssClass="input-medium" />
                                      <com:TActiveLinkButton ID="btnLookupMember" OnClick="lookupMember" Attributes.Title="Lookup Member" ClientSide.PostState="false" CssClass="btn btn-yellow" Text="<i class='icon-search'></i>" >
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <com:TLabel ForControl="txtNoIBOSponsorID" CssClass="control-label" Text="No. IBO" />
+                                <com:TLabel ForControl="txtNoIBOSponsorID" CssClass="control-label" Text="No. Member" />
                                 <div class="controls">
                                     <com:TActiveTextBox ID="txtNoIBOSponsorID" Columns="13" MaxLength="13" ReadOnly="true" CssClass="smallInput"/> 							
                                     <com:TActiveHiddenField ID="hdnIBOSponsorID" />
@@ -241,7 +241,7 @@
                         </div>            
                         <h4><strong>Informasi Login</strong></h4>
                         <p>
-                            Username yang digunakan oleh member adalah No. HP-nya.
+                            Username yang digunakan oleh member adalah Email, ID. Member Atau No. Handphone
                         </p>
                         <div class="row-fluid">
                             <div class="span6">
